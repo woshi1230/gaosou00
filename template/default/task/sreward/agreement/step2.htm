@@ -1,0 +1,76 @@
+<div class="deliver-content form-horizontal">
+  <!-- 中标者查看 -->
+
+  {if $arrAgreeInfo['seller_uid'] == $gUid}
+	  <p class="lead text-center text-success mt_20"><i class="fa fa-check-circle"></i> {if $arrAgreeInfo['seller_status']=='2'&&$arrAgreeInfo['buyer_status']=='2'} 对方已经{else}等待对方{/if}同意交付协议</p>
+
+ 	{if $task_status!=9}
+ 		{if $arrProcessCan['upload']}
+	  <div class="form-group">
+	    <label class="col-sm-2 control-label">上传文件</label>
+	    <div class="col-sm-10">
+	     <!-- <input type="file" id="uploadfile" name="uploadfile">-->
+		 <div id="picker">上传文件</div>
+		   <input type="hidden"  name="file_ids" id="fileid"  class="form-control">
+		   <ul class="affix-list upload-file-list-info" id="fileList" style="width:280px;">
+	              </ul>
+	      <p class="help-block">最多可添加五个附件，每个大小不超过10M.</p>
+	    </div>
+	  </div>
+	  <div class="deliver-footer">
+	    <button class="kbtn btn-success" type="button" onclick="confirmUpload();">确认交付</button>
+
+        <a href="javascript:report(1,'task','{$arrAgreeInfo[buyer_uid]}','{$arrAgreeInfo[task_id]}','{$arrAgreeInfo[task_id]}');void(0);" class="kbtn btn-default">
+	    	<i class="fa fa-bell"></i> 维权
+	    </a>
+	  </div>
+	  {else}
+	  	{$seller_status_arr[$seller_status]}
+	  {/if}
+	 {/if}
+ {else}
+	  <!-- 雇主查看 -->
+	  <p class="lead text-center text-info mt_20"><i class="fa fa-info-circle"></i> {if $arrAgreeInfo['seller_status']=='2'&&$arrAgreeInfo['buyer_status']=='2'} 对方已经同意交付协议,等待对方上传源文件！{else}等待对方同意交付协议{/if}</p>
+	  <p class="lead text-center text-info mt_20">
+      {if $gUid == $arrAgreeInfo['buyer_uid']}
+	    <a href="javascript:report(1,'work','{$arrAgreeInfo[seller_uid]}','{$arrAgreeInfo[task_id]}','{$arrAgreeInfo[work_id]}');void(0);" class="kbtn btn-default">
+	    	<i class="fa fa-bell"></i> 维权
+	    </a>
+	{else}
+        <a href="javascript:report(1,'task','{$arrAgreeInfo[buyer_uid]}','{$arrAgreeInfo[task_id]}','{$arrAgreeInfo[task_id]}');void(0);" class="kbtn btn-default">
+	    	<i class="fa fa-bell"></i> 维权
+	    </a>
+	{/if}
+	</p>
+ {/if}
+</div>
+
+<script src="{$_K['siteurl']}/file/script/uploadify/jquery.uploadify.min.js?r={RANDOM_PARA}" type="text/javascript"></script>
+
+<link rel="stylesheet" type="text/css" href="{$_K['siteurl']}/file/script/webuploader/webuploader.css">
+<script type="text/javascript" src="{$_K['siteurl']}/file/script/webuploader/webuploader.js?r={RANDOM_PARA}"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/file/script/webuploader/kwebuploader.js"></script>
+<script>
+	var uploadsize = parseInt("{$basic_config['max_size']}");
+		uploadsize =  isNaN(uploadsize)? 1 : uploadsize;
+	$(function(){
+		$("#picker").KUploader({
+				accept: {
+					extensions : '{$strExtTypes}'  //可上传文件格式
+				},
+				fileNumLimit:5,			//上传数量限制
+				hiddenName:'fileid',	//表单隐藏域id
+				hiddenValType:'1',		//指定隐藏域保存值的类型   1=是保存file_id ，2=保存save_name
+				listName:'fileList',	//指定上传文件列表ID，如果不指定，则默认为fileList
+				editListName:'editfileList',	//指定上传文件编辑列表ID，如果不指定，默认为editfileList
+				separator:'|',			//多文件上传时，指定分隔符，如不指定，默认为","
+				fileSingleSizeLimit:uploadsize*1024*1024			//上传大小限制
+			},
+			{
+				task_id:"{$arrAgreeInfo['task_id']}",
+				obj_id:'{$agreeId}',
+				objType:'agreement',
+				filename : 'file',//传递给服务端的参数指定上传文本域的name，如果未指定，上传不成功
+			});
+	});
+</script>

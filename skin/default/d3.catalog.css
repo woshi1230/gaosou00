@@ -1,0 +1,59 @@
+.catetree{
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    /*margin-top: -26px;*/
+    width:660px;
+    height: 615px;
+    overflow: hidden;
+}
+
+.catetree a.ws{
+    display:block;
+    position: absolute;
+    z-index: 75;
+    width: 66px;
+    height: 66px;
+    opacity: 0;
+    /*margin-left: 50px;  */
+}
+.catetree a.ws .img{display:block;position: absolute; top:0; left:0;  z-index: 11;width: 66px; height: 66px; overflow: hidden;
+    border-radius: 66px;
+    /*border: 3px solid #9c865f; */
+    border-radius: 66px;
+}
+.catetree a.ws .img.active,
+.catetree a.ws .img:hover{ border-color: #FFF}
+.catetree a.ws .name{
+    display:block;
+    position: absolute;
+    top:0;
+    left:72px;
+    z-index: 11;
+    /*width: 75px; */
+    /*height: 64px; */
+    text-align: center;
+    /*line-height: 61px;*/
+    color: #999
+}
+
+.ws0 {
+    display: block;
+    position: absolute;
+    z-index: 75;
+    top: 264px;
+    left: 288px;
+    width: 86px;
+    height: 86px;
+    border-radius: 66px;
+    overflow: hidden;
+}
+
+.catetree a.ws .name{
+    /*width:93px;*/
+    z-index: 100;
+    left: 23px;
+    top: 40px;
+    color: white;
+}
+

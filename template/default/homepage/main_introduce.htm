@@ -1,0 +1,34 @@
+<link rel="stylesheet" type="text/css" href="{DT_SKIN}task.css"/>
+<style>
+	.person-info p,
+	.person-info ul {
+		padding: 5px 0;
+	}
+</style>
+
+<div class="main_body">
+	<div class="person-info" style="padding: 0 15px;">
+		<p><span class="f_b">简介：</span>
+			{if $content} {$content} {else}	这家伙很懒，啥都没有留下...	{/if}
+		</p>
+		<p><span class="f_b">等级：</span>
+			{php $arrUserLeve=unserialize($COM[seller_level]); }
+			{php $arrUserLeve = str_replace('file/upload/', DT_PATH.'file/upload/', $arrUserLeve);}
+			{$arrUserLeve['pic']}
+		</p>
+		<p><span class="f_b">最近三月收入：</span><span class="store-money" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color: #c11930;font-size: 18px;"><sub>￥</sub>
+			{if $incomeCash} {$incomeCash} {else} 0.00 {/if}
+		</span></p>
+		<ul class="user-meta">
+			{loop $arrSellerMark $k $v}
+			<li style="float: left">
+				{$v['aid_name']}
+				<span class="text-danger" style="color: #a94442;">{$v['avg']}分</span>
+				{php $gs = user_mark_class::gen_star2($v['avg']);}
+				{$gs}
+			</li>
+			{/loop}
+		</ul>
+		<p style="clear:both"></p>
+	</div>
+</div>

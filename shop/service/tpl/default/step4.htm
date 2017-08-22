@@ -1,0 +1,11 @@
+      <div class="release-form">
+      <p class="lead text-center text-success mt_20"><i class="fa fa-check-circle"></i>商品已成功提交，您需要支付<sub>￥</sub>{$floatPayCash}<sub>元</sub>增值服务费。</p>
+          <div class="text-center">
+          {if !$boolValue}
+            <a href="index.php?do=user&view=finance&op=rechargeonline" class="btn btn-primary">余额不足,请充值!</a>
+          {else}
+          	<a class="btn btn-primary balance-pay" data-id="{$serviceId}" data-type="pubservice" data-orderid="{$orderId}">使用余额托管赏金</a>
+          {/if}
+            <a href="index.php?do=goods&id={$serviceId}" class="btn btn-default">稍后再托管赏金</a>
+          </div>
+      </div>

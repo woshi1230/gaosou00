@@ -1,0 +1,271 @@
+<div class="release-form">
+	<form class="form-horizontal" role="form" action="{$strUrl}&step={$step}" method="post" id="pubTaskForm{$step}" name="pubTaskForm{$step}">
+		<input type="hidden" name="{$step}" value="{$step}">
+		<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label">
+				行业分类
+				<span class="text-danger">*</span>
+			</label>
+
+			<div class="col-sm-6">
+			<div style="display: inline;float: left;padding-right: 5px;width: 151px;">
+				<select class="form-control" name="fid" id="fid" onchange="getCategory(this.value,'indus_pid')">
+					<option value="">请选择行业分类</option>
+					{loop $arrTopIndustrys $v}
+					<option value="{$v['catid']}" {if $arrPubInfo['fid'] ==$v['catid']} selected="selected"{/if}>{$v['catname']}</option>
+					{/loop}
+				</select>
+			</div>
+			<div style="display: inline;float: left;padding-right: 5pxwidth: 151px;;">
+				<select class="form-control" name="indus_pid" id="indus_pid" onchange="getCategory(this.value,'indus_id')">
+					<option value="">请选择行业分类</option>
+					{loop $arrIndus_pid $v}
+					<option value="{$v['catid']}" {if $arrPubInfo['indus_pid'] == $v['catid']} selected="selected"{/if}>{$v['catname']}</option>
+					{/loop}
+				</select>
+			</div>
+			<div style="display: inline;float: left;padding-right: 5px;width: 151px;">
+				<select class="form-control" name="indus_id" id="indus_id" onchange="getCategory(this.value,'indus_sid')">
+					<option value="">请选择行业分类</option>
+					{loop $arrIndus_id $k $v}
+					<option value="{$v['catid']}" {if $arrPubInfo['indus_id'] == $v['catid']} selected="selected"{/if}>{$v['catname']}</option>
+					{/loop}
+				</select>
+			</div>
+			<div style="display: inline;float: left;width: 146px;">
+				<select class="form-control" name="indus_sid" id="indus_sid">
+					<option value="">请选择行业分类</option>
+					{loop $arrIndus_sid $k $v}
+					<option value="{$v['catid']}" {if $arrPubInfo['indus_sid'] == $v['catid']} selected="selected"{/if}>{$v['catname']}</option>
+					{/loop}
+				</select>
+			</div>
+			</div>
+
+			<!--<div class="col-sm-offset-2 col-sm-8">-->
+				<!--<span class="help-block"></span>-->
+			<!--</div>-->
+
+		</div>
+
+		{if $regionCfg['region_search_task'] =='1'}
+		<div class="form-group">
+			<label class="col-sm-3 control-label">
+				地区分类
+				<span class="text-danger">*</span>
+			</label>
+			<div class="col-sm-2">
+				<select class="form-control" name="province" id="province" onchange="getZone(this.value,'city');">
+					<option value="p">选择省份</option>
+					{loop $arrProvinces $k $v}
+					<option value="{$v['areaid']}" {if $arrPubInfo['province'] == $v['areaid']} selected="selected"{/if}>{$v['areaname']}</option>
+					{/loop}
+				</select>
+			</div>
+			<div class="col-sm-2">
+				<select class="form-control" name="city" id="city" onchange="getZone(this.value,'area');">
+					<option value="c">选择城市</option>
+					{loop $arrCities $k $v}
+					<option value="{$v['areaid']}" {if $arrPubInfo['city'] == $v['areaid']} selected="selected"{/if}>{$v['areaname']}</option>
+					{/loop}
+				</select>
+			</div>
+			<div class="col-sm-2">
+				<select class="form-control" name="area" id="area">
+					<option value="a">选择区域</option>
+					{loop $arrAreas $k $v}
+					<option value="{$v['areaid']}" {if $arrPubInfo['area'] == $v['areaid']} selected="selected"{/if}>{$v['areaname']}</option>
+					{/loop}
+				</select>
+			</div>
+		</div>
+{/if}
+		<!-- 行业分类 end -->
+		{if $is_task_template}
+		<div class="row">
+			<div class="col-sm-6 col-sm-offset-3">
+				<div class="alert alert-info">
+				<span >需求不会写？点击这里选择模板</span>
+				<a href="javascript:inserttem();" class="kbtn btn-default">插入模板</a>
+				</div>
+			</div>
+		</div>
+		{/if}
+		<div class="form-group">
+			<label for="txt_title" class="col-sm-3 control-label">
+				标题名称
+				<span class="text-danger">*</span>
+			</label>
+			<div class="col-sm-6">
+				<input type="text" class="form-control" id="txt_title" name="txt_title" placeholder="标题名称" value="{$arrPubInfo['txt_title']}">
+			</div>
+			<div class="col-sm-3">
+				<p class="form-control-static" >任务标题最多50字符</p>
+			</div>
+
+		</div>
+
+		<!-- 标题名称 end -->
+
+		<div class="form-group">
+			<label for="tar_content" class="col-sm-3 control-label">
+				需求描述
+				<span class="text-danger">*</span>
+			</label>
+			<div class="col-sm-6">
+				<textarea id="tar_content" name="tar_content" placeholder="需求描述">{$arrPubInfo['tar_content']}</textarea>
+				<span id="tar_content_help" style="color: #a94442"></span>
+			</div>
+			<div class="col-sm-3">
+				<p class="form-control-static">内容不得少于20字</p>
+			</div>
+			<script type="text/javascript">
+//				var ModuleID = 16;
+				var DTAdmin = 1;
+				var EDPath = "{DT_PATH}member/editor/fckeditor/";
+				var ABPath = "{DT_PATH}member/editor/fckeditor/";
+				var EDW = "100%";var EDH = "480px";var EDD = "0";var EID = "tar_content";var FCKID = "tar_content";
+
+				window.onload = function() {
+					var sBasePath = "{DT_PATH}member/editor/fckeditor/";
+					var oFCKeditor = new FCKeditor("tar_content");
+					oFCKeditor.Width = "100%";
+					oFCKeditor.Height = "480px";
+					oFCKeditor.BasePath = sBasePath;
+					oFCKeditor.ToolbarSet = "Default";
+					oFCKeditor.ReplaceTextarea();
+				}
+			</script>
+			<script type="text/javascript" src="{DT_PATH}member/editor/fckeditor/fckeditor.js?v=6.0"></script>
+			<script type="text/javascript" src="{DT_PATH}member/editor/fckeditor/init.api.js"></script>
+			<script type="text/javascript" src="{DT_PATH}file/script/editor.js"></script>
+
+			<!--<script type="text/javascript" src="{$_K['siteurl']}/file/script/ueditor/ueditor.config.js"></script>-->
+			<!--&lt;!&ndash; 编辑器源码文件 &ndash;&gt;-->
+			<!--<script type="text/javascript" src="{$_K['siteurl']}/file/script/ueditor/ueditor.all.min.js"></script>-->
+			<!--<script type="text/javascript" src="{$_K['siteurl']}/file/script/ueditor/lang/zh-cn/zh-cn.js"></script>-->
+			<!--&lt;!&ndash; 实例化编辑器 &ndash;&gt;-->
+			<!--<script type="text/javascript">-->
+				<!--var ue = UE.getEditor('tar_content', {-->
+					<!--//这里可以选择自己需要的工具按钮名称,此处仅选择如下五个-->
+					<!--initialFrameWidth : '100%',-->
+					<!--initialFrameHeight : '400'-->
+				<!--});-->
+			<!--</script>-->
+		</div>
+		<!--加载上传组件-->
+		<!--{template uploadfilelist}-->
+
+		<!-- 需求描述 end -->
+
+
+		<!--{template task/custom}-->
+		<div class="form-group">
+			<label for="txt_mobile" class="col-sm-3 control-label">
+				手机号码
+				<span class="text-danger">*</span>
+			</label>
+			<div class="col-sm-6">
+				<input type="text" class="form-control" id="txt_mobile" name="txt_mobile" value="{if $arrPubInfo['txt_mobile']}{$arrPubInfo['txt_mobile']}{else}{$user_info['mobile']}{/if}" placeholder="手机号码">
+			</div>
+
+
+		</div>
+		<!-- 手机号码 end -->
+
+		<div class="form-group">
+			<div class="col-sm-offset-3 col-sm-6">
+				<button type="submit" class="kbtn btn-primary" value="下一步" onclick="return step2Check();">下一步</button>
+				<a href="index.php?do=pubtask" class="kbtn btn-link">上一步</a>
+				<span class="text-danger hidden" id="pubAgreementTips">请同意《发布协议》</span>
+			</div>
+		</div>
+		<!-- form-group end -->
+
+		<div class="form-group">
+			<div class="col-sm-offset-3 col-sm-6">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" checked="checked" value="true" id="agreementchecked">
+						同意
+						<a href="javascript:void(0);" id="viewPubAgreement">《发布协议》 </a>
+					</label>
+				</div>
+			</div>
+		</div>
+		<!-- form-group end -->
+
+	</form>
+	<div class="release-agreement hidden">
+		<div class="agreement-header">
+			<h2 class="agreement-title">《发布协议》</h2>
+		</div>
+		<p>
+			<!--[{tag 任务发布协议}]-->
+			任务发布协议
+		</p>
+	</div>
+</div>
+<script type="text/javascript">
+	function step2Check() {
+		var hasErr = false;
+		var content = FCKeditorAPI.GetInstance('tar_content').GetXHTML();
+		if (content && (content.length < 20 || content.length > 65565)) {
+			hasErr = true;
+			$("#tar_content_help").html('需求描述需输入最少20个字符，最多65565个字符');
+		} else {
+			$("#tar_content_help").html('');
+		}
+
+		var valid = $.scojs_valid('#pubTaskFormstep2', {
+			rules: {
+				fid:	['not_empty'],
+//				indus_pid:	['not_empty'],
+//				indus_id: 	['not_empty'],
+				province: 	['numeric'],
+				txt_title:	['not_empty',{min_length:2}, {max_length:50} ],
+//				tar_content:['not_empty',{min_length:20},{max_length:65565} ],
+				txt_mobile:	['not_empty',{min_length:11},{max_length:11},'digit' ]
+			},
+			messages: {
+				fid: {
+					not_empty : "请选择行业总分类"
+				},
+//				indus_pid: {
+//					not_empty : "请选择二级行业分类"
+//				},
+//				indus_id:{
+//					not_empty : "请选择三级行业分类"
+//				},
+				province:{
+					numeric : "请选择省份"
+				},
+				txt_title:{
+					not_empty : "请输入标题名称",
+					min_length: "标题名称最少2字符",
+					max_length: "标题名称最多50字符"
+				},
+//				tar_content:{
+//					not_empty : "请输入需求描述",
+//					min_length: "需求描述最少20字符",
+//					max_length: "需求描述最多65565字符"
+//				},
+				txt_mobile:{
+					not_empty : "请输入手机号码",
+					digit     : "请输入正确的手机号码",
+					min_length: '请检查手机号码是否输入正确',
+					max_length: '请检查手机号码是否输入正确'
+				}
+			},
+			wrapper:'.form-group'
+		});
+
+		if (!valid.validate() || hasErr) {
+			return false;
+		} else {
+			return isAgreementChecked();
+		}
+	}
+</script>

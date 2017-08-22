@@ -1,0 +1,109 @@
+<!--{template header}-->
+<!--{template include}-->
+<div class="container">
+	<div id="main">
+		<div class="buy-user-info">
+			<div class="media">
+				<div class="avatar">
+					<!--{userpic($arrTaskInfo['uid'],'middle')}-->
+				</div>
+				<div class="media-body">
+					<strong class="meida-heading"> <span class="money"><sub>￥</sub>{$arrTaskInfo['task_cash']}</span> {$arrTaskInfo['task_title']}
+					</strong>
+					<ul class="user-meta">
+						<li>{$arrModelInfo['model_name']}模式</li>
+						<li><i class="fa fa-money"></i>已支付网站服务费用：￥{$arrTaskInfo['real_cash']}</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="turnaround">
+			<h2 class="min-title">托管赏金</h2>
+			<div class="turnaround-body">
+				<div class="col-xs-8">
+
+					<form role="form" class="turnaround-form" action="index.php?do=taskhandle&op=consign&taskId={$taskId}" method="post" id="editConsignForm" name="editConsignForm" enctype="application/x-www-form-urlencoded">
+						<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+						<div class="form-group" style="overflow: hidden; ">
+							<label class="col-sm-4 control-label"  for="exampleInputPrice1" style="line-height: 34px;text-align: right">总共需要托管：</label>
+							<div class="col-sm-8">
+								<input type="password" placeholder="￥{$arrBidInfo['quote']}" class="form-control" style="cursor: context-menu;" disabled="disabled">
+							</div>
+						</div>
+						<div class="form-group" style="overflow: hidden; ">
+							<label class="col-sm-4 control-label"    for="exampleInputPrice2" style="line-height: 34px;text-align: right">已经托管：</label>
+							<div class="col-sm-8">
+								<input type="password"  placeholder="￥{$arrTaskInfo['real_cash']}" class="form-control disabled" style="cursor: context-menu;" disabled="disabled">
+							</div>
+						</div>
+						<div class="form-group" style="overflow: hidden; ">
+							<label class="col-sm-4 control-label"  for="exampleInputPrice3" style="line-height: 34px;text-align: right">还需要托管：</label>
+							<div class="col-sm-8">
+								<input type="password" placeholder="￥{$cash}" class="form-control disabled" style="cursor: context-menu;" disabled="disabled">
+							</div>
+						</div>
+
+						<div class="text-center">
+				     		<div class="form-group" id="return_balance">
+			     			 <a href="javascript:history.back();">返回</a>
+							{if $isBalance>1}
+							<a class="kbtn btn-default" id="check_balance">立即托管</a>
+							{else} 
+							<a href="index.php?do=user&view=finance&op=rechargeonline" class="kbtn btn-default">立即充值</a>
+							{/if}
+							</div>
+							<div class="hidden" id="balance_pay">
+								<div class="form-group"  style="overflow: hidden; ">
+									<label class="col-sm-4 control-label" style="line-height: 34px;text-align: right">支付密码：</label>
+									<div class="col-sm-8">
+										<input type="password" name="zfpwd" id="zfpwd" placeholder="请输入支付密码" class="form-control">
+									</div>
+								</div>
+								<div class="form-group"  style="overflow: hidden; ">
+									<div class="col-sm-offset-2 col-sm-10">
+									    <a href="javascript:history.back();">返回</a>
+										<button type="submit" value="1" class="kbtn btn-primary" id="btn-payitempay">确定支付</button>
+										<!-- <button type="submit" name="submit" class="kbtn btn-danger">确定支付</button> -->
+									</div>
+								</div>
+							</div> 
+							<span class="text-success" id="tipsUser"></span>
+						</div>
+					</form>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+$(function(){
+//基本资料
+	$('#editConsignForm').scojs_valid({
+		rules : {
+			zfpwd : [ 'not_empty' ]
+		},
+		messages : {
+			zfpwd : {
+				not_empty : "请输入支付密码"
+			}
+		},
+	    wrapper:'.form-group'
+	    ,onSuccess: function(response, validator, form) {
+	    	  tipsUser(response.data,response.status);
+	    	  if(response.url){
+					window.location.href=response.url;
+	    	  }
+	    }
+	});
+	
+	$("#check_balance").click(function() {
+		$('#balance_pay').removeClass('hidden');
+		$("#return_balance").addClass('hidden');
+	});
+});
+
+
+</script>
+<!--{template footer}-->

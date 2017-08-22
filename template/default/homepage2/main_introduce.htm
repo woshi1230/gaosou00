@@ -1,0 +1,62 @@
+<link rel="stylesheet" type="text/css" href="{DT_SKIN}task.css"/>
+<style>
+	.person-info p,
+	.person-info ul {
+		padding: 5px 0;
+	}
+</style>
+
+<div class="main_body">
+	<div class="person-info" style="padding: 0 15px;text-align: left;    font-size: 12px;">
+		<p><span class="f_b">他(她)的等级：</span>
+			{php $arrUserLeve=unserialize($COM[seller_level]); }
+			{php $arrUserLeve = str_replace('file/upload/', DT_PATH.'file/upload/', $arrUserLeve);}
+			{$arrUserLeve['pic']}
+		</p>
+		<p><span class="f_b">高手榜总排名：</span>
+			第<span style="color: #c11930;font-size: 16px;">{$gsRanking}</span>名
+		</p>
+		{loop $catRanking $k $v}
+		<p><span class="f_b">高手榜分类({strip_tags(cat_pos(get_cat($k), '/'))})排名：</span>
+			第<span style="color: #c11930;font-size: 16px;">{$v}</span>名
+		</p>
+		{/loop}
+		<p><span class="f_b">售出总数量：</span>
+			<span style="color: #c11930;font-size: 16px;">{$COM['seller_total_num']}</span>
+		</p>
+		<p><span class="f_b">购买总数量：</span>
+			<span style="color: #c11930;font-size: 16px;">{$COM['buyer_total_num']}</span>
+		</p>
+		<p><span class="f_b">最近三月收入：</span><span class="store-money" style="color: #c11930;font-size: 18px;"><sub>￥</sub>
+			{if $incomeCash} {$incomeCash} {else} 0.00 {/if}
+		</span></p>
+
+		<p><span class="f_b">他(她)的评分：</span>
+		<div style="margin-top: -8px;margin-left: 85px;">
+			<ul class="user-meta">
+				{loop $arrSellerMark $k $v}
+				<li>
+					{$v['aid_name']}
+					<span class="text-danger" style="color: #a94442;">{$v['avg']}分</span>
+					{php $gs = user_mark_class::gen_star2($v['avg']);}
+					{$gs}
+				</li>
+				{/loop}
+			</ul>
+		</div></p>
+		<p style="clear:both"></p>
+	</div>
+</div>
+
+
+<!--<div class="person-info" style="">-->
+	<!--<p class="f_b" style="padding: 0 15px;text-align: left">他(她)的评分：</p><br/>-->
+	<!--[{loop $arrSellerMark $k $v}]-->
+	<!--<div class="evaluate-meta-item" style="margin-left: -65px">-->
+		<!--[{$v['aid_name']}]-->
+		<!--<span class="text-danger" style="">{$v['avg']}分</span>-->
+		<!--[{php $gs = user_mark_class::gen_star2($v['avg']);}]-->
+		<!--[{$gs}]-->
+	<!--</div>-->
+	<!--[{/loop}]-->
+<!--</div>-->

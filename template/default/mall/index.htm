@@ -1,0 +1,310 @@
+{php $CSS = array('index');}
+{template 'header'}
+<div id="mall" class="m" style="background: #f9f9f9">
+	<div class="topl f_l" style="background-color: #f55ff5">
+		{if $DT[page_catalog]}
+		<div class="icatalog_head"><div><span class="f_r c_p" onclick="Go('{DT_PATH}sitemap/{rewrite('index.php?mid=16')}');">展开全部</span></i><strong>商品分类</strong></div></div>
+		<div class="icatalog_body" style="padding:0;background-color: #f5f5f5">
+			<div class="icatalog" style="height:424px;background-color: #f5f5f5">
+				{php $mid = $moduleid;}
+				{php $child = get_maincat(0, $mid, 1);}
+				{loop $child $i $c}
+				{if $i<10 && $c[child]}
+				{php $sub = get_maincat($c[catid], $mid, 1);}
+				<ul class="category-item" style="padding-left:5px;height:42px;background: #f5f5f5;border: 0;">
+					<li style="line-height:42px; height:42px"><a href="{$MODULE[$mid][linkurl]}{$c[linkurl]}" target="_blank"><strong>{set_style($c[catname], $c[style])}</strong></a></li>
+					{php $catSecond[$c[catid]] = $sub;}
+					{loop $sub $j $s}
+					{if $j<3}<li style="line-height: 42px; height:42px"><a href="{$MODULE[$mid][linkurl]}{$s[linkurl]}" target="_blank">{set_style($s[catname], $s[style])}</a></li>{/if}
+					{php $catThird[$s[catid]] = get_maincat($s[catid], $mid, 1);}
+					{php $catThird[$s[catid]]['name'] = $s[catname];}
+					{/loop}
+						<div class="dorpdown-layer1" style="width: 130px;height: 424px;margin-top: 0;top:198px;margin-left: 253px;" id="category-item1-{$k}">
+							<ul class="category-item1" style="padding:0;height: 100%;">
+								{loop $sub $j $s}
+								<li id="item1-{$ss[catname]}" style="width:100%;padding-left: 20px;height: 20px;"><a href="{$MODULE[$mid][linkurl]}{$s[linkurl]}list.php?catid={$ss[catid]}" target="_blank">{set_style($s[catname], $s[style])}</a></li>
+								{php $catThird[$s[catid]] = get_maincat($s[catid], $mid, 1);}
+								{php $catThird[$s[catid]]['name'] = $s[catname];}
+								{/loop}
+							</ul>
+						</div>
+				</ul>
+				{/if}
+				{/loop}
+			</div>
+		</div>
+		{/if}
+	</div>
+	<div class="m_n f_l">&nbsp;</div>
+
+
+	<div class="f_l" style="width:920px;background: #f9f9f9">
+		<div>
+			<div class="f_l" style="width:610px;margin-right:10px;">{ad(14)}</div>
+			<div class="m_r f_l" style="background: #f9f9f9">
+				<div class="cart_info">
+					<div>
+						购物车当前有
+						<span class="f_red">
+						<script type="text/javascript">document.write(get_cart());</script>
+						</span>
+						件商品，<a href="{$MOD[linkurl]}cart.php" class="b" rel="nofollow">去结算&raquo;</a> <span class="f_gray">|</span>
+						<a href="{$MODULE[2][linkurl]}trade.php?action=order" class="b" rel="nofollow">我的订单</a>
+					</div>
+				</div>
+				<div class="b10">&nbsp;</div>
+				<div class="box_head" style="background: #fbfbfb;border-bottom: 1px solid #ddd;margin-top:3px">
+					<span class="f_r"><a href="{$EXT[announce_url]}" class="g">展开全部&raquo;</a></span>
+					<a href="{$EXT[announce_url]}"><strong>行情分类</strong></a>
+				</div>
+				<div class="box_body li_dot mall" style="background: #fff;border:#DDDDDD 1px solid;border-top:0">
+					<div class="announce"><!--{tag("table=announce&condition=totime=0 or totime>$today_endtime-86400&areaid=$cityid&pagesize=3&datetype=2&order=listorder desc,addtime desc&target=_blank")}--></div>
+				</div>
+			</div>
+		</div>
+		{if $MOD[page_irec]}
+		<div class="c_b b10">&nbsp;</div>
+		<div class="tab_head">
+			<ul>
+				<li class="tab_2" id="mall_t_2" onmouseover="Tb(2, 2, 'mall', 'tab');">热卖商品</li>
+				<li class="tab_1" id="mall_t_1" onmouseover="Tb(1, 2, 'mall', 'tab');">推荐商品</li>
+				<li class="tab_nothing"> </li>
+			</ul>
+		</div>
+		<div class="box_body" style="background: #fff">
+			<div class="mthumb" id="mall_c_1" style="height:160px;overflow:hidden;display:none;">
+				<!--{tag("moduleid=$moduleid&length=16&condition=status=3 and level>0&areaid=$cityid&pagesize=".$MOD[page_irec]."&order=".$MOD[order]."&width=150&height=110&cols=5&template=thumb-mall&target=_blank")}-->
+			</div>
+			<div class="mthumb" id="mall_c_2" style="height:160px;overflow:hidden;display:block;">
+				<!--{tag("moduleid=16&length=16&condition=status=3&areaid=$cityid&pagesize=".$DT['page_mall']."&order=orders desc&width=150&height=110&cols=5&template=thumb-mall&target=_blank")}-->
+			</div>
+		</div>
+		{/if}
+	</div>
+
+	{if $MOD[page_inew]}
+	<div class="m b10">&nbsp;</div>
+	<div class="m">
+		<div class="box_head"><span class="f_r"><a href="{$MOD[linkurl]}{rewrite('search.php?new=1')}" rel="nofollow">更多&raquo;</a></span><strong>最新上架</strong></div>
+		<div class="box_body" style="background: #fff;">
+			<div class="mthumb">
+				<!--{tag("moduleid=$moduleid&length=20&condition=status=3&areaid=$cityid&pagesize=".$MOD[page_inew]."&order=".$MOD[order]."&width=150&height=110&cols=6&target=_blank&lazy=$lazy&template=thumb-mall")}-->
+			</div>
+		</div>
+	</div>
+	{/if}
+	{php $mid = $moduleid;}
+	{php $child = get_maincat(0, $mid, 1);}
+	{loop $child $i $c}
+	{if $i<10 && $c[child]}
+
+	<div class="floor js-floor" id="floor-item{$i}">
+		<div class="floor-hd clear">
+			<h3></h3>
+			<a href="{DT_PATH}mall/list.php?catid={$c[catid]}" style="text-align: center">更多»</a>
+		</div>
+		<div class="floor-bd clear">
+
+			<div class="floor-lead-wrap" style="position: relative;">
+				<div class="floor-lead">
+					<a class="js-addsuf" href="http://cn.made-in-china.com/special/guolucp/" data-suf="source=5" target="_blank">
+						<img class="js-lazyload" data-original="http://image.cn.made-in-china.com/prod/000-ytTEcGrwuaWD.jpg" src="http://image.cn.made-in-china.com/prod/000-ytTEcGrwuaWD.jpg" alt="优质锅炉展销会" title="优质锅炉展销会" style="display: inline;">
+					</a>
+				</div>
+				<div class="dropdown-floor"  style="position: absolute;width: 130px;height: 420px;left: -20px;top: -31px;">
+					<div>
+							{php $sub = get_maincat($c[catid], $mid, 1);}
+
+						<ul class="category-item1" style="padding: 10px 0;">
+								<!--<li style="display:block;width: 100%;height: 20px;line-height:20px;padding:0;text-align: center"><strong>{set_style($c[catname], $c[style])}</strong></a></li>-->
+								{php $catSecond[$c[catid]] = $sub;}
+								{loop $sub $j $s}
+								{if $j<20}
+							<li style="display:block;width: 100%;height: 20px;line-height:20px;padding:0;text-align: left"><a href="{$MODULE[$mid][linkurl]}{$s[linkurl]}" target="_blank" style="padding-left: 20px">{set_style($s[catname], $s[style])}</a></li>
+							{/if}
+								{php $catThird[$s[catid]] = get_maincat($s[catid], $mid, 1);}
+								{php $catThird[$s[catid]]['name'] = $s[catname];}
+								{php $catThird[$s[catid]]['thumb'] = $s[thumb];}
+							{/loop}
+							</ul>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="floor-recmd">
+				<div>
+
+
+					{php $sub = get_maincat($c[catid], $mid, 1);}
+						{php $catSecond[$c[catid]] = $sub;}
+						{loop $sub $j $s}
+						{if $j<2}
+						<!--<li style="line-height: 42px; height:42px">-->
+							<!--<a href="{$MODULE[$mid][linkurl]}{$s[linkurl]}" target="_blank">3333333333333333{set_style($s[catname], $s[style])}4444</a>-->
+						<!--</li>-->
+						{/if}
+						{php $catThird[$s[catid]] = get_maincat($s[catid], $mid, 1);}
+						{php $catThird[$s[catid]]['name'] = $s[catname];}
+						{php $catThird[$s[catid]]['thumb'] = $s[thumb];}
+						{php $catid = $s[catid]}
+						{if $catid}
+						<!--{tag("moduleid=$moduleid&length=2&condition=catid=$catid&template=thumb-malll")}-->
+						{/if}
+						{/loop}
+
+				</div>
+			</div>
+		</div>
+	</div>
+	{/if}
+	{/loop}
+</div>
+<div id="floor">
+	<ul>
+		{php $mid = $moduleid;}
+		{php $child = get_maincat(0, $mid, 1);}
+		{loop $child $i $c}
+		{if $i<10 && $c[child]}
+		<li><a href="javascript:;"></a></li>
+		{/if}
+		{/loop}
+	</ul>
+</div>
+<div id="message" class="m">
+	<h2 class="title">商情快报<a href="{DT_PATH}news" style="float: right;display: block;text-align: center;font-weight:500;width: 60px;height: 65px;line-height: 65px;color: #000;font-size: 12px;cursor: pointer;">更多»</a></h2>
+	
+	<div class="bs-example" data-example-id="simple-carousel" style="height: 210px;width: 610px;float: left;">
+		<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+			<ol class="carousel-indicators">
+				<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+				<li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
+			</ol>
+			<div class="carousel-inner" role="listbox">
+				<div class="item active">
+					<img src="http://120.76.78.213/gaosou/file/upload/201703/16/143905941.jpg" data-holder-rendered="true">
+				</div>
+				<div class="item">
+					<img src="http://120.76.78.213/gaosou/file/upload/201703/16/143913851.jpg" data-holder-rendered="true">
+				</div>
+			</div>
+			<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				<span class="sr-only">Previous</span>
+			</a>
+			<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+				<span class="sr-only">Next</span>
+			</a>
+		</div>
+	</div>
+	<div class="list-center">
+			<!--{tag("moduleid=21&catid=33&condition=status=3&areaid=$cityid&order=addtime desc&datetype=2")}-->
+	</div>
+	<div class="list-right">
+		<!--{tag("moduleid=21&condition=status=3 and level=1&areaid=$cityid&order=addtime desc&pagesize=8&datetype=2&target=_blank")}-->
+
+	</div>
+</div>
+<div id="foot" class="section fp-auto-height">
+	{if $DT[page_logo] || $DT[page_text]}
+	<div class="m">
+		<div class="tab_head" style="background: #ffffff;">
+			<span class="f_r f_n px12"><a href="{DT_PATH}api/shortcut.php" rel="nofollow" class="g">保存本站桌面快捷方式 &darr;</a>&nbsp;&nbsp;&nbsp;</span>
+			<ul>
+				<li class="tab_2" style="border-top:0;border-left:0;"><a href="{$EXT[link_url]}" >友情链接</a></li>
+				<li class="tab_1" style="border-right:none ; border-top:none;border-bottom: 0;" ><a href="{$EXT[link_url]}{rewrite('index.php?action=reg')}">申请链接</a></li>
+			</ul>
+		</div>
+		<div class="box_body" style="background-color: #ffffff;min-height: 89px;padding:0;">
+			{if $DT[page_logo]}
+			<!--{tag("table=link&condition=status=3 and level>0 and thumb<>'' and username=''&areaid=$cityid&pagesize=".$DT['page_logo']."&order=listorder desc,itemid desc&lazy=$lazy&template=list-link&cols=9")}-->
+			{/if}
+			{if $DT[page_text]}
+			<!--{tag("table=link&condition=status=3 and level>0 and thumb='' and username=''&areaid=$cityid&pagesize=".$DT['page_text']."&order=listorder desc,itemid desc&template=list-link&cols=9")}-->
+			{/if}
+		</div>
+	</div>
+	{/if}
+</div>
+<script type="text/javascript">
+	var arr = ['机械五金','工业设备','仪表电器','安防照明','汽摩交通','化工能源','建材日用','服装箱包','食品娱乐','数码电子'];
+	// 每一个楼梯标题内容填充
+	$('.floor-hd').find('h3').each(function (index, res) {
+		res.innerHTML = arr[index];
+	});
+
+	// 左侧导航内容填充
+	$('#floor').find('li').find('a').each(function (index, res) {
+		res.innerHTML = arr[index];
+	});
+
+	// 左侧导航点击事件
+	$('#floor').find('li').on('click', function () {
+		var index = $(this).index();
+		var bTop = $('.js-floor').eq(index).offset().top;
+		$(this).addClass('floor-active').siblings().removeClass('floor-active')
+		$('body,html').animate({
+			scrollTop: bTop
+		})
+	});
+
+	// 滚动条滚动对应楼层变化，以及楼层的显示隐藏
+	var defaultTop = (window.screen.height - $('#floor').height())/2;
+
+	$(window).scroll(function () {
+
+		//		楼层的显示隐藏
+		var wTop = $(this).scrollTop();
+		if(wTop > 200){
+			$('#floor').stop().fadeIn();
+		}else {
+			$('#floor').stop().fadeOut();
+		};
+
+		//		菜单跟随效果
+		var offsetTop = defaultTop + $(window).scrollTop()+'px';
+		$('#floor').animate({top:offsetTop},
+				{	duration: 400,	//滑动速度
+					queue: false    //此动画将不进入动画队列
+				});
+
+		//		滚动对应变化
+		$('.js-floor').each(function(index, res){
+			var sTop = $(this).offset().top;
+			if(wTop <= sTop){
+				$('#floor').find('li').removeClass('floor-active');
+				$('#floor').find('li').eq(index).addClass('floor-active');
+				return false;
+			};
+		});
+
+		return false;
+	})
+
+
+	$('.floor-lead-wrap').each(function (index,res) {
+		res.onmouseover = function () {
+			$('.dropdown-floor').eq(index).show()
+		}
+		res.onmouseout = function () {
+			$('.dropdown-floor').eq(index).hide()
+		}
+	});
+
+	$('.category-item').each(function (index,res) {
+		res.onmouseover = function () {
+			$('.dorpdown-layer1').eq(index).show()
+		}
+		res.onmouseout = function () {
+			$('.dorpdown-layer1').eq(index).hide()
+		}
+	})
+
+	var imgArr = ['http://image.cn.made-in-china.com/prod/000-FEQtkaunTTlL.jpg','http://image.cn.made-in-china.com/prod/000-ytTEcGrwuaWD.jpg','http://image.cn.made-in-china.com/prod/000-naQTqgpFutlH.jpg','http://image.cn.made-in-china.com/prod/000-nEQabigcRTVI.jpg','http://image.cn.made-in-china.com/prod/000-ytTaqcrGFEVH.jpg','http://image.cn.made-in-china.com/prod/000-FTEabBugTQhP.jpg','http://image.cn.made-in-china.com/prod/000-JEtaoRuKRQhI.jpg','http://image.cn.made-in-china.com/prod/000-FQTtqjuPualH.jpg','http://image.cn.made-in-china.com/prod/000-mtQToEgGWaWL.jpg','http://image.cn.made-in-china.com/prod/000-FTEQqmrRutVL.jpg']
+	$('.floor-lead').find('img').each(function (index, res) {
+		res.src = imgArr[index];
+	});
+
+</script>
+{template 'footer'}

@@ -1,0 +1,15 @@
+{if $arrCustoms && $c_open =='1'} {loop $arrCustoms $k $v}
+<div class="form-group">
+	<label for="txt_title" class="col-sm-3 control-label">
+		{$v['f_name']} {if $v['f_required'] =='1'}
+		<span class="text-danger">*</span>
+		{/if}
+	</label>
+	<div class="col-sm-6">
+		<input type="text" class="form-control" id="{$v['f_code']}" name="{$v['f_code']}" minlength="{$v['f_min_len']}" placeholder="请输入{$v['f_name']}" value="{$arrPubInfo[$v['f_code']]}" maxlength="{if $v['f_fixed_len']}{$v['f_fixed_len']} {else} {if $v['f_max_len']}{$v['f_max_len']}{else}255{/if}{/if}" >
+	</div>
+	<div class="col-sm-3">
+		<p class="form-control-static">{$v['f_tips']}{if $v['f_fixed_len']} {$v['f_fixed_len']}字符{else} {if $v['f_min_len']}{$v['f_min_len']}{/if}{if $v['f_max_len']}-{$v['f_max_len']}{/if}{if $v['f_min_len']}字符{/if}{/if}</p>
+	</div>
+</div>
+{/loop} {/if}

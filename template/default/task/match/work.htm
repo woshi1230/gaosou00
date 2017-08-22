@@ -1,0 +1,217 @@
+{if !$arrWorkService['WorkWikiTotal']}
+<div class="no-data">
+	<p class="lead text-warning">
+		<i class="fa fa-frown-o fa-lg"></i> 暂无交稿哦！{if $gUid !=$arrTaskInfo['uid']}<a href="index.php?do=taskhandle&op=matchquote&taskId={$arrTaskInfo['task_id']}">我来交稿</a>{/if}
+	</p>
+</div>
+{else}
+<!-- second-nav end -->
+<ul class="nav nav-pills second-nav">
+	{loop $arrSearchStatus $k $v}
+	<li {if $s== $k}class="active"{/if}><a href="index.php?do=task&id={$id}&s={$k}#detail">{$v}</a></li> {/loop}
+</ul>
+<div class="manuscripts">
+	<div id="gj_summery">
+		{if $arrWorkInfo} {loop $arrWorkInfo $k $v}
+		<div id="{$v['work_id']}" class="manuscript-item">
+
+			<div class="manuscript-status">
+				{if $v['work_status']}
+				<div class="status-item status-{$arrWorkFlag[$v['work_status']]['id']}">
+					<i class="fa {$arrWorkFlag[$v['work_status']]['style']}"></i> {$arrWorkFlag[$v['work_status']]['name']}
+				</div>
+				{/if}
+			</div>
+			<div class="manuscript-item-pic">
+				<a href="{userurl($v['username'])}" title="{$v['username']}"> <!--{userpic($v['uid'],'larger')}-->
+				</a> <a href="{userurl($v['username'])}" class="kbtn btn-default btn-xs btn-block">进入店铺</a> {if $gUid!=$v['uid']} <a href="javascript:sendMessage({$v['uid']});void(0);" class="kbtn btn-default btn-xs btn-block">联系我</a> {/if}
+			</div>
+			<div class="manuscript-item-content">
+				<div class="manuscript-item-body">
+					<h2 class="manuscript-item-title">
+						<i class="fa fa-user"></i> 投稿人: <a href="{userurl($v['username'])}" title="{$v['username']}">{$v['username']}</a>
+						<!--{eval $arrUserLeve=unserialize($v[seller_level])}-->
+						{$arrUserLeve['pic']}
+					</h2>
+					{if $v['work_status']==8||(($v['workhide']==1 || $v['work_hidden']==1)&&$gUid!=$arrTaskInfo['uid']&&$gUid!=$v['uid'])}
+
+					<div class="no-data">
+						<p class="lead text-warning">
+							<i class="fa fa-ban fa-2x"></i> 您无权查看 ！
+						</p>
+					</div>
+					{else}
+					<div class="manuscript-desc">
+
+						<table class="table table-bordered">
+							<tbody>
+								<tr>
+									<th width="20%">报价</th>
+									<td><span class="money"> <sub>￥</sub> {$v['quote']}
+									</span></td>
+								</tr>
+
+								<tr>
+									<th width="20%">工作天数</th>
+									<td><span class="money"> <sub></sub> {$v['cycle']}
+									</span> 天</td>
+								</tr>
+
+								<tr>
+									<th>报价描述</th>
+									<td>
+										<!--{eval echo htmlspecialchars_decode($v['quote_desc'])}-->
+									</td>
+								</tr>
+								{if $v['work_desc']}
+								<tr>
+									<th>完工说明</th>
+									<td>
+										<!--{eval echo htmlspecialchars_decode($v['work_desc'])}-->
+										<ul>
+											{loop $arrFileLists $k1 $v1}
+											<li class="detail-affix-item"><a href="{$v1['save_name']}" target="_blank"> <i class="fa fa-download"></i> {$v1['file_name']}
+											</a></li> {/loop}
+										</ul>
+									</td>
+								</tr>
+								{/if}
+							</tbody>
+						</table>
+					</div>
+
+					<div class="manuscript-ctrl">
+						{if $uid&&$uid==$intGuid&&$v['work_status']==4} {if $arrProcess_can['work_cancel']}
+						<!--淘汰威客 start-->
+						<a href="javascript:workCancel();void(0);" class="kbtn btn-danger btn-sm"> <i class="fa fa-ban"></i> 淘汰高手
+						</a> {/if}
+						<!--淘汰威客 end-->
+						{if $arrProcess_can['work_cancel']}
+						<!--托管赏金 start-->
+						<a href="javascript:taskHost('{$arrTaskInfo[task_id]}');void(0);" class="kbtn btn-success btn-sm"> <i class="fa fa-rmb"></i> 托管赏金
+						</a> {/if}
+						<!--托管赏金 end-->
+						{if $arrProcess_can['notify_confirm']}
+						<!--提醒确认 start-->
+						<a href="javascript:sendNotice('start');void(0);" class="kbtn btn-info btn-sm"> <i class="fa fa-bell"></i> 提醒确认
+						</a> {/if}
+						<!--提醒确认 end-->
+						{if $arrProcess_can['notify_over']}
+						<!--提醒完工 start-->
+						<a href="javascript:sendNotice('over');void(0);" class="kbtn btn-info btn-sm"> <i class="fa fa-bell"></i> 提醒完工
+						</a> {/if}
+						<!--提醒完工 end-->
+						{if $arrProcess_can['notify_modify']}
+						<!--提醒修改 start-->
+						<a href="javascript:sendNotice('modify');void(0);" class="kbtn btn-info btn-sm"> <i class="fa fa-bell"></i> 提醒修改
+						</a> {/if}
+						<!--提醒修改 end-->
+						{if $arrProcess_can['task_accept']}
+						<!--工作验收 start-->
+						<a href="javascript:taskAccept('{$arrTaskInfo[task_id]}');void(0);" class="kbtn btn-success btn-sm"> <i class="fa fa-check-circle"></i> 工作验收
+						</a> {/if}
+						<!--工作验收 end-->
+						{/if} {if $uid&&$uid==$intWuid&&$v['work_status']==4} {if $arrProcess_can['work_start']}
+						<!--开始工作 start-->
+						<a href="javascript:workStart();void(0);" class="kbtn btn-success btn-sm"> <i class="fa fa-check-circle"></i> 开始工作
+						</a> {/if}
+						<!--开始工作 end-->
+						{if $arrProcess_can['work_over']}
+						<!--确认完工 start-->
+						<a href="javascript:workOver(0,'{$arrTaskInfo[task_id]}');void(0);" class="kbtn btn-success btn-sm"> <i class="fa fa-check-circle"></i> 确认完工
+						</a> {/if}
+						<!--确认完工 end-->
+						{if $arrProcess_can['work_modify']}
+						<!--工作修改 start-->
+						<a href="javascript:workOver(1,'{$arrTaskInfo[task_id]}');void(0);" class="kbtn btn-default btn-sm"> <i class="fa fa-pencil"></i> 工作修改
+						</a> {/if}
+						<!--工作修改 end-->
+						{if $arrProcess_can['work_give_up']}
+						<!--放弃投标 start-->
+						<a href="javascript:giveUp();void(0);" class="kbtn btn-danger btn-sm"> <i class="fa fa-ban"></i> 放弃投标
+						</a> {/if}
+						<!--放弃投标 end-->
+						{if $arrProcess_can['notify_host']}
+						<!--提醒托管 start-->
+						<a href="javascript:sendNotice('host');void(0);" class="kbtn btn-info btn-sm"> <i class="fa fa-bell"></i> 提醒托管
+						</a> {/if}
+						<!--提醒托管 end-->
+						{if $arrProcess_can['notify_accept']}
+						<!--提醒验收 start-->
+						<a href="javascript:sendNotice('accept');void(0);" class="kbtn btn-info btn-sm"> <i class="fa fa-bell"></i> 提醒验收
+						</a> {/if}
+						<!--提醒验收 end-->
+						{if $arrProcess_can['modify_quote']}
+						<!--修改报价 start-->
+						<a href="index.php?do=taskhandle&op=matchquoteedit&taskId={$arrTaskInfo['task_id']}&workId=$v['work_id']" class="kbtn btn-success btn-sm"> <i class="fa fa-check-circle"></i> 修改报价
+						</a> {/if}
+						<!--修改报价end-->
+						{/if} {if $uid&&$v['work_status']==4&&($uid==$intWuid||$uid==$intGuid)} <a href="javascript:getContact();void(0);" class="kbtn btn-success btn-sm"> <i class="fa fa-check-circle"></i> 查看联系方式
+						</a> {/if} {if !$arrMark[$v[work_id]]||($arrMark[$v[work_id]][mark_status]!=1&&$arrMark[$v[work_id]][mark_count]<2)} {if $arrProcess_can['work_mark']&&$uid==$arrTaskInfo['uid']} <a href="javascript:mark(2,'{$v[work_id]}','{$id}');void(0);" class="kbtn btn-success btn-sm">{if $arrMark[$v[work_id]][mark_status]}修改评价{else}稿件评价{/if}</a> </span> {/if} {if $arrProcess_can['task_mark']&&$uid==$v['uid']} <a href="javascript:mark(1,'{$v[work_id]}','{$id}');void(0);" class="kbtn btn-success btn-sm">{if $arrMark[$v[work_id]][mark_status]}修改评价{else}评价雇主{/if}</a> </span> {/if} {/if}
+					</div>
+
+					<div class="manuscript-comment">
+						<div id="div_comment{$v['work_id']}">
+							{if $gUid == $arrTaskInfo['uid']||$v['comment']}
+							<h2 class="manuscript-item-title">稿件点评</h2>
+							{/if} {loop $v['comment'] $v1}
+							<dl class="manuscript-comment-item">
+								<dt class="manuscript-comment-item-title">
+									<a href="{userurl($v1['username'])}">{$v1['username']}</a> 于
+									<!--{eval echo date('Y-m-d',$v1['on_time'])}-->
+									<!--{eval $h = date('H',$v1['on_time'])}-->
+									{if $h>0&&$h<12}上午{elseif $h>=12&&$h<19}下午{else}晚上{/if}
+									<!--{eval echo date('h:i:s',$v1['on_time'])}-->
+									点评:
+								</dt>
+								<dd class="manuscript-comment-item-body">{$v1['content']}</dd>
+							</dl>
+							{/loop}
+						</div>
+						{if $gUid == $arrTaskInfo['uid']}
+						<div class="manuscript-comment-post">
+							<div class="form-group">
+								<textarea class="form-control" rows="3" name="strTarComment" id="strTarComment{$v['work_id']}" placeholder="点评不得超过100字"></textarea>
+							</div>
+							<div class="form-group">
+								<button type="button" onclick="workComment('{$v[task_id]}','{$v[work_id]}',{$v[uid]});" class="kbtn btn-default btn-sm">
+									<i class="fa fa-comment"></i> 点评稿件
+								</button>
+								<span class="text-success" id="tipsUser"></span>
+							</div>
+						</div>
+						{/if}
+						<!-- manuscript-comment-post end -->
+					</div>
+					{/if}
+				</div>
+				<div class="manuscript-item-footer">
+					<ul class="manuscript-meta">
+						<li class="manuscript-meta-item">编号 #{$v[work_id]}</li>
+						<li class="manuscript-meta-item">投稿时间： <!--{date('Y-m-d H:i:s',$v[work_time])}-->
+						</li>
+						<li class="manuscript-meta-item"><span class="marked marked-see"> {if $v['is_view']||$uid==$task_info['uid']} 雇主已浏览 {else} 雇主未浏览 {/if} </span></li> {if $arrProcess_can['work_report']&&$gUid!=$v['uid']&&$v['work_status']!=7&&$gUid}
+						<li class="manuscript-meta-item"><a href="javascript:report(2,'work','{$v[uid]}','{$arrTaskInfo[task_id]}','{$v[work_id]}');void(0);" class="action-report"> <i class="fa fa-bell"></i> 举报
+						</a></li> {/if} {if $arrProcess_can['task_rights']}
+						<li class="manuscript-meta-item">{if $uid==$arrTaskInfo['uid']&&$v[work_status]==4} <a href="javascript:report(1,'work','{$v[uid]}','{$arrTaskInfo[task_id]}','{$v[work_id]}');void(0);" class="action-report"> {else} <a href="javascript:report(1,'task','{$arrTaskInfo[uid]}','{$arrTaskInfo[task_id]}','{$arrTaskInfo[task_id]}');void(0);" class="action-report"> {/if} <i class="fa fa-bell"></i> 维权
+							</a></li> {/if}
+					</ul>
+				</div>
+			</div>
+			<!-- manuscript-item-content end -->
+		</div>
+		{/loop} {/if}
+		<!-- manuscript-item end-->
+
+
+		<!-- manuscripts end -->
+
+		<div class="list-page">
+			<div class="page-tips pull-left">显示 {$strPages['st']}~{$strPages['en']} 项 共 {$arrWorkArrs['count']} 个投稿</div>
+			<ul class="pagination pagination-sm pull-right">{$strPages[page]}
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- list-page end -->
+{/if}

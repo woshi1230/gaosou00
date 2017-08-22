@@ -1,0 +1,26 @@
+<!--{template ADMIN_DIRECTORY/tpl/admin_header}-->
+<div class="box list">
+	<div class="title">
+		<h2>{$_lang['case_search']}</h2>
+	</div>
+	<div class="detail">
+		<form action="" method="post" id="frm" name="frm">
+			<p><textarea name="content" id="content" rows="10"  style="width: 97%;resize:none;"></textarea></p>
+			<p class="t_r"><button onclick="ooo();">提　交</button></p>
+		</form>
+	</div>
+</div>
+<script type="text/javascript" src="tpl/js/jquery.js"></script>
+<script type="text/javascript">
+	function ooo() {
+		var content = $("#content").val();
+		if (!content) {
+			alert('请输入结束原因!');
+			return false;
+		}
+		art.dialog.data("content", content);
+		art.dialog.data("ispass", 'ok');
+		art.dialog.close();
+	}
+</script>
+<!--{template ADMIN_DIRECTORY/tpl/admin_footer}-->

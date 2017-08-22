@@ -1,0 +1,24 @@
+<style>
+	.person-info2 p,
+	.person-info2 ul {
+		padding: 0;
+		margin: 0;
+	}
+</style>
+
+<div class="main_body2">
+	<div class="person-info2" style="padding: 0 5px;text-align: left;">
+		<p><span>高手榜总排名：</span>
+			第<span style="color: #c11930;">{$gsRanking}</span>名
+		</p>
+		<p><span>最近三月收入：</span><span class="store-money" style="color: #c11930; ">
+			￥{if $incomeCash}{$incomeCash}{else}0{/if}
+		</span></p>
+		<p style="padding-left: 101px;">
+			<span style="color: #c11930;">{$COM['seller_total_num']}笔</span>
+		</p>
+
+		<p style="clear:both"></p>
+	</div>
+</div>
+

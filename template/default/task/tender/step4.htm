@@ -1,0 +1,53 @@
+      {if $iStatus <2}
+			      {if $floatPayCash}
+			      <div class="release-form">
+			      	{if !$status}
+			          <p class="lead text-center text-success mt_20"><i class="fa fa-check-circle"></i>您的需求订单已提交，请尽快付费，付费成功后将会在任务前台展示哦。<a href="index.php?do=task&id={$taskId}" target="_blank">查看任务</a></p>
+			
+			          <div class="text-center">
+			          {if !$boolValue}
+			            <!--<a href="index.php?do=pay&type=task&id={$taskId}" class="kbtn btn-primary">在线充值托管赏金</a>-->
+              <a href="member/charge.php?action=pay" class="kbtn btn-primary">在线支付托管赏金</a>
+			          {else}
+			          	<a class="kbtn btn-primary balance-pay" data-id="{$taskId}" data-type="task">使用余额托管赏金</a>
+			          {/if}
+			            <a href="index.php?do=task&id={$taskId}" class="kbtn btn-default">稍后再托管赏金</a>
+			          </div>
+			        {else}
+						<p class="lead text-success text-center mt_20 "><i class="fa fa-check-circle"></i> 恭喜，您已完成付款 <sub>￥</sub>{$floatPayCash} <sub>元</sub>！{if $arrTaskInfo['task_status']=='1'}请等待后台审核{/if}</p>
+			
+						<div class="text-center mb_20">
+							<a href="index.php?do=task&id={$taskId}" class="kbtn btn-primary">确定</a>
+							<a href="index.php?do=user&view=transaction&op=released&intModelId={$id}" class="kbtn btn-default">到用户中心查看详细</a>
+						</div>
+			        {/if}
+			
+			      </div>
+			      
+			      
+			      {else}
+			            <div class="release-form">
+			          <p class="lead text-center text-success mt_20"><i class="fa fa-check-circle"></i>您的需求订单已提交，该订单不需支付。<a href="index.php?do=task&id={$taskId}" target="_blank">查看任务</a></p>
+			
+						<p class="lead text-success text-center mt_20 "><i class="fa fa-check-circle"></i> {if $iStatus=='1'}请等待后台审核{else}任务发布成功{/if}</p>
+			
+						<div class="text-center mb_20">
+							<a href="index.php?do=task&id={$taskId}" class="kbtn btn-primary">确定</a>
+							<a href="index.php?do=user&view=transaction&op=released&intModelId={$id}" class="kbtn btn-default">到用户中心查看详细</a>
+						</div>
+			
+			      </div>
+			      
+			      {/if}
+      {else}
+                  <div class="release-form">
+
+			<p class="lead text-success text-center mt_20 "><i class="fa fa-check-circle"></i> {if $iStatus=='1'}请等待后台审核{else}任务发布成功{/if}</p>
+
+			<div class="text-center mb_20">
+				<a href="index.php?do=task&id={$taskId}" class="kbtn btn-primary">确定</a>
+				<a href="index.php?do=user&view=transaction&op=released&intModelId={$id}" class="kbtn btn-default">到用户中心查看详细</a>
+			</div>
+
+      </div>
+      {/if}

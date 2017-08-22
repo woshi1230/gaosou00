@@ -1,0 +1,64 @@
+	<form role="form" action="index.php?do=ajax&view=yijia" method="post" class="form-horizontal" name="sendMsgForm" id="sendMsgForm">
+        	<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+			<input type="hidden" name="wid" value="{$wid}">
+       	 <div class="form-group">
+          <label class="col-sm-2 control-label" for="account">{if $v['type']==1}您的议价:{else}雇主议价{/if}</label>
+          <div class="col-sm-10 row">
+            <div class="col-sm-8">
+            	<input type="text" name="account" id="account" size="39" onkeyup="clearstr(this)" class="form-control " {if $workInfo['hasyj']==2} value="{$workInfo['yjje']}" disabled {/if}/>
+            </div>
+          </div>
+       	</div>
+       	 <div class="form-group">
+          <label class="col-sm-2 control-label" for="account">留言</label>
+          <div class="col-sm-10 row">
+            <div class="col-sm-8">
+            	<textarea name="txt_content" id="txt_content" rows="5" class="form-control"></textarea>
+            </div>
+          </div>
+       	</div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+		  {if $workInfo['hasyj']==2}
+		  <button type="button" class="btn btn-default" onclick="agreeyj(1);">同意</button>
+		  <button type="button" class="btn btn-default" onclick="agreeyj(2);">不同意</button>
+		  <span id="span_msg"></span>
+		  {else}
+          	 <button class="btn btn-default" type="submit" value="1" >发送</button>
+            <span class="text-success" id="tipsUser"></span>
+			{/if}
+          </div>
+        </div>
+</form>
+
+<script type="text/javascript">
+function agreeyj(type){
+	var url = 'index.php?do=ajax&view=yijia&wid={$wid}&a='+type;
+	$.post(url,{op:'agree',txt_content:$("#txt_content").val()},function(json){
+		$("#span_msg").html(json.msg);
+		setTimeout(function(){
+			window.location.href='index.php?do=task&id={$workInfo["task_id"]}';
+		},3000);
+	},'json');
+}
+$(function(){
+	//发送消息
+	$('#sendMsgForm').scojs_valid({
+		rules: {
+	    	account : ['not_empty']
+	    },
+	    messages: {
+	    	account:{
+	    		not_empty:"请输入议价金额"
+	    	}
+	    },
+		wrapper:'.form-group',onSuccess: function(response, validator) {
+		    	  tipsUser(response.data,response.status);
+		    		setTimeout(function(){
+						window.location.href=response.url;
+		//				$('.close').trigger('click');
+					},2000);
+			}
+		});
+});
+</script>

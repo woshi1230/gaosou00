@@ -1,0 +1,22 @@
+<div class="dsn" id="pos_show">您当前的位置：<a href="{$COM[linkurl]}">首页</a> &raquo; <a href="{$MENU[$menuid][linkurl]}">{$MENU[$menuid][name]}</a>{if $itemid} &raquo; {$title}{/if}</div>
+{if $itemid}
+<!--<div class="main_head"><div ><strong>{$title}</strong></div></div>-->
+<!--<div class="main_head" style="position:absolute;margin-left:160px;margin-top: -36px;"><H4><strong>高手排名</strong></H4></div>-->
+
+<div class="main_body">
+	<div class="lh18 px13">{$content}</div>
+</div>
+{else}
+<!--<div class="main_head"><div><strong>{$MENU[$menuid][name]}</strong></div></div>-->
+<!--<div class="main_head" style="position:absolute;margin-left:160px;margin-top: -36px;"><H4><strong>高手排名</strong></H4></div>-->
+
+{template 'main_introduces', $template}
+{if $video}
+<div class="main_head"><div><strong>形象视频</strong></div></div>
+<div class="main_body">
+	{load('player.js')}
+	<center><script type="text/javascript">document.write(player('{$video}',480,400,'',0));</script></center>
+</div>
+{/if}
+<!--<div class="main_head"><div><strong>公司档案</strong></div></div>-->
+{/if}

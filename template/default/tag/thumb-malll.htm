@@ -1,0 +1,9 @@
+{loop $tags $i $t}
+<div class="recmd-slider-item js-product">
+    <a href="{$t[linkurl]}" {if $target} target="{$target}"{/if}><img class="js-lazyload" src="{DT_PATH}{$t[thumb]}" alt="{$t[alt]}"  style="display: inline;"></a>
+    <p style="text-align:center;padding-left:10px;margin-top:10px;margin-bottom:0;color: #464646;display: inline-block;width: 170px;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;font-weight: 400;">
+        <a href="{$t[linkurl]}" title="{$t[alt]}">{$t[alt]}</a>
+    </p>
+    <p style="text-align:center;padding-left:10px;margin-top:10px;margin-bottom:0;color: #cc220b;font-weight: 700;width: 170px;">{$DT[money_sign]}{$t[price]}</p>
+</div>
+{/loop}

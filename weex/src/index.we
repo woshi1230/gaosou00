@@ -1,0 +1,70 @@
+<template>
+  <div style="flex-direction: column;">
+    <wxc-tabbar tab-items={{tabItems}}></wxc-tabbar>
+  </div>
+</template>
+
+<script>
+  require('weex-components');
+  var apis = require('./common/api');
+  var gaosouURL = apis.getGaosouURL();
+
+  module.exports = {
+    data: {
+      tabItems: [
+        {
+          index: 0,
+          title: "首页",
+          titleColor: 0x0,
+          icon: "",
+          image: gaosouURL + "mobile/static/img/icon-home.png",
+          selectedImage: gaosouURL + "mobile/static/img/icon-home-on.png",
+          src: "modules/main.js",
+          visibility: "visible"
+        },
+        {
+          index: 1,
+          title: "频道",
+          titleColor: 0x0,
+          icon: "",
+          image: gaosouURL + "mobile/static/img/icon-channel.png",
+          selectedImage: gaosouURL + "mobile/static/img/icon-channel-on.png",
+          src: "modules/channel.js",
+          visibility: "hidden"
+        },
+        {
+          index: 2,
+          title: "我的",
+          titleColor: 0x0,
+          icon: "",
+          image: gaosouURL + "mobile/static/img/icon-my.png",
+          selectedImage: gaosouURL + "mobile/static/img/icon-my-on.png",
+          src: "modules/test.js",
+          visibility: "hidden"
+        },
+        {
+          index: 3,
+          title: "更多",
+          titleColor: 0x0,
+          icon: "",
+          image: gaosouURL + "mobile/static/img/icon-more.png",
+          selectedImage: gaosouURL + "mobile/static/img/icon-more-on.png",
+          src: "modules/main.js",
+          visibility: "hidden"
+        }
+      ]
+    },
+    created: function () {
+      var bundleUrl = this.$getConfig().bundleUrl;
+      var base = apis.getBaseUrl(bundleUrl);
+      for (var i = 0; i < this.tabItems.length; i++) {
+        var tabItem = this.tabItems[i];
+        tabItem.src = base + tabItem.src;
+      }
+    },
+    methods: {
+      created: function (e) {
+      }
+    }
+  }
+</script>

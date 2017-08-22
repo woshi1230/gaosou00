@@ -1,0 +1,22 @@
+<div class="list" id="item_{$t[itemid]}">
+    <table>
+        <tr align="left">
+            <td>任务名称</td>
+            <td>金额</td>
+        </tr>
+        {loop $tags $k $t}
+        <tr align="center">
+            <td align="left" width="70%">
+                <a href="{DT_PATH}index.php?do=task&id={$t[task_id]}">{$t['task_title']}</a>
+            </td>
+            <td align="left" width="30%">
+                <p>￥{$t['task_cash']}</p>
+            </td>
+        </tr>
+        {/loop}
+    </table>
+</div>
+
+{if $showpage && $pages}
+<div class="pages">{$pages}</div>{/if}
+

@@ -1,0 +1,88 @@
+<div class="order-body">
+			<div class="panel-heading">
+              <h3 class="panel-title">
+              	<div class="pull-right"><i class="fa fa-minus"></i></div>
+
+                  <span class="money"><sub>￥</sub>{$arrServiceOrderInfo['price']}</span>
+                  {$arrServiceOrderInfo['title']}
+              </h3>
+            </div>
+            <div class="panel-body ">
+                <ul class="release-meta">
+                  <li class="release-meta-item">类型：购买服务</li>
+                  <li class="release-meta-item">行业分类：{$arrTopIndustrys[$arrServiceOrderInfo['indus_pid']]['indus_name']}-{$arrAllIndustrys[$arrServiceOrderInfo['indus_id']]['indus_name']}</li>
+                </ul>
+                <div class="release-detail">
+                <h2 class="min-title">描述</h2>
+	                <div class="ws_break">
+                	<!--{eval echo htmlspecialchars_decode($arrServiceOrderInfo['content'])}-->
+                	</div>
+                <h2 class="min-title">附件 <span class="label label-default"><!--{eval echo intval(count($arrFileLists))}--></span></h2>
+				<ul class="detail-affix {if !$arrFileLists}hidden{/if}" >
+					{loop $arrFileLists $k $v}
+			        	<li class="detail-affix-item"><a href="{$v['save_name']}"><i class="fa fa-download"></i> {$v['file_name']}</a></li>
+			        {/loop}
+			    </ul>
+                </div>
+                <!-- release-detail end -->
+
+            </div>
+
+			{if $arrOrderInfo['order_status'] == 'confirm_complete'}
+			<p class="lead text-center text-success mt_20"><i class="fa fa-check-circle"></i> 工作已完成，等待买家验收！</p>
+			<p class="lead text-center text-success mt_20">
+				<a href="javascript:report(1,'order','$arrBuyerInfo[uid]','{$sid}','{$orderId}');void(0);" class="btn btn-default">
+	    			<i class="fa fa-bell"></i> 申请仲裁
+	   		 	</a>
+	   		</p>
+			{else}
+			<!-- <p class="lead text-center text-success mt_20"><i class="fa fa-check-circle"></i> 工作已完成，请确认！</p> -->
+			<div class="clearfix form-horizontal">
+				<label class="col-xs-4 control-label">
+					上传文件
+				</label>
+				<div class="col-xs-4">
+					<div id="picker1">上传图片</div>
+	              <input type="hidden"  name="file_ids" id="file_ids"  class="form-control" value="">
+	              	最多5个附件，每个附件不得超过{$basic_config['max_size']}M
+					<ul class="affix-list upload-file-list-info" id="fileList1"></ul>
+
+				</div>
+			</div>
+			<div class="text-center mt_20">
+				<a class="btn btn-success" href="javascript:void(0);" id="sellerCompleteWork" >确认完成工作</a>
+			</div>
+			{/if}
+
+		</div>
+
+<link rel="stylesheet" type="text/css" href="static/js/webuploader/webuploader.css">
+<script type="text/javascript" src="static/js/webuploader/webuploader.js?r={RANDOM_PARA}"></script>
+<script type="text/javascript" src="static/js/webuploader/kppw.webuploader.js"></script>
+<script type="text/javascript">
+	//指定网站URL，后台是必须要定义的，前台不必定义
+	var baseurl = "{$basic_config['website_url']}";
+	var uploadsize = parseInt("{$basic_config['max_size']}");
+		uploadsize =  isNaN(uploadsize)? 1 : uploadsize;
+	$(function(){
+		$("#picker1").KKUploader({
+				accept: {
+					extensions : '{$strExtTypes}'  //可上传文件格式
+				},
+				fileVal:'uploadfiles',		//指定上传文本域的name  如不指定，默认是file
+				fileNumLimit:5,			//上传数量限制
+				hiddenName:'file_ids',	//表单隐藏域id
+				hiddenValType:'1',		//指定隐藏域保存值的类型   1=是保存file_id ，2=保存save_name
+				listName:'fileList1',	//指定上传文件列表ID，如果不指定，则默认为fileList
+				editListName:'editfileList1',	//指定上传文件编辑列表ID，如果不指定，默认为editfileList
+				separator:',',			//多文件上传时，指定分隔符，如不指定，默认为","
+				fileSingleSizeLimit:uploadsize*1024*1024			//上传大小限制
+			},
+			{
+				fileType: 'service',//传递给服务端的参数
+				filename : 'uploadfiles'//传递给服务端的参数指定上传文本域的name，如果未指定，上传不成功
+			});
+
+	});
+
+</script>

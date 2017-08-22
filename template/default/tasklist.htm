@@ -1,0 +1,421 @@
+<!--{template header}-->
+<!--{template include}-->
+
+<div class="m">
+<div class="container f_l" style="width: 950px;">
+<!-- #side end -->
+
+
+
+<div id="main">
+
+  <!--<div class="for-advertise">-->
+  	<!--[{ad_show(TASKLIST_HEAD)}]-->
+  <!-- <img src="" data-src="holder.js/950x50/#f8f8f8:#ddd/text:AD">-->
+  <!--</div>-->
+  <!-- for-advertise end -->
+
+    <div class="category-list category-xs">
+        <a href="index.php?do=tasklist" class="category-title" style="font-weight: bold;">全部分类</a>
+    </div>
+  {loop $arrCategoryMF $keyF $valueF}
+      <div class="category-list category-xs">
+          <a href="{$strUrl}&fd={$valueF['catid']}&pd=0&id=0" class="category-title"><i class="fa fa-list-ul"></i> {$valueF['catname']} <i class="fa fa-angle-down"></i></a>
+          <ul class="category-down">
+            {php $offset2 = 0;}
+            {loop $arrCategoryM[$valueF['catid']] $key $value}
+            <li class="category-item">
+              <div class="category-top">
+                {php $currname = current($value)['smenuname'];}
+                <a href="{$strUrl}&fd={$valueF['catid']}&pd={$value[0]['smenuid']}&id=0"  {if $value[0]['smenustyle']==1}class="hot"{/if} tabindex="-1">{$currname}</a>
+                <i class="fa fa-angle-right"></i>
+              </div>
+              <div class="category-inner" style="margin-top: -{$offset2}px;">
+                  <ul class="category-down" style="margin-top: -1px;">
+                  {php ksort($value);}
+                  {php $offset3 = 0;}
+                  {loop $value $k2 $v2}
+                      <li class="category-item2">
+                          {if $v2['catid']}
+                          <div class="category-top2">
+                            <a href="{$strUrl}&fd={$valueF['catid']}&pd={$key}&id={$v2['catid']}" tabindex="-1" {if $v2['style']==1}class="hot"{/if}>{$v2['catname']}</a>
+                          </div>
+                          {else}
+                          {php $currname = current($v2)['smenuname'];}
+                          <div class="category-top2">
+                              <a href="{$strUrl}&fd={$valueF['catid']}&pd={$key}&id={$k2}" tabindex="-1" {if $v2['style']==1}class="hot"{/if}>{$currname}</a>
+                              <i class="fa fa-angle-right"></i>
+                          </div>
+                          <div class="category-inner2" style="margin-top: -{$offset3}px;">
+                              <ul class="category-down" style="margin-top: -1px;height: 660px;min-width: 220px;">
+                                  {loop $arrCategoryM[$valueF['catid']][$key][$k2] $k3 $v3}
+                                  <li class="category-item">
+                                      <div class="category-top3">
+                                          <a href="{$strUrl}&fd={$valueF['catid']}&pd={$key}&id={$k2}&sd={$v3['catid']}" tabindex="-1" {if $v3['style']==1}class="hot"{/if}>{$v3['catname']}</a>
+                                      </div>
+                                  </li>
+                                  {/loop}
+                              </ul>
+                          </div>
+                          {/if}
+                      </li>
+                      {php $offset3 = $offset3 + 33;}
+                  {/loop}
+                  </ul>
+              </div>
+            </li>
+              {php $offset2 = $offset2 + 33;}
+            {/loop}
+          </ul>
+      </div>
+  {/loop}
+
+  <!-- category-list end -->
+
+  <div class="tab tab-darken">
+  </div>
+  <!-- tab end -->
+
+  {if $fd||$pd||$id||$ky}
+	  <ul class="nav nav-pills second-nav">
+	    {if $fd}<li class="active"><a href="{$strUrl}&fd=0">{$arrCategory[$fd]['catname']} <i class="fa fa-times"></i></a></li>{/if}
+	    {if $pd}<li class="active"><a href="{$strUrl}&fd={$fd}&pd=0">{$arrCategory[$pd]['catname']} <i class="fa fa-times"></i></a></li>{/if}
+	    {if $id}<li class="active"><a href="{$strUrl}&fd={$fd}&pd={$pd}&id=0">{$arrCategory[$id]['catname']} <i class="fa fa-times"></i></a></li>{/if}
+	    {if $sd}<li class="active"><a href="{$strUrl}&fd={$fd}&pd={$pd}&id={$id}&sd=0">{$arrCategory[$sd]['catname']} <i class="fa fa-times"></i></a></li>{/if}
+	    {if $ky}<li class="active"><a href="{$strUrl}&ky=0">{$ky} <i class="fa fa-times"></i></a></li>{/if}
+	    <li>共<!--{eval echo intval($intCount);}-->条类似任务</li>
+	  </ul>
+  {/if}
+
+  <!-- second-nav end -->
+
+  <ul class="list-filter">
+    <li>
+      <label class="col-xs-1">任务模式</label>
+      <div class="col-xs-11 condition">
+        <a href="{$strUrl}&tm=0" {if !$tm} class="selected" {/if}>全部</a>
+        {loop $arrTaskNavs $k $v}
+        	<a href="{$strUrl}&tm={$v['model_id']}" {if $v['model_id'] == $tm} class="selected" {/if}>{$v['model_name']}</a>
+        {/loop}
+
+      </div>
+    </li>
+    <li>
+      <label class="col-xs-1">赏金状态</label>
+      <div class="col-xs-11 condition">
+        <a href="{$strUrl}&r=0" {if !$r} class="selected" {/if}>全部</a>
+        <a href="{$strUrl}&r=1" {if 1==$r} class="selected" {/if}>未托管</a>
+        <a href="{$strUrl}&r=2" {if 2==$r} class="selected" {/if}>已托管</a>
+      </div>
+    </li>
+    <li>
+      <label class="col-xs-1">任务状态</label>
+      <div class="col-xs-11 condition">
+        <a href="{$strUrl}&s=0" {if !$s} class="selected" {/if}>全部</a>
+        <a href="{$strUrl}&s=1" {if 1==$s} class="selected" {/if}>工作中</a>
+        <a href="{$strUrl}&s=2" {if 2==$s} class="selected" {/if}>选稿中</a>
+		<a href="{$strUrl}&s=3" {if 3==$s} class="selected" {/if}>交付中</a>
+        <a href="{$strUrl}&s=4" {if 4==$s} class="selected" {/if}>已结束</a>
+      </div>
+    </li>
+  </ul>
+  <!-- filter end -->
+
+
+  <div class="tool-bar">
+    <div class="actions">
+	    {if $o == 1}
+	    	<a href="{$strUrl}&o=2" class="tool-bar-item selected">剩余时间  <i class="fa fa-sort-amount-desc"></i></a>
+	    {elseif $o == 2}
+	    	<a href="{$strUrl}&o=1" class="tool-bar-item selected">剩余时间 <i class="fa fa-sort-amount-asc"></i></a>
+	    {else}
+	    	<a href="{$strUrl}&o=1" class="tool-bar-item ">剩余时间</a>
+	    {/if}
+
+	    {if $o == 3}
+	    	<a href="{$strUrl}&o=4" class="tool-bar-item selected">金额  <i class="fa fa-sort-numeric-desc"></i></a>
+	    {elseif $o == 4}
+	    	<a href="{$strUrl}&o=3" class="tool-bar-item selected">金额 <i class="fa fa-sort-numeric-asc"></i></a>
+	    {else}
+	    	<a href="{$strUrl}&o=3" class="tool-bar-item ">金额</a>
+	    {/if}
+	    {if $o == 5}
+	    	<a href="{$strUrl}&o=6" class="tool-bar-item selected">稿件数  <i class="fa fa-sort-numeric-desc"></i></a>
+	    {elseif $o == 6}
+	    	<a href="{$strUrl}&o=5" class="tool-bar-item selected">稿件数 <i class="fa fa-sort-numeric-asc"></i></a>
+	    {else}
+	    	<a href="{$strUrl}&o=5" class="tool-bar-item ">稿件数</a>
+	    {/if}
+    </div>
+	 {if $regionCfg['region_search_task'] =='1'}
+		<div class="actions">
+	      <a href="javascript:void(0);" class="tool-bar-item" data-toggle="dropdown" >{if $arrCityInfo['areaname']} {$arrCityInfo['areaname']} {else}所在地区{/if} <span class="caret"></span></a>
+	      <ul class="dropdown-menu for-city" role="menu" aria-labelledby="dLabel"  >
+	        <li {if !$p}class="active"{/if}><a href="{$strUrl}&p=0">所有地区</a></li>
+			{loop $arrDisplaypro $k $v}
+	       		 <li {if $p==$v['areaid']}class="active"{/if}><a href="{$strUrl}&p={$v['areaid']}&twoid=0"  role="menuitem" tabindex="-1"  >{$v['areaname']}</a></li>
+			{/loop}
+	      </ul>
+	    </div>
+		{if $two}
+			<div class="actions">
+		      <a href="javascript:void(0);" class="tool-bar-item" data-toggle="dropdown" >{if $arrCitytwo['areaname']} {$arrCitytwo['areaname']} {else}所在地区{/if} <span class="caret"></span></a>
+		      <ul class="dropdown-menu for-city" role="menu" aria-labelledby="dLabel" >
+				{loop $two $k $v}
+		        <li {if $twoid==$v['areaid']}class="active"{/if}><a href="{$strUrl}&twoid={$v['areaid']}" role="menuitem" tabindex="-1" >{$v['areaname']}</a></li>
+				{/loop}
+		      </ul>
+		    </div>
+		{/if}
+		{if $three}
+			<div class="actions">
+		      <a href="javascript:void(0);" class="tool-bar-item" data-toggle="dropdown" >{if $arrCitythree['areaname']} {$arrCitythree['areaname']} {else}所在地区{/if} <span class="caret"></span></a>
+		      <ul class="dropdown-menu for-city" role="menu" aria-labelledby="dLabel" >
+				{loop $three $k $v}
+		        <li {if $threeid==$v['areaid']}class="active"{/if}><a href="{$strUrl}&threeid={$v['areaid']}" role="menuitem" tabindex="-1" >{$v['areaname']}</a></li>
+				{/loop}
+		      </ul>
+		    </div>
+		{/if}
+		{/if}
+  </div>
+  <!-- tool-bar end -->
+
+  <div class="list list-dl" style="margin: 0;">
+    <dl class="list-body"  id="ajax_dom">
+      <dt class="list-label">
+        <ul>
+          <li class="w3">名称</li>
+          {if $regionCfg['region_search_switch']== '1' && $regionCfg['region_search_task']=='1'}
+          <li class="w2">地区</li>
+          {/if}
+          <li class="w1">赏金</li>
+          <li class="w2">模式</li>
+          <li class="w2">查看/投稿</li>
+          <li class="w1d5" style="padding-left: 10px">状态</li>
+          <li class="wd5"></li>
+        </ul>
+      </dt>
+      {if $arrTaskLists}
+      {loop $arrTaskLists $k $v}
+      <dd class="list-item">
+        <ul class="list-item-body">
+
+          <li class="w3">
+            <a href="index.php?do=task&id={$v['task_id']}" class="list-title"  title="<!--{eval echo kekezu::cutstr($v['task_title'],50)}-->">
+            <!-- 增值工具显示区域 start --> <!-- <span class="marked marked-speed">加急</span> -->
+			{if $v['task_status']==2}
+               {if $v['is_delay'] == '1'}<span class="marked marked-map">延期</span>{/if}
+               {if $v['urgent'] == '1'}<span class="marked marked-speed">加急</span>{/if}
+               {if $v['tasktop'] == '1'}<span class="marked marked-spread">置顶</span>{/if}
+			{/if}
+            <!-- 增值工具显示区域 start -->
+
+              <!--{eval echo kekezu::cutstr($v['task_title'],50)}-->
+            </a>
+          </li>
+          <!-- 地区 START -->  
+          {if $regionCfg['region_search_switch']== '1' && $regionCfg['region_search_task']=='1'}
+		  <li class="w2">
+            {$v['area']}
+          </li>
+          {/if}
+		<!-- 地区 END -->  
+		<!-- 赏金 START  -->
+          <li class="w1">
+            <span class="money">
+            	<!--[{eval echo  keke_glob_class::showTaskCash($v['task_id']);}]-->
+                <sub>￥</sub>
+                {if $v['model_id']=='4'||$v['model_id']=='5'}
+                    {$arrCashCoves[$v['task_cash_coverage']]['start_cove']}-<sub>￥</sub>{$arrCashCoves[$v['task_cash_coverage']]['end_cove']}
+                {else}
+                    {$v['task_cash']}
+                {/if}
+            </span>
+          </li>
+		<!-- 赏金 END  -->
+          <li class="w2">{$arrTaskNavs[$v['model_id']]['model_name']}</li>
+          <li class="w2"><!--{eval echo intval($v['view_num']);}-->/<!--{eval echo intval($v['work_num']);}--></li>
+          <li class="w1d5">
+	          <!-- 2天后投稿截止 -->&nbsp;
+	          <!--{eval   $end_time = $arrTaskTimeDesc[$v[task_status]]['time'];}-->
+	          <!--{eval if(strpos($v[$end_time],'-')){
+	          $v[$end_time] = strtotime($v[$end_time]);
+	          };}-->
+
+	          	<!--{eval echo keke_search_class::task_time_desc($v['task_status'],$v[$end_time])}-->
+
+          </li>
+
+        <!-- 收藏  START-->
+        <li class="wd5" >
+		{if $v['favorite']}
+
+          	<a href="javascript:cancelFavorite('task',{$v['task_id']});" id="favorite{$v['task_id']}" title="取消收藏" class="action-collect on"><i class="fa fa-star"></i></a>
+		  {else}
+
+          	<a href="javascript:addFavorite('task',{$v['task_id']});" id="favorite{$v['task_id']}" title="收藏" class="action-collect"><i class="fa fa-star"></i></a>
+
+		 {/if}
+		  </li>
+        <!-- 收藏 END -->
+
+        </ul>
+        <ul class="list-item-body list-visible">
+          <li class="w8">
+            <div class="list-desc">
+            	<!--{eval echo kekezu::chinesesubstr($v['task_desc'],0,300)}-->
+            </div>
+          </li>
+          <li class="w1">
+              {if $v['task_status']==2}
+            <a href="index.php?do=taskhandle&op=turnaround&taskId={$v['task_id']}"  class="kbtn btn-primary btn-sm">我要投标</a>
+              {else}
+              <a href="index.php?do=pubtask&id={$v[model_id]}"  class="kbtn btn-primary btn-sm">发布一个类似任务</a>
+
+              {/if}
+          </li>
+        </ul>
+      </dd>
+      {/loop}
+      {else}
+		<dd class="list-item text-center">
+
+
+			<!--{template nodata}-->
+        </dd>
+      {/if}
+
+    </dl>
+  </div>
+  <!-- list end-->
+
+  <div class="list-page" style="margin-top: 20px">
+    <div class="page-tips pull-left">
+        每页60项 共<!--{eval echo intval($intCount/60+1);}-->页
+
+        <!--显示 {$arrDatas['st']}~{$arrDatas['en']} 项 共  &lt;!&ndash;{eval echo intval($intCount);}&ndash;&gt; 个任务-->
+    </div>
+
+   	{if $strPages}
+      <ul class="pagination pagination-sm pull-right" style="margin-bottom: 0">
+       {$strPages}
+      </ul>
+    {/if}
+
+
+  </div>
+  <!-- list-page end -->
+
+  <div class="for-advertise">
+   <!--[{ad_show(TASKLIST_BOTTOM)}]-->
+  </div>
+  <!-- for-advertise end -->
+
+
+</div>
+</div>
+<!-- container end -->
+<div class="m_n f_l"> </div>
+<div class="m_r_2 f_l">
+    <div class="box-body text-center">
+        <h2 class="min-title">诚信高手网站，服务更放心</h2>
+        <ul style="overflow: hidden;margin-bottom: 10px;">
+            <li class="col3">
+                <p>
+            <span class="fa-stack fa-2x">
+              <i class="fa fa-circle fa-stack-2x text-success task-1"></i>
+              <i class="fa fa-yen fa-stack-1x fa-inverse"></i>
+            </span>
+                </p>
+                <p>担保交易</p>
+            </li>
+            <li class="col3">
+                <p>
+            <span class="fa-stack fa-2x">
+              <i class="fa fa-circle fa-stack-2x text-success task-2"></i>
+              <i class="fa fa-shield fa-stack-1x fa-inverse"></i>
+            </span>
+                </p>
+                <p>诚信保障</p>
+            </li>
+            <li class="col3">
+                <p>
+            <span class="fa-stack fa-2x">
+              <i class="fa fa-circle fa-stack-2x text-success task-3"></i>
+              <i class="fa fa-user fa-stack-1x fa-inverse"></i>
+            </span>
+                </p>
+                <p>高手认证</p>
+            </li>
+        </ul>
+    </div>
+
+    <div class="box-body case-btn">
+        <p class="case-btn-title">发布一个需求，剩下的交给我们</p>
+        <a class="kbtn btn-primary btn-block" href="index.php?do=pubtask">发布任务</a>
+        <p class="case-btn-text">在线技术专业为您服务</p>
+    </div>
+
+    <div class="sponsor">{ad($moduleid,$catid,$kw,7)}</div>
+    <div class="box_head"><div><strong>最新发布动态</strong></div></div>
+    <div class="box-body">
+        <ul class="record-list">
+            {if $arrFeedPubs}
+            {loop $arrFeedPubs $k $v}
+            <li>
+                <p class="record-list-title">
+                    <a href="index.php?do=task&id={$v['task_id']}"><span class="marked marked-shop">{$arrModelLabel[$v['model_id']]}</span> <span class="money"><sub>￥</sub>
+			 {if $v['model_id']=='4'||$v['model_id']=='5'}
+               	 {$arrCashCoves[$v['task_cash_coverage']]['start_cove']}-<sub>￥</sub>{$arrCashCoves[$v['task_cash_coverage']]['end_cove']}
+             {else}
+               	 {$v['task_cash']}
+             {/if}</span> {$v['task_title']}</a>
+                </p>
+                <p>
+                    <!--{eval $timeDesc = kekezu::time2Units(time()-$v['start_time'],'hour');}-->
+                    <time datetime="2008-02-14">{if $timeDesc}{$timeDesc}前{else}刚刚{/if}</time>
+                    <a href="{userurl($v[username])}">{$v[username]}</a> 发布
+                </p>
+            </li>
+            {/loop}
+            {else}
+            暂无数据
+            {/if}
+        </ul>
+    </div>
+    <!-- 最新发布动态 & box-body end -->
+
+    <!--<div class="b10"> </div>-->
+    <div class="box_head"><div><strong>推荐服务商</strong></div></div>
+    <div class="box-body">
+        <ul class="record-list img">
+            {if $arrRecommMembs}
+            {loop $arrRecommMembs $k $v}
+            <li>
+                <a href="{userurl($v[username])}" class="avatar" target="_blank"><img src="{useravatar($v[username])}" width="50" height="50" alt=""/></a>
+
+                <div class="avatar-detail">
+                    <p class="record-list-title">
+                        <a href="{userurl($v[username])}" title="$v['shop_name']">
+                            {$v['company']}
+                        </a>
+                    </p>
+                    <p class="record-list-meta">好评率 <span>{php echo $v['good_rate']*100 }<sub>%</sub></span></p>
+                    <p>
+                        {php $catids = explode(',', substr($v['catid'], 1, -1));}
+                        <span class="marked marked-tags">{$arrCategory[$catids[0]]['catname']}</span>
+                        <span class="marked marked-tags">{$arrCategory[$catids[1]]['catname']}</span>
+                    </p>
+                </div>
+            </li>
+            {/loop}
+            {else}
+            暂无数据
+            {/if}
+        </ul>
+    </div><!-- 推荐服务商 & box-body end -->
+</div>
+</div>
+
+<!--{template footer}-->

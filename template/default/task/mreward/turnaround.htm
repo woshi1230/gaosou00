@@ -1,0 +1,103 @@
+<!--{template header}-->
+<!--{template include}-->
+<div  class="container">
+    <div id="main">
+        <div class="buy-user-info">
+            <div class="media">
+                <div class="avatar">
+                    <!--{userpic($arrTaskInfo['uid'],'middle')}-->
+                </div>
+                <div class="media-body">
+                    <strong class="meida-heading"> <span class="money"><sub>￥</sub>{$arrTaskInfo['task_cash']}</span> {$arrTaskInfo['task_title']}</strong>
+                    <ul class="user-meta">
+                        <li>{$arrModelInfo['model_name']}模式</li>
+                        <li>
+                            {if $arrTaskInfo['cash_cost']>0}
+                            <i class="fa fa-money"></i> 未托管：￥{$arrTaskInfo['task_cash']}
+                            {else}
+                            <i class="fa fa-money"></i> 已托管：￥{$arrTaskInfo['task_cash']}
+                            {/if}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="turnaround">
+            <h2 class="min-title">
+                我来交稿
+            </h2>
+            <div class="turnaround-body">
+                <div class="col-sm-12">
+
+                    <form role="form" class="turnaround-form"
+                          action="index.php?do=taskhandle&op=turnaround&taskId={$taskId}" method="post"
+                          id = "editTurnaroundForm" name = "editTurnaroundForm"
+                          enctype="application/x-www-form-urlencoded">
+                        <input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+                        <div class="form-group">
+                            <label for="tar_content">描述</label>
+                            <textarea id="tar_content" name="tar_content"  ></textarea>
+                        </div>
+
+                        <!--加载上传组件-->
+                        <!--{template turnaroundfilelist}-->
+
+                        {if $arrConfig['work_hidden']}
+                        <div class="form-group">
+                            <label for="work_hidden">是否隐藏我的稿件</label>
+                            <label for="work_hidden_2"><input type="radio" name="work_hidden" id="work_hidden_2" value="1">是</label>
+                            <label for="work_hidden_1"><input type="radio" checked="checked" name="work_hidden" id="work_hidden_1" value="0">否</label>
+                            <span>隐藏稿件后您的报名信息只有您和雇主可见</span>
+                        </div>
+                        {/if}
+                        <div class="text-center">
+                            <a href="javascript:history.back();">返回</a>
+                            <button type="submit" class="kbtn btn-default" onclick="return turnaroundCheck();">交稿</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{DT_STATIC}file/script/uploadify/jquery.uploadify.min.js?r={RANDOM_PARA}" type="text/javascript"></script>
+<link href="{DT_STATIC}file/script/uploadify/uploadify.css" rel="stylesheet">
+<script type="text/javascript">
+    //				var ModuleID = 16;
+    var DTAdmin = 1;
+    var EDPath = "{DT_PATH}member/editor/fckeditor/";
+    var ABPath = "{DT_PATH}member/editor/fckeditor/";
+    var EDW = "100%";var EDH = "480px";var EDD = "0";var EID = "tar_content";var FCKID = "tar_content";
+
+    window.onload = function() {
+        var sBasePath = "{DT_PATH}member/editor/fckeditor/";
+        var oFCKeditor = new FCKeditor("tar_content");
+        oFCKeditor.Width = "100%";
+        oFCKeditor.Height = "480px";
+        oFCKeditor.BasePath = sBasePath;
+        oFCKeditor.ToolbarSet = "Default";
+        oFCKeditor.ReplaceTextarea();
+    }
+</script>
+<script type="text/javascript" src="{DT_PATH}member/editor/fckeditor/fckeditor.js?v=6.0"></script>
+<script type="text/javascript" src="{DT_PATH}member/editor/fckeditor/init.api.js"></script>
+<script type="text/javascript" src="{DT_PATH}file/script/editor.js"></script>
+<script type="text/javascript">
+    function turnaroundCheck() {
+        var hasErr = false;
+        var content = FCKeditorAPI.GetInstance('tar_content').GetXHTML();
+        if (content && (content.length < 10 || content.length > 1000)) {
+            hasErr = true;
+            $("#tar_content_help").html('稿件描述需输入最少10个字符，最多1000个字符');
+        } else {
+            $("#tar_content_help").html('');
+        }
+        if (hasErr) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+</script>
+
+<!--{template footer}-->

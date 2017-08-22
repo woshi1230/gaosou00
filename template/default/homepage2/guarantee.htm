@@ -1,0 +1,110 @@
+<div class="dsn" id="pos_show">您当前的位置：<a href="{$COM[linkurl]}">首页</a> &raquo; <a href="{$MENU[$menuid][linkurl]}">{$MENU[$menuid][name]}</a>{if $itemid} &raquo; {$title}{/if}</div>
+{if $itemid}
+<!--<div class="main_head"><div ><strong>{$title}</strong></div></div>-->
+<!--<div class="main_head" style="position:absolute;margin-left:160px;margin-top: -36px;"><H4><strong>服务保障</strong></H4></div>-->
+
+<div class="main_body">
+	<div class="lh18 px13">{$content}</div>
+</div>
+{else}
+<!--<div class="main_head"><div><strong>{$MENU[$menuid][name]}</strong></div></div>-->
+<!--<div class="main_head" style="position:absolute;margin-left:160px;margin-top: -44px;"><H4><strong>服务保障</strong></H4></div>-->
+
+{if $video}
+<!--<div class="main_head"><div><strong>形象视频</strong></div></div>-->
+<div class="main_body">
+	{load('player.js')}
+	<center><script type="text/javascript">document.write(player('{$video}',480,400,'',0));</script></center>
+</div>
+{/if}
+
+<!--<div class="main_head"><div><strong>公司档案</strong></div></div>-->
+
+<div class="main_body">
+	<div class="px13 lh18" style="padding-left: 12px;">
+		<table  class=" table-hover "  width="98%" cellpadding="3" cellspacing="1" align="center">
+			<tr  >
+				<td  class="f_b" width="100px" style="text-align: right">公司名称：</td>
+				<td  style="text-align: left">{$COM[company]}</td>
+			</tr>
+			<tr>
+				<td  class="f_b"  style="text-align: right">公司类型：</td>
+				<td  style="text-align: left">{$COM[type]} ({$COM[mode]})</td>
+			</tr>
+			<tr>
+				<td class="f_b"  style="text-align: right">所在地：</td>
+				<td  style="text-align: left">{area_pos($COM[areaid], '/')}</td>
+			</tr>
+			<tr>
+				<td class="f_b"  style="text-align: right">公司规模：</td>
+				<td  style="text-align: left">{$COM[size]}</td>
+			</tr>
+			<tr>
+				<td class="f_b"  style="text-align: right">注册资本：</td>
+				<td  style="text-align: left">{if $COM[capital]}{$COM[capital]}万{$COM[regunit]}{else}未填写{/if}</td>
+			</tr>
+			<tr  style="text-align: right">
+				<td class="f_b"  style="text-align: right">注册年份：</td>
+				<td  style="text-align: left">{$COM[regyear]}</td>
+			</tr>
+		</table>
+		<table class="table-hover"  width="98%" cellpadding="3" cellspacing="1" align="center">
+			<tr>
+				<td class="f_b" width="100px" style="text-align: right">资料认证：</td>
+				<td style="text-align: left">
+					{if $COM[vcompany]}&nbsp;<img src="{$MODULE[2][linkurl]}image/v_company.gif" width="16" height="16" align="absmiddle" title="资料通过工商认证"/>{/if}
+					{if $COM[vtruename]}&nbsp;<img src="{$MODULE[2][linkurl]}image/v_truename.gif" width="16" height="16" align="absmiddle" title="资料通过实名认证"/>{/if}
+					{if $COM[vbank]}&nbsp;<img src="{$MODULE[2][linkurl]}image/v_bank.gif" width="16" height="16" align="absmiddle" title="资料通过银行帐号认证"/>{/if}
+					{if $COM[vmobile]}&nbsp;<img src="{$MODULE[2][linkurl]}image/v_mobile.gif" width="16" height="16" align="absmiddle" title="资料通过手机认证"/>{/if}
+					{if $COM[vemail]}&nbsp;<img src="{$MODULE[2][linkurl]}image/v_email.gif" width="16" height="16" align="absmiddle" title="资料通过邮件认证"/>{/if}
+					{if $COM[validated]}&nbsp;<img src="{DT_SKIN}image/check_right.gif" align="absmiddle"/> 企业资料通过{$COM[validator]}认证{/if}
+				</td>
+			</tr>
+			{if $COM[deposit]}
+			<tr style="text-align: right">
+				<td class="f_b" style="text-align: right">保证金：</td>
+				<td style="text-align: left">已缴纳 <strong class="f_green">{$COM[deposit]}</strong> {$DT[money_unit]}</td>
+			</tr>
+			{/if}
+			{if $COM[mode]}
+			<tr>
+				<td class="f_b" style="text-align: right">经营模式：</td>
+				<td style="text-align: left">{$COM[mode]}</td>
+			</tr>
+			{/if}
+			{if $COM[business]}
+			<tr>
+				<td class="f_b" style="text-align: right">经营范围：</td>
+				<td style="text-align: left">{$COM[business]}</td>
+			</tr>
+			{/if}
+			{if $COM[sell]}
+			<tr>
+				<td class="f_b" style="text-align: right">销售的产品：</td>
+				<td style="text-align: left">{$COM[sell]}</td>
+			</tr>
+			{/if}
+			{if $COM[buy]}
+			<tr>
+				<td class="f_b" style="text-align: right">采购的产品：</td>
+				<td style="text-align: left">{$COM[buy]}</td>
+			</tr>
+			{/if}
+			{if $COM[catid]}
+			<tr>
+				<td class="f_b" style="text-align: right">主营行业：</td>
+				<td style="text-align: left ;vertical-align:middle">
+					{php $catids = explode(',', substr($COM['catid'], 1, -1));}
+					<table class=" table-bordered" cellpadding="0" cellspacing="0" width="100%">
+						{loop $catids $i $c}
+						<tr><td style="padding: 0">{cat_pos(get_cat($c), ' / ', '_blank')}</td></tr>
+						{/loop}
+					</table>
+				</td>
+			</tr>
+			{/if}
+		</table>
+	</div>
+</div>
+
+{/if}

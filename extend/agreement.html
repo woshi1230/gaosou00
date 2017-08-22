@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9"/>
+<title>使用协议_GAOSOU B2B网站管理系统</title>
+<meta http-equiv="mobile-agent" content="format=html5;url=http://120.76.78.213/gaosou/mobile/about.php?itemid=4">
+<link rel="shortcut icon" type="image/x-icon" href="http://120.76.78.213/gaosou/gaosou.ico"/>
+<link rel="bookmark" type="image/x-icon" href="http://120.76.78.213/gaosou/gaosou.ico"/>
+<link rel="archives" title="GAOSOU B2B网站管理系统" href="http://120.76.78.213/gaosou/archiver/"/>
+<link rel="stylesheet" type="text/css" href="http://120.76.78.213/gaosou/skin/default/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="http://120.76.78.213/gaosou/skin/default/style.css"/>
+<!--[if lte IE 6]>
+<link rel="stylesheet" type="text/css" href="http://120.76.78.213/gaosou/skin/default/ie6.css"/>
+<![endif]-->
+<script type="text/javascript" src="http://120.76.78.213/gaosou/lang/zh-cn/lang.js"></script>
+<script type="text/javascript" src="http://120.76.78.213/gaosou/file/script/config.js"></script>
+<script type="text/javascript" src="http://120.76.78.213/gaosou/file/script/jquery.min.js"></script>
+<script type="text/javascript" src="http://120.76.78.213/gaosou/file/script/jqplugins/jquery.cxscroll.js"></script>
+<script type="text/javascript" src="http://120.76.78.213/gaosou/file/script/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://120.76.78.213/gaosou/file/script/common.js"></script>
+<script type="text/javascript" src="http://120.76.78.213/gaosou/file/script/page.js"></script>
+<script type="text/javascript">
+//GoMobile('http://120.76.78.213/gaosou/mobile/about.php?itemid=4');
+var searchid = 5;
+</script>
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-default container" role="navigation" style="width: auto;background: #F1F1F1;min-height: 32px;">
+<div class="container navbar-container" style="max-height: 32px;min-width: 1200px;">
+<!--<div class="navbar-header">-->
+<!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">-->
+<!--<span class="sr-only">Toggle navigation</span>-->
+<!--<span class="icon-bar"></span>-->
+<!--<span class="icon-bar"></span>-->
+<!--<span class="icon-bar"></span>-->
+<!--</button>-->
+<!--<div class="navbar-brand">-->
+<!--<a href="http://120.76.78.213/gaosou/"><img class="full-logo" src="http://120.76.78.213/gaosou/skin/default//image/logo.png" width="111" height="37" alt="Logo"></a>-->
+<!--</div>-->
+<!--</div>-->
+<div class="navbar-collapse collapse f_b">
+<ul class="nav navbar-nav" class="f_l" id="menu_topleft"></ul>
+<ul class="nav navbar-nav dropdown-hover" style="float: right;padding: 0;" id="menu_topright"></ul>
+</div>
+</div>
+</div>
+<div id="gaosou_qrcode" style="display:none;"></div><div class="m"><div id="search_tips" style="display:none;"></div></div>
+<div class="m">
+<div id="search_module" style="display:none;" onmouseout="Dh('search_module');" onmouseover="Ds('search_module');">
+<a href="javascript:void(0);" onclick="setModule('42','高手')">高手</a><a href="javascript:void(0);" onclick="setModule('6','任务')">任务</a><a href="javascript:void(0);" onclick="setModule('16','商城')">商城</a><a href="javascript:void(0);" onclick="setModule('5','供应')">供应</a><a href="javascript:void(0);" onclick="setModule('21','资讯')">资讯</a></div>
+</div>
+<div class="m head_s" id="gaosou_space"></div>
+<div class="m">
+<div class="logo f_l"  style="margin:10px 0 10px 0"><a href="http://120.76.78.213/gaosou/main.html"><img src="http://120.76.78.213/gaosou/skin/default/image/logo.png" alt="GAOSOU B2B网站管理系统"/></a></div>
+<form id="gaosou_search" action="http://120.76.78.213/gaosou/sell/search.php" onsubmit="return Dsearch(1);">
+<input type="hidden" name="moduleid" value="5" id="gaosou_moduleid"/>
+<input type="hidden" name="spread" value="0" id="gaosou_spread"/>
+<div class="head_search" onmouseover="this.className='head_search_on';" onmouseout="this.className='head_search';">
+<div style="position: relative;">
+<input name="kw" id="gaosou_kw" type="text" class="search_i" value="请输入关键词" onfocus="if(this.value=='请输入关键词') this.value='';" onkeyup="STip(this.value);" autocomplete="off" x-webkit-speech speech/><input type="text" id="gaosou_select" class="search_m" value="供应" readonly onfocus="this.blur();" onclick="$('#search_module').fadeIn('fast');"/><input style="position: absolute;right: 0;" type="submit" value=" 搜索" class="search_s"/>
+</div>
+</div>
+</form>
+<div class="head_search_kw f_l">
+<a href="" onclick="Dsearch_adv();return false;"><strong>热搜：</strong></a>
+<span id="gaosou_word" style="color: #939393;"></span></div>
+</div>
+<div class="m">
+<div class="menu">
+<ul><li class="menuon"><a href="http://120.76.78.213/gaosou/main.html"><span>首页</span></a></li><li><a href="http://120.76.78.213/gaosou/master/"><span>高手</span></a></li><li><a href="http://120.76.78.213/gaosou/buy/"><span>任务</span></a></li><li><a href="http://120.76.78.213/gaosou/mall/"><span>商城</span></a></li><li><a href="http://120.76.78.213/gaosou/sell/"><span>供应</span></a></li><li><a href="http://120.76.78.213/gaosou/news/"><span>资讯</span></a></li></ul>
+</div>
+</div>
+<div class="m b10">&nbsp;</div>
+<div class="m">
+<table cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td valign="top" class="left_menu">
+<ul>
+<li class="left_menu_li"><a href="http://120.76.78.213/gaosou/">网站首页</a></li>
+<li class="left_menu_li" id="webpage_1"><a href="http://120.76.78.213/gaosou/extend/index.html">关于我们</a></li>
+<li class="left_menu_li" id="webpage_3"><a href="http://120.76.78.213/gaosou/extend/contact.html">联系方式</a></li>
+<li class="left_menu_li" id="webpage_4"><a href="http://120.76.78.213/gaosou/extend/agreement.html">使用协议</a></li>
+<li class="left_menu_li" id="webpage_5"><a href="http://120.76.78.213/gaosou/extend/copyright.html">版权隐私</a></li>
+</ul>
+</td>
+<td valign="top">
+<div class="left_box">
+<div class="pos">当前位置: <a href="http://120.76.78.213/gaosou/">首页</a> » <a href="http://120.76.78.213/gaosou/extend/agreement.html">使用协议</a></div>
+<div style="margin:5px 15px 5px 15px;line-height:36px;" class="t_c px14"><strong>使用协议</strong></div>
+<div class="content" id="content">使用协议</div>
+<br/>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript">try{Dd('webpage_4').className='left_menu_on';}catch(e){}</script>
+<div class="m">
+<div class="b10">&nbsp;</div>
+<div class="foot_page">
+<a href="http://120.76.78.213/gaosou/">网站首页</a>
+| <a href="http://120.76.78.213/gaosou/extend/index.html">关于我们</a> 
+| <a href="http://120.76.78.213/gaosou/extend/contact.html">联系方式</a> 
+| <a href="http://120.76.78.213/gaosou/extend/agreement.html">使用协议</a> 
+| <a href="http://120.76.78.213/gaosou/extend/copyright.html">版权隐私</a> 
+| <a href="http://120.76.78.213/gaosou/sitemap/">网站地图</a>
+| <a href="http://120.76.78.213/gaosou/spread/">排名推广</a>
+ | <a href="http://120.76.78.213/gaosou/ad/">广告服务</a> | <a href="http://120.76.78.213/gaosou/gift/">积分换礼</a> | <a href="http://120.76.78.213/gaosou/guestbook/">网站留言</a> | <a href="http://120.76.78.213/gaosou/feed/">RSS订阅</a></div>
+</div>
+<div class="m">
+<div class="foot">
+<div id="copyright">(c)2016-2017 GAOSOU B2B SYSTEM All Rights Reserved</div>
+<!--<div id="powered"><a href="http://www.gaosou.net/" target="_blank"><img src="http://120.76.78.213/gaosou/file/image/powered.gif" width="136" height="10" alt="Powered by gaosou"/></a></div>-->
+</div>
+</div>
+<div class="back2top"><a href="javascript:void(0);" title="返回顶部">&nbsp;</a></div>
+<link rel="stylesheet" type="text/css" href="http://120.76.78.213/gaosou/skin/default/style.css"/>
+<script type="text/javascript">
+show_task('moduleid=3&html=webpage&itemid=4');
+</script>
+</body>
+</html>

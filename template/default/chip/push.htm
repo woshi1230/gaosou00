@@ -1,0 +1,43 @@
+var _gaosou_message = {$_message};
+var _gaosou_chat = {$_chat};
+var _gaosou_cart = get_cart();
+if(typeof gaosou_member == 'undefined') {
+	$('#gaosou_message em').remove();
+	$('#message em').remove();
+	if(_gaosou_message) {
+		$('#gaosou_message').append('<em>'+_gaosou_message+'</em>');
+		$('#message').append('<em>'+_gaosou_message+'</em>');
+	}
+	if(_gaosou_message > gaosou_message && {$_sound}) {
+		$('#gaosou_space').html(sound('message_{$_sound}'));
+		gaosou_message = _gaosou_message;
+	}
+	{if $DT[im_web]}
+	$('#gaosou_chat em').remove();
+	$('#chats em').remove();
+	if(_gaosou_chat) {
+		$('#gaosou_chat').append('<em>'+_gaosou_chat+'</em>');
+		$('#chats').append('<em>'+_gaosou_chat+'</em>');
+	}
+	if(_gaosou_chat > gaosou_chat) {
+		$('#gaosou_space').html(sound('chat_new'));
+		gaosou_chat = _gaosou_chat;
+	}
+	{/if}
+} else {
+	$('#gaosou_message').html(_gaosou_message ? '<strong>'+_gaosou_message+'</strong>' : 0);
+	if(_gaosou_message > gaosou_message && {$_sound}) {
+		$('#gaosou_space').html(sound('message_{$_sound}'));
+		gaosou_message = _gaosou_message;
+	}
+	{if $DT[im_web]}
+	$('#gaosou_chat').html(_gaosou_chat ? '<strong>'+_gaosou_chat+'</strong>' : 0);
+	if(_gaosou_chat > gaosou_chat) {
+		$('#gaosou_space').html(sound('chat_new'));
+		gaosou_chat = _gaosou_chat;
+	}
+	{/if}
+	{if isset($MODULE[16])}
+	$('#gaosou_cart').html(_gaosou_cart > 0 ? '<strong>'+_gaosou_cart+'</strong>' : 0);
+	{/if}
+}

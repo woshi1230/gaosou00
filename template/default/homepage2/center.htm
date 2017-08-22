@@ -1,0 +1,813 @@
+<div class="container main" style="top: 100px;left: 0;right: 0;position: absolute;width: 1190px;padding: 0;">
+    <div class="about-content">
+        <div class="m">
+            <input   hidden  id="mouse_pos" value=""/>
+            <style>
+                .left-skew
+                {
+                    transform:skewX(-5deg);
+                    -ms-transform:skewX(-5deg); /* IE 9 */
+                    -moz-transform:skewX(-5deg); /* Firefox */
+                    -webkit-transform:skewX(-5deg); /* Safari and Chrome */
+                    -o-transform:skewX(-5deg); /* Opera */
+                }
+                .right-skew
+                {
+                    transform:skewX(5deg);
+                    -ms-transform:skewX(5deg); /* IE 9 * */
+                    -moz-transform:skewX(5deg); /* Firefox */
+                    -webkit-transform:skewX(5deg); /* Safari and Chrome */
+                    -o-transform:skewX(5deg); /* Opera */
+                }
+                /*.right-skew a,*/
+                /*.right-skew tr,*/
+                /*.right-skew td*/
+                /*{*/
+                    /*transform:skewX(0deg);*/
+                    /*-ms-transform:skewX(0deg); !* IE 9 *!*/
+                    /*-moz-transform:skewX(0deg); !* Firefox *!*/
+                    /*-webkit-transform:skewX(0deg); !* Safari and Chrome *!*/
+                    /*-o-transform:skewX(0deg); !* Opera *!*/
+                /*}*/
+                .lt_title {
+                    font-size: 16px;
+                    font-weight: bold;
+                    margin: -6px 0 0 16px;
+                }
+                .slt_titled {
+                    font-size: 14px;
+                    font-weight: bold;
+                    margin: -6px 0 -17px 5px;
+                }
+                .rt_title {
+                    font-size: 16px;
+                    font-weight: bold;
+                    margin: -6px 0 0 -32px;
+                }
+                .srt_title {
+                    font-size: 14px;
+                    font-weight: bold;
+                    margin: -6px 0 0 -159px;
+                }
+                .srt_titled {
+                    font-size: 14px;
+                    font-weight: bold;
+                    margin: -6px 0 0 -159px;
+                }
+                .lb_title {
+                    font-size: 16px;
+                    font-weight: bold;
+                    margin: -6px 0 0 -68px;
+                }
+                .rb_title {
+                    font-size: 16px;
+                    font-weight: bold;
+                    margin: -6px 0 0 40px;
+                }
+                .srb_titled {
+                    font-size: 13px;
+                    font-weight: bold;
+                    margin: -2px -70px 0 40px;
+                }
+                .slb_title {
+                    font-size: 13px;
+                    font-weight: bold;
+                    margin: -2px -70px 0 40px;
+                }
+                .slb_titled {
+                    font-size: 13px;
+                    font-weight: bold;
+                    margin: -2px -70px 0 40px;
+                }
+                .l_c {
+                    text-align: left;
+                    overflow: hidden;
+                    margin-top: 15px;
+                    margin-left: 30px;
+                    width: 260px;
+                    height: 260px;
+                    font-size: 14px;
+                }
+                .l_c:hover {
+                    overflow-y: auto;
+                }
+
+                .unhover{
+                    text-align: left;
+                    overflow: hidden;
+                    margin-top: 15px;
+                    margin-left: 30px;
+                    width: 260px;
+                    height: 260px;
+                    font-size: 14px;
+                }
+                .r_c {
+                    text-align: left;
+                    overflow: hidden;
+                    margin-top: 15px;
+                    margin-left: 50px;
+                    width: 260px;
+                    height: 260px;
+                    font-size: 14px;
+                }
+                .r_c:hover {
+                    overflow-y: auto;
+                }
+                .r_c_no{
+                    text-align: left;
+                    overflow: hidden;
+                    margin-top: 15px;
+                    margin-left: 50px;
+                    width: 260px;
+                    height: 260px;
+                    font-size: 14px;
+                }
+            </style>
+            <div class="f_l uhc" style="margin-top: 40px;width: 370px;height: 320px;padding: 10px;background:url('{DT_STATIC}template/default/homepage2/img/lt.png');background-size: 370px 320px;">
+                <div class="lt_title">
+             </div>
+                <div class="left-skew l_c">
+                    <div id="lt_content">
+                    </div>
+                </div>
+            </div>
+            <div class="f_r uhc" style="margin-top: 40px;width: 370px;height: 320px;padding: 10px;background:url('{DT_STATIC}template/default/homepage2/img/rt.png');background-size: 370px 320px;">
+                <div class="rt_title"></div>
+                <div class="right-skew r_c">
+                    <div id="rt_content"></div>
+                </div>
+            </div>
+
+
+            <div class="f_l  uhc" style="margin-top: 55px; width: 207px;height: 106px;padding: 10px;background:url('{DT_STATIC}template/default/homepage2/img/slt.png');">
+                <div class="slt_titled"></div>
+                <div class="slt_title" style="display: none;"></div>
+                <div class="left-skew l_c" style="margin-top: 10px;margin-left:-10px;">
+                    <div id="slt_content" style=" height: 45px;width: 150px; margin-left: 40px;padding-left:40px;">
+                        <div class="main_bodyy" style="margin-left: 10px;">
+                            <div style="position: absolute;margin-left: -85px;"><img src="{useravatar($COM[username])}" width="80" height="80" alt="" style="border-radius: 80px;"/></div>
+                            <div><span style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;background-color: #F1F1F1;width: 40px;font-size: 14px;font-weight: bold;padding: 2px 6px;">{$COM[username]}</span></div>
+                            <div style="overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;text-align: left;padding: 2px;font-size: 13px;">{dsubstr($COM[company], 14, '')}</div>
+                            <div style="text-align: left;padding: 2px;font-size: 13px;">
+                                {if $COM[username] && $DT[im_web]}{im_web($COM[username])}&nbsp;{/if}
+                                {if $COM[qq] && $DT[im_qq]}{im_qq($COM[qq])}&nbsp;{/if}
+                                {if $COM[ali] && $DT[im_ali]}{im_ali($COM[ali])}&nbsp;{/if}
+                                {if $COM[msn] && $DT[im_msn]}{im_msn($COM[msn])}&nbsp;{/if}
+                                {if $COM[skype] && $DT[im_skype]}{im_skype($COM[skype])}&nbsp;{/if}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="f_r uhc" style="margin-top: 55px;width: 207px;height: 106px;padding: 10px;background:url('{DT_STATIC}template/default/homepage2/img/srt.png');">
+                <div class="srt_titled" style="margin-bottom: 3px;"><span style="background-color: #F1F1F1;width: 40px;font-size: 12px;padding: 2px 6px;">等级:</span></div>
+                <div class="srt_title" style="display:none ;"></div>
+                <div class="right-skew r_c" style="height: 60px;width: 185px;overflow: hidden;margin-top: 0;margin-left: -3px; ">
+                    <div id="srt_content" >
+                        <!--1111111111111111-->
+                    </div>
+                </div>
+            </div>
+
+
+<div style="position: absolute;margin-top: 120px;margin-left: 332px;">
+    <style>
+        #animintro {
+            position: absolute;
+            z-index: 1;
+            display:none;
+        }
+
+        #vlogitwheel {
+            padding: 0;
+            z-index: 20;
+        }
+
+        #ret_home a:link, #ret_home a:visited, #ret_home a:active {
+            color: grey;
+        }
+
+    </style>
+
+    <div id="animintro"></div>
+    <div id="vlogitwheel" style="">
+        <div>
+            <div style="position: absolute;width: 80px;margin-top: -458px;padding-left: 22px;z-index: 1000;">
+                <div id="ret_home" style="padding: 10px;color: grey;cursor: pointer;">
+                    <a href="{DT_PATH}">主站</a>
+                </div>
+            </div>
+            <div id="mgb" style="position: absolute;width: 100px;margin-top: -558px;margin-left: 413px;z-index: 1000;">
+                <div>
+                    <svg style="width: 120px;">
+                        <path id="mypath" d="M40 115 Q 62 74, 85 120" style="fill:none;stroke-width:0;" />
+                        <text x="-2" y="0" style="fill:grey;font-size:16px;font-weight: bold;">
+                            <textPath xlink:href="#mypath" id="menu_name"></textPath>
+                        </text>
+                    </svg>
+                </div>
+            </div>
+            <div>
+                <div class="op-left">
+                    <div id="ct_rotate" class="ct_rotate_0" style="position: absolute;margin-top: -162px;margin-left: 37px;font-size: 14px;font-weight: bold;cursor: pointer;padding: 10px 0;">旋转</div>
+                </div>
+                <div class="op-right" style="position: relative;float: right;margin-top: -197px;left: 6px;">
+                    <div id="bars">
+                        <div id="control" title="旋转角度"></div>
+                    </div>
+                </div>
+            </div>
+            <!---->
+            <!--<div style="position: relative;width: 80px;padding-top: 100px;padding-left: 30px;z-index: 1000;">-->
+                <!--<div class="ct_rotate_0" id="ct_rotate" style="display: none"></div>-->
+            <!--</div>-->
+            <!--<div style="position: relative;float: right;margin-top: -315px;z-index: 1000;">-->
+                <!--<div id="bars">-->
+                    <!--<div id="control" title="旋转角度"></div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var username = '{$username}';
+        var user_def_img = '{DT_STATIC}skin/default/image/home/taichi.jpg';
+        var banner = [];
+        var title = [];
+
+        for (var i = 0;i<10;i++){
+            banner[i]=(user_def_img);
+            title[i]=('');
+        }
+        {php $bPic = array();$bTitle = array();}
+        {loop $HOME_Pic $k $v}
+        {php $bPic = $v[thumb];$bTitle = $v[title];}
+        banner[{$k}] = ('{DT_STATIC}{$bPic}');
+        title[{$k}]=('{$bTitle}');
+        {/loop}
+
+    </script>
+
+
+
+    <!--<script type="text/javascript" src="{DT_STATIC}file/script/sco.modal.js"></script>-->
+    <script type="text/javascript" src="{DT_STATIC}file/script/raphael-min.js"></script>
+    <script type="text/javascript" src="{DT_STATIC}file/script/vlogitcontrol.js"></script>
+</div>
+
+            <div class="f_l uhc" style="position: absolute;margin-top: 400px;
+    width: 370px;height: 320px;padding: 10px;background:url('{DT_STATIC}template/default/homepage2/img/lb.png');background-size: 370px 320px;">
+                <div class="lb_title"></div>
+                <div class="right-skew l_c">
+                    <div id="lb_content"></div>
+                </div>
+            </div>
+            <div class="f_r uhc" style="position: absolute;margin-top: 400px;margin-left: 820px;
+            width: 370px;height: 320px;padding: 10px;background:url('{DT_STATIC}template/default/homepage2/img/rb.png');background-size: 370px 320px;">
+                <div class="rb_title"></div>
+                <div class="left-skew r_c">
+                    <div id="rb_content"></div>
+                </div>
+            </div>
+
+
+            <div class="f_l uhc" style="position: absolute;margin-top: 614px;margin-left: 369px;
+    width: 207px;height: 104px;padding: 10px;background:url('{DT_STATIC}template/default/homepage2/img/slb.png');background-size: 207px 104px;">
+                <div class="slb_titled" style="margin-left:-180px;">综合评分:</div>
+                <div class="slb_title" style="display: none;"></div>
+                <div id="wrap_slb_content" class="right-skew unhover" style="height: 60px;width: 200px;margin-top: 14px;margin-left: -7px;">
+                    <div id="slb_content">
+                    </div>
+                </div>
+            </div>
+            <div class="f_r uhc" style="position: absolute;margin-top: 614px;margin-left: 612px;
+            width:207px;height: 104px;padding: 10px;background:url('{DT_STATIC}template/default/homepage2/img/srb.png');background-size: 207px 104px;">
+                <div class="srb_titled" style="">联系方式:</div>
+                <div class="srb_title" style="display: none;">联系方式:</div>
+                <div class="left-skew r_c_no" style="height: 60px;width: 180px;margin-top: 14px;margin-left: -3px;padding-right: 5px;">
+                    <div id="srb_content">
+                        <div class="f_r"><span>QQ: </span>{$COM[qq]}</div>
+                        <div class="f_r"><span>联系电话: </span>{$COM[telephone]}</div>
+                        <div class="f_r"><span>在线状态: </span>{if online($COM[userid])==1}<span class="f_red">当前在线</span>{else}<span class="f_gray">当前离线</span>{/if}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="back2home" style="display: block;z-index: 10000">
+    <a href="{DT_PATH}"></a>
+</div>
+{if $_username == $homepage}
+<!--访问自己的主页显示的内容-->
+<div id="chat" style="display: none;">
+    <i class="glyphicon glyphicon-user"></i>
+    <span>我的好友</span>
+</div>
+<div id="chat-list">
+    <h2>我的好友</h2>
+    <div class="chat-search">
+        <input type="text" onkeypress="if (event.keyCode == 13) loadXMLDoc();">
+        <i class="glyphicon glyphicon-search" onclick="loadXMLDoc()"></i>
+    </div>
+    <div class="chat-tab">
+        <div class="tab-top">
+            <div class="tab-btn active">猜您认识</div>
+            <div class="tab-btn" onclick="openwindow('{DT_PATH}member/chat.php?touser={$v2[username]}')">全部好友<a style="color: #FC9B11;" class="glyphicon glyphicon-comment" >{if $_chat}{$_chat}{/if}</a></div>
+        </div>
+        <div class="tab-down">
+            <div class="tab-left show" id="myDiv">
+                {loop $know $k3 $v3}
+                <div class="tab-item">
+                    <dl>
+                        <dt><a href="{DT_PATH}com/{$v3[username]}"><img src="{DT_PATH}api/avatar/show.php?username={$v3[username]}&size=middle"></a></dt>
+                        <dd>
+                            <p>{$v3[truename]}<img src="http://120.76.78.213/gaosou/file/upload/201702/15/170351491.gif"></p>
+                            {if $v3[online]==1}
+                            <p><i class="glyphicon glyphicon-user active"></i>{$v3[address]}</p>
+                            {else}
+                            <p><i class="glyphicon glyphicon-user"></i>{$v3[address]}</p>
+                            {/if}
+                        </dd>
+                    </dl>
+                    <div class="tab-add" onClick="addFriend('{$v3[username]}')">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <a href="javescript:;">联系</a>
+                    </div>
+                </div>
+                {/loop}
+            </div>
+
+            <div class="tab-left" id="hasFriend">
+                {loop $friend $k2 $v2}
+                {if $v2[username] != $_username}
+                <div class="tab-item">
+                    <dl>
+                        <dt><a href="{DT_PATH}com/{$v2[username]}"><img src="{DT_PATH}api/avatar/show.php?username={$v2[username]}&size=middle"></a>{if $v2[new]>0}<span>{$v2[new]}</span>{/if}</dt>
+                        <dd onclick="openwindow('{DT_PATH}member/chat.php?touser={$v2[username]}')">
+                            <!--<p>{$v2[truename]}<img src="http://120.76.78.213/gaosou/file/upload/201702/15/170351491.gif"></p>-->
+                            <p title="{$v2[truename]}" style="color: #8D8D8E;">{$v2[truename]}<img src="{$v2[buyer_level]}"></p>
+                            {if $v2[online]==1}
+                            <p><i class="glyphicon glyphicon-user active"></i>{$v2[address]}</p>
+                            {else}
+                            <p><i class="glyphicon glyphicon-user"></i>{$v2[address]}</p>
+                            {/if}
+                        </dd>
+                    </dl>
+                    <div class="tab-time">
+                        <a class="del-href glyphicon glyphicon-trash tab-i" index="{$k2}" thref="{DT_PATH}/member/friend.php?action=delete&itemid={$v2[itemid]}"></a>
+                        <span class="tab-span">{$v2[lasttime]}</span>
+                    </div>
+                </div>
+                {/loop}
+                {/if}
+            </div>
+
+        </div>
+    </div>
+    <div class="chat-hide">隐藏</div>
+</div>
+
+{else}
+<div id="chat-near" style="display: none;">
+    <i class="glyphicon glyphicon-user"></i>
+    <span>最近来访的高手</span>
+</div>
+<div id="chat-near-list">
+    <h2>最近来访的高手</h2>
+    <div class="chat-tab">
+        <div class="tab-down">
+            {loop $companyInfo $k $v}
+            <div class="tab-item">
+                    <dl>
+                        <dt><a href="{DT_PATH}com/{$v[username]}"><img src="{DT_PATH}api/avatar/show.php?username={$v[username]}&size=middle"></a></dt>
+                        <dd>
+                            <p style="color: #707070;" title="{$v[truename]}">{$v[truename]}<img src="{$v[buyer_level]}"></p>
+                            {if $v[online]==1}
+                            <p style="color: #707070;"><i class="glyphicon glyphicon-user active" ></i>{$v[address]}</p>
+                            {else}
+                            <p style="color: #707070;"><i class="glyphicon glyphicon-user" style="color: #ddd"></i>{$v[address]}</p>
+                            {/if}
+                        </dd>
+                    </dl>
+                    <div class="tab-add" onclick="addFriend('{$v[username]}')">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <!--<a href="{DT_PATH}/member/friend.php?action=add&username={$v[username]}">联系</a>-->
+                        <a href="javascript:;">联系</a>
+                    </div>
+                </div>
+            {/loop}
+        </div>
+    </div>
+    <div class="chat-hide">隐藏</div>
+</div>
+{/if}
+<div class="toast">
+    <i class="glyphicon glyphicon-ok-circle"></i>
+    <p>已向对方发送邀请，请耐心等待通过</p>
+</div>
+<div class="toast2">
+    <i class="glyphicon glyphicon-exclamation-sign"></i>
+    <p>确认要删除该好友？</p>
+    <p class="p-handle">
+        <a id="frd-del" onclick="reload()" style="cursor: pointer">删除</a>
+        <a onclick="hideToast2()" style="cursor: pointer" href="javascript:;">取消</a>
+    </p>
+</div>
+
+<script style="type=text/javascript">
+    // 初始化执行'高手任务'
+//    makeRequest('homepage={$username}&file=task&template=homepage2&moduleid=42', 'task', '_getInfo_lt');
+    /* innerhtml.js
+
+     * Version: 1.9
+     * LastModified: 2006-06-04
+     * This library is free.  You can redistribute it and/or modify it.
+     *
+     */
+    var global_html_pool = [];
+    var global_script_pool = [];
+    var global_script_src_pool = [];
+    var global_lock_pool = [];
+    var innerhtml_lock = null;
+    var document_buffer = "";
+
+    function set_innerHTML(obj_id, html, time) {
+        if (innerhtml_lock == null) {
+            innerhtml_lock = obj_id;
+        }
+        else if (typeof(time) == "undefined") {
+            global_lock_pool[obj_id + "_html"] = html;
+            window.setTimeout("set_innerHTML('" + obj_id + "', global_lock_pool['" + obj_id + "_html']);", 10);
+            return;
+        }
+        else if (innerhtml_lock != obj_id) {
+            global_lock_pool[obj_id + "_html"] = html;
+            window.setTimeout("set_innerHTML('" + obj_id + "', global_lock_pool['" + obj_id + "_html'], " + time + ");", 10);
+            return;
+        }
+
+        function get_script_id() {
+            return "script_" + (new Date()).getTime().toString(36)
+                    + Math.floor(Math.random() * 100000000).toString(36);
+        }
+
+        document_buffer = "";
+
+        document.write = function (str) {
+            document_buffer += str;
+        }
+        document.writeln = function (str) {
+            document_buffer += str + "\n";
+        }
+
+        global_html_pool = [];
+
+        var scripts = [];
+        html = html.split(/<\/script>/i);
+        for (var i = 0; i < html.length; i++) {
+            global_html_pool[i] = html[i].replace(/<script[\s\S]*$/ig, "");
+            scripts[i] = {text: '', src: '' };
+            scripts[i].text = html[i].substr(global_html_pool[i].length);
+            scripts[i].src = scripts[i].text.substr(0, scripts[i].text.indexOf('>') + 1);
+            scripts[i].src = scripts[i].src.match(/src\s*=\s*(\"([^\"]*)\"|\'([^\']*)\'|([^\s]*)[\s>])/i);
+            if (scripts[i].src) {
+                if (scripts[i].src[2]) {
+                    scripts[i].src = scripts[i].src[2];
+                }
+                else if (scripts[i].src[3]) {
+                    scripts[i].src = scripts[i].src[3];
+                }
+                else if (scripts[i].src[4]) {
+                    scripts[i].src = scripts[i].src[4];
+                }
+                else {
+                    scripts[i].src = "";
+                }
+                scripts[i].text = "";
+            }
+            else {
+                scripts[i].src = "";
+                scripts[i].text = scripts[i].text.substr(scripts[i].text.indexOf('>') + 1);
+                scripts[i].text = scripts[i].text.replace(/^\s*<\!--\s*/g, "");
+            }
+        }
+
+        var s;
+        if (typeof(time) == "undefined") {
+            s = 0;
+        }
+        else {
+            s = time;
+        }
+
+        var script, add_script, remove_script;
+
+        for (var i = 0; i < scripts.length; i++) {
+            var add_html = "document_buffer += global_html_pool[" + i + "];\n";
+            add_html += "document.getElementById('" + obj_id + "').innerHTML = document_buffer;\n";
+            script = document.createElement("script");
+            if (scripts[i].src) {
+                script.src = scripts[i].src;
+                if (typeof(global_script_src_pool[script.src]) == "undefined") {
+                    global_script_src_pool[script.src] = true;
+                    s += 2000;
+                }
+                else {
+                    s += 10;
+                }
+            }
+            else {
+                script.text = scripts[i].text;
+                s += 10;
+            }
+            script.defer = true;
+            script.type =  "text/javascript";
+            script.id = get_script_id();
+            global_script_pool[script.id] = script;
+            add_script = add_html;
+            add_script += "document.getElementsByTagName('head').item(0)";
+            add_script += ".appendChild(global_script_pool['" + script.id + "']);\n";
+            window.setTimeout(add_script, s);
+            remove_script = "document.getElementsByTagName('head').item(0)";
+            remove_script += ".removeChild(document.getElementById('" + script.id + "'));\n";
+            remove_script += "delete global_script_pool['" + script.id + "'];\n";
+            window.setTimeout(remove_script, s + 10000);
+        }
+
+        var end_script = "if (document_buffer.match(/<\\/script>/i)) {\n";
+        end_script += "set_innerHTML('" + obj_id + "', document_buffer, " + s + ");\n";
+        end_script += "}\n";
+        end_script += "else {\n";
+        end_script += "document.getElementById('" + obj_id + "').innerHTML = document_buffer;\n";
+        end_script += "innerhtml_lock = null;\n";
+        end_script += "}";
+        window.setTimeout(end_script, s);
+    }
+
+    function _getInfo_lt() {
+        if(xmlHttp.readyState==4 && xmlHttp.status==200) {
+            if (xmlHttp.responseText) {
+                var txt=xmlHttp.responseText;
+                $("#lt_content")[0].innerHTML = txt;
+
+            }
+        }
+    }
+
+    function _getInfo_rt() {
+        if(xmlHttp.readyState==4 && xmlHttp.status==200) {
+            if (xmlHttp.responseText) {
+                var txt=xmlHttp.responseText;
+                $("#rt_content")[0].innerHTML = txt;
+            }
+        }
+    }
+
+    function _getInfo_lb() {
+        if(xmlHttp.readyState==4 && xmlHttp.status==200) {
+            if (xmlHttp.responseText) {
+                var txt=xmlHttp.responseText;
+                $("#lb_content")[0].innerHTML = txt;
+            }
+        }
+    }
+
+
+
+    function _getInfo_rb() {
+        if(xmlHttp.readyState==4 && xmlHttp.status==200) {
+            if (xmlHttp.responseText) {
+                var txt=xmlHttp.responseText;
+                $("#rb_content")[0].innerHTML = txt;
+            }
+        }
+    }
+
+
+//    function _getInfo_slt() {//1
+//        if(xmlHttp.readyState==4 && xmlHttp.status==200) {
+//            if (xmlHttp.responseText) {
+//                var txt=xmlHttp.responseText;
+//                $("#slt_content")[0].innerHTML = txt;
+//                menuFuncs['getInfoIntroduces']('srt');
+//            }
+//        }
+//
+//    }
+
+    function _getInfo_srt() {//2
+        if(xmlHttp.readyState==4 && xmlHttp.status==200) {
+            if (xmlHttp.responseText) {
+                var txt=xmlHttp.responseText;
+                $("#srt_content")[0].innerHTML = txt;
+                menuFuncs['getAllRating']('slb');
+            }
+        }
+    }
+
+    function _getInfo_slb() {
+        if(xmlHttp.readyState==4 && xmlHttp.status==200) {
+            if (xmlHttp.responseText) {
+                var txt=xmlHttp.responseText;
+                $("#slb_content")[0].innerHTML =txt;
+//                menuFuncs['getInfoContact']('srb');
+            }
+        }
+    }
+
+    function _getInfo_srb() {
+        if(xmlHttp.readyState==4 && xmlHttp.status==200) {
+            if (xmlHttp.responseText) {
+                var txt=xmlHttp.responseText;
+                $("#srb_content")[0].innerHTML = $(txt).find('div').html();
+            }
+        }
+    }
+
+
+    $(document).ready(function() {
+        $('.uhc #lt_content').mouseenter(function(e){
+            $("#mouse_pos").val('lt');
+            content_enter();
+        });
+
+//        $('.uhc #slt_content').mouseenter(function(e){//1
+//            $("#mouse_pos").val('slt');
+//            content_enter();
+//        });
+
+        $('.uhc #rt_content').mouseenter(function(e){
+            $("#mouse_pos").val('rt');
+            content_enter();
+        });
+
+//        $('.uhc #srt_content').mouseenter(function(e){//2
+//            $("#mouse_pos").val('srt');
+//            content_enter();
+//        });
+
+        $('.uhc #lb_content').mouseenter(function(e){
+            $("#mouse_pos").val('lb');
+            content_enter();
+        });
+
+//        $('.uhc #slb_content').mouseenter(function(e){//3
+//            $("#mouse_pos").val('slb');
+//            content_enter();
+//        });
+
+        $('.uhc #rb_content').mouseenter(function(e){
+             $("#mouse_pos").val('rb');
+            content_enter();
+        });
+
+//        $('.uhc #srb_content').mouseenter(function(e){//4
+//             $("#mouse_pos").val('srb');
+//            content_enter();
+//        });
+
+        $('.uhc').mouseleave(function(e){
+            if ($("#ct_rotate").html() == "旋转") {
+                rotateOpertor(true);
+            } else {
+                rotateOpertor(false);
+            }
+//            content_leave();
+        });
+
+        menuFuncs['getInfoContact']('lt');
+        setTimeout(function() {menuFuncs['getInfoJob']('rt');}, 1000);
+        setTimeout(function() {menuFuncs['getInfoComment']('lb');}, 1200);
+        setTimeout(function() {menuFuncs['getInfoMall']('rb');}, 1400);
+//        setTimeout(function() {menuFuncs['getInfoContacts']('slt');}, 1800);
+        setTimeout(function() {menuFuncs['getInfoIntroduces']('srt');}, 1800);
+//        setTimeout(function() {menuFuncs['getAllRating']('slb');}, 2000);
+//        setTimeout(function() {menuFuncs['getInfoContact']('srb');}, 2200);
+    });
+</script>
+
+<script>
+    function openwindow(url){
+        return window.open(url,'newindow','height=420,width=800,top=550,left=1000,toolbar=no,menubar=0,scrollbars=no,resizable=no,location=no,status=0');
+
+    }
+
+//    搜狗浏览器样式兼容处理
+    window.onload = function () {
+        if(navigator.appVersion == '5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.221 Safari/537.36 SE 2.X MetaSr 1.0'){
+            $('#ret_home').parent().css('margin-top','-462px');
+            $('#ct_rotate').css('margin-top','-166px');
+            $('#mgb').css('margin-top','-563px')
+        }
+    }
+
+
+    $("#a-im-web").on('click', function (e) {
+        openwindow($(this).attr('href'));
+        return false;
+    })
+
+//    chat show & hide
+    $('#chat').on('click', function () {
+        $('#chat-list').slideDown();
+        $(this).hide();
+    });
+    $('#chat-near').on('click', function () {
+        $('#chat-near-list').slideDown();
+        $(this).hide();
+    });
+    $('.chat-hide').on('click', function () {
+        $('#chat-list').slideUp();
+        setTimeout(function () {
+            $('#chat').fadeIn();
+        },500);
+    });
+    $('#chat-near-list').find('.chat-hide').on('click', function () {
+        $('#chat-near-list').slideUp();
+        setTimeout(function () {
+            $('#chat-near').fadeIn();
+        },500);
+    })
+
+//    tab change
+    $(".tab-btn").on('click', function () {
+        $(this).addClass('active').siblings().removeClass('active');
+        $('.tab-left').eq($(this).index()).addClass('show').siblings('.tab-left').removeClass('show');
+    })
+
+//    add friends
+
+    function addFriend(name){
+        $.ajax({type:'post',url:DTPath+"ajax.php?action=friend",data:{
+            username: name
+        }}).done(function(res){
+            console.log(res)
+            $('.toast').stop(true,true).fadeIn();
+            setTimeout(function () {
+                $('.toast').stop(true,true).fadeOut();
+            },1000);
+        })
+    }
+
+    var tHref = '';
+    $('.del-href').on('click', function (e) {
+        $('.toast2').stop().fadeIn();
+        tHref = e.target.getAttribute('thref');
+    })
+    function hideToast2(){
+        $('.toast2').stop().fadeOut();
+    }
+    $('#frd-del').on('click', function () {
+        hideToast2()
+    })
+
+    function reload(){
+        $('#frd-del').attr('href',tHref);
+        window.loaction.reload();
+    }
+
+    function loadXMLDoc()
+    {
+        $('#myDiv').html('');
+        $.ajax({type:'post',url:DTPath+"ajax.php?action=master",data:{
+            'suibian':$('.chat-search').find('input').val()
+        }}).done(function (res) {
+            var oldStr = $('#myDiv').html();
+            $('.chat-search').find('input').val('');
+            $(".tab-btn").eq(0).addClass('active').siblings().removeClass('active');
+            $('.tab-left').eq(0).addClass('show').siblings().removeClass('show');
+            var data = JSON.parse(res);
+            if(!data.code){
+                var str = '';
+                var iClass = "glyphicon glyphicon-user";
+                data.map(function(res,index){
+                    res.online == 1 ?iClass = 'glyphicon glyphicon-user active'
+                        :iClass = 'glyphicon glyphicon-user';
+                    str += `<div class="tab-item">
+                            <dl>
+                                <dt><a href="{DT_PATH}com/${res.username}"><img
+                                        src="${res.avatarpic}"></a></dt>
+                                <dd>
+                                    <p>${res.truename}<img
+                                            src="${res.buyer_level}"></p>
+                                    <p><i class="${iClass}"></i>${res.address}</p>
+                                </dd>
+                            </dl>
+                            <div class="tab-add">
+                                <i class='glyphicon glyphicon-plus'></i>
+                                <a href="{DT_PATH}/member/friend.php?action=add&username=${res.username}">联系</a>
+                            </div>
+                        </div>`;
+                });
+                $('#myDiv').html(str);
+            }else{
+                var str = `<div style="font-size: 16px;color: red;text-align: center;width: 100%;margin: 50px auto;">未搜索到相关用户</div>`
+                $('#myDiv').html(str);
+            }
+
+        })
+    }
+</script>

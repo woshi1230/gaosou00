@@ -1,0 +1,70 @@
+<style>
+	.list-item-body li {
+		display: inline;
+		float: left;
+		width: 10%;
+		text-align: left;
+		border-bottom: 1px dashed #d5d5d5;
+		padding-left: 10px;
+		line-height: 30px;
+	}
+	.list-item-body li.w5d5 {
+		width: 55%;
+		overflow: hidden;
+	}
+	.list-item-body li.w1d5 {
+		width: 15%;
+		overflow: hidden;
+	}
+</style>
+{loop $tags $k $t}
+<div class="list">
+	<table>
+		<tr align="center">
+			<td width="100"><div><a href="{userurl($t[username])}" target="_blank"><img src="{useravatar($t[username])}" width="80" height="80" alt=""/></a></div></td>
+			<td width="10"> </td>
+			<td align="left">
+				<ul>
+					<li>{if $t[vip]}<img src="{DT_SKIN}image/vip_{$t[vip]}.gif" alt="{VIP}" title="{VIP}:{$t[vip]}级" align="absmiddle"/> {/if}<a href="{userurl($t[username])}" target="_blank"><strong class="px14">{$t[company]}</strong></a>
+						{php $arrUserLeve=unserialize($t[seller_level]); }
+						{php $arrUserLeve = str_replace('file/upload/', DT_PATH.'file/upload/', $arrUserLeve);}
+						{$arrUserLeve['pic']}
+					</li>
+					<li class="f_gray">主营：{$t[business]}</li>
+					<li class="f_gray">
+						{if $t[mode]}({$t[mode]})&nbsp;&nbsp;{/if}
+						{if $t[validated]}[已核实]{else}[未核实]{/if}
+						</li>
+				</ul>
+			</td>
+			<td width="10"> </td>
+			<td width="150" class="f_gray">
+				<ul style="display: flex;min-width:150px;white-space: nowrap">
+					<li class="w2">
+						<ul class="user-atten" style="display: flex;min-width:150px;white-space: nowrap">
+							<li style="float: left;">
+								<p><span style="color: #c11930;font-size: 18px;"><sub>￥</sub>
+								<!--[{php $threeCash = $floatCashLists[$t['userid']] ? number_format($floatCashLists[$t['userid']]['threeCash'],2) : 0 }-->
+								<!--{$threeCash}]-->
+									{$t[total_sales]}
+								</span></p>
+								<p>最近3月成交</p>
+							</li>
+							<li style="float: right;padding-left: 10px;">
+								<p><span style="color: #c11930;font-size: 18px;">
+									{php $good_rate = $t['seller_total_num']>0 ? round(($t['seller_good_num']/$t['seller_total_num'])*100).'%' : '0%' }
+									{$good_rate}
+								</span></p>
+								<p>好评率</p><a style="float: right;" href="{$t[linkurl]}" target="_blank">{area_pos($t[areaid], '/')} <i class="fa fa-angle-down"></i></a>
+
+							</li>
+						</ul>
+
+					</li>
+				</ul>
+			</td>
+		</tr>
+	</table>
+</div>
+{/loop}
+{if $showpage && $pages}<div class="pages">{$pages}</div>{/if}

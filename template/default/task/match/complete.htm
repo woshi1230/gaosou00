@@ -1,0 +1,139 @@
+
+<div class="modal-body">
+		  <form role="form" action="index.php?do=taskhandle&op={$op}&taskId={$taskId}" method="post" class="form-horizontal" name="completeForm" id="completeForm">
+          	 <input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+			 <input type="hidden" name="modify" value="{$modify}">
+
+
+             <p class="text-danger mb_10"><i class="fa fa-info-circle"></i> 请仔细确认附件</label></p>
+
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="upload">附件上传：</label>
+                <div class="col-sm-8">
+                	  <!--<input type="file" name="upload" id="upload" class="file">
+					  <input type="hidden" name="file_id" id="file_id" value="{$arrBidInfo['work_file']}">-->
+					  <div id="picker">上传附件</div>
+					  <input type="hidden"  name="file_id" id="file_id" value="{$arrBidInfo['work_file']}">
+                  	  <input type="hidden"  name="filepath" id="filepath"  class="form-control" >
+					  <ul class="affix-list upload-file-list-info" id="editfileList">
+					  	{if $arrFileLists}
+						{loop $arrFileLists $k $v}
+					  	<li id="edit-{$v['file_id']}" class="affix-list-item">
+						<div class="upload-file-info">
+							<span class="webuploader-pick-file-close" data-fileid="{$v['file_id']}" data-fileurl="{$v['save_name']}" data-queued-id="edit-{$v['file_id']}"><i class="close"></i></span>
+							<span class="fname">{$v['file_name']}</span>
+							<span class="fsize">大小:<!--{eval echo kekezu::fsize($v['save_name']);}--></span>
+							<div class="clearfix"></div>
+						</div>
+						</li>
+						{/loop}
+						{/if}
+                  	  </ul>
+                  	  <ul class="affix-list upload-file-list-info" id="fileList"></ul>
+                  	  <p class="ws_break text-muted">
+			              	<small>一次最多传1个，每个文件大小上限{$basic_config['max_size']}M</small>
+			            </p>
+
+						<script type="text/javascript">
+						$(function(){
+						 	uploadify(
+								{
+					             	debug:false,
+					             	text:'上传附件',
+					             	auto:true,
+					             	file:'upload',
+					             	hide:false,
+					             	resText:'filepath',
+					             	limit:1
+				             	},
+				             	{
+					                taskId:'{$taskId}',
+									objType:'work'
+				             	},
+				             		uploadResponse
+				             	);
+						})
+							function uploadResponse(json){
+								$("#file_id").val(json.msg.fileid);
+								$("#fileList").append('<li class="affix-list-item">'+json.msg.name+'</li>');
+						}
+                        </script>
+                </div>
+
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="tarContent">完工描述：</label>
+              <div class="col-sm-8">
+                 <textarea id="tarContent" name="tarContent" rows="5" class="form-control">{$arrBidInfo['work_desc']}</textarea>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button class="kbtn btn-primary" type="submit" value="1" >确定</button>
+                <span class="text-success" id="tipsUser"></span>
+              </div>
+            </div>
+          </form>
+</div>
+<script type="text/javascript">
+$(function(){
+	$('#completeForm').scojs_valid({
+	    rules:{
+	    	tarContent: ['not_empty',{'min_length': 10},{'max_length': 1000}]
+
+	    },
+	    messages: {
+	    	tarContent: {
+				not_empty: "请输入完工描述",
+				min_length:'输入最小长度为10个字符',
+				max_length:'输入最大长度不得超过1000个字符'
+			}
+
+	    },
+	    wrapper:'.form-group'
+	    ,onSuccess: function(response, validator) {
+	    	$('.modal-header>.close').trigger('click');
+	    	var stt = setTimeout(function(){
+	    		tipsOp(response.data,response.status);
+	    		clearTimeout(stt);
+	    		if(response.url){
+	    			setTimeout(function(){window.location.href=response.url;},2000);
+	      	  	}
+	    	},1000);
+	    }
+	});
+});
+
+</script>
+
+<link rel="stylesheet" type="text/css" href="{DT_STATIC}file/script/webuploader/webuploader.css">
+		<script type="text/javascript" src="{DT_STATIC}file/script/webuploader/webuploader.js?r={RANDOM_PARA}"></script>
+		<script type="text/javascript" src="{DT_STATIC}file/script/webuploader/kwebuploader.js"></script>
+		<script type="text/javascript">
+		var uploadsize = parseInt("{$basic_config['max_size']}");
+			uploadsize =  isNaN(uploadsize)? 1 : uploadsize;
+			$(function(){
+				var uploadsize = parseInt("{$basic_config['max_size']}");
+					uploadsize =  isNaN(uploadsize)? 1 : uploadsize;
+				$("#picker").KUploader({
+					accept: {
+						extensions : '{$strExtTypes}'
+					},
+					fileNumLimit:1,
+					fileSingleSizeLimit:uploadsize*1024*1024,
+					uploadEvents: {
+						uploadComplete:function(file){
+							var url = $("#"+file.id).find('.webuploader-pick-file-close').attr('data-fileurl');
+       						$("#filepath").val(url);
+						}
+					},
+					hiddenName: 'file_id'
+				},
+				{
+					filename : 'file',
+					taskId:'{$taskId}',
+					objType:'work'
+				});
+			});
+		</script>

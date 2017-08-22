@@ -1,0 +1,35 @@
+
+
+$img = array();
+$avatars = array("__avatar1", "__avatar2", "__avatar3");
+$savePath = '';
+$success_num = 0 ;
+for ( $i = 0; $i < 3; $i++ )
+{
+	$avatar = $_FILES[$avatars[$i]];
+	if ( $avatar['error'] > 0 )
+	{
+		$msg .= $avatar['error'];
+	}
+	else
+	{
+		switch($i){
+			case 0 :
+				$savePath = "$dir/" .$_userid. ".jpg";
+				break;
+			case 1 :
+				$savePath = "$dir/" .$_userid.'x48'.".jpg";
+				break;
+			case 2 :
+				$savePath = "$dir/" .$_userid.'x20'.".jpg";
+				break;
+			default:
+				$savePath = DT_ROOT.'/file/avatar/';
+				break;
+		}
+		move_uploaded_file($avatar["tmp_name"], $savePath);
+		$success_num++;
+		$img[$i+1]= $savePath;
+	}
+}
+$s1 = getimagesize($img[1]);

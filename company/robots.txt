@@ -1,0 +1,4 @@
+# Robots For GAOSOU B2B
+User-agent: *
+Disallow: /image/
+Disallow: /skin/

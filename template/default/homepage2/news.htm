@@ -1,0 +1,38 @@
+<div class="dsn" id="pos_show">您当前的位置：<a href="{$COM[linkurl]}">首页</a> &raquo; <a href="{$MENU[$menuid][linkurl]}">{$MENU[$menuid][name]}</a>{if $itemid} &raquo; {$title}{/if}</div>
+
+<!--<div class="main_head" style="position:absolute;margin-left:160px;margin-top: -44px;"><H4><strong>江湖经历</strong></H4></div>-->
+
+<div class="main_body" style="padding: 10px;">
+ {if $itemid}
+	<div class="title">{$title}</div>
+	<div class="info">开始时间：{timetodate($addtime, 3)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="javascript:makeRequest('homepage='+username + '&file=news&template=homepage2&moduleid=42', 'news', '_getInfo_' + $('#mouse_pos').val());" target="_self">返回列表</a></div>
+	<div class="content" id="content" style="text-align: left;">{$content}</div>
+	<script type="text/javascript">
+	var content_id = 'content';
+	var img_max_width = 600;
+	</script>
+	<script type="text/javascript" src="{DT_STATIC}file/script/content.js"></script>
+{else}
+	<table class="table-hover"  cellpadding="2" cellspacing="1" width="100%" align="center">
+	<tr bgcolor="#F1F1F1">
+		<th style="text-align: center">标题</th>
+		<th style="text-align: center">日期</th>
+	</tr>
+	{if $lists}
+	{loop $lists $v}
+	<tr>
+		<td align="left"><a href="javascript:makeRequest('homepage='+username+'&file=news&template=homepage2&moduleid=42&rewrite='+'{substr(substr(strrchr($v[linkurl],'//'),'1'),0,-5)}', 'news', '_getInfo_' + $('#mouse_pos').val());" target="_self">{$v[title]}</a></td>
+		<td align="center" width="120" class="f_gray px11">{timetodate($v[addtime], 3)}</td>
+	</tr>
+	{/loop}
+	{else}
+	<td colspan="2" style="text-align: center">没有任何经历</td>
+	{/if}
+
+	</table>
+{/if}
+</div>
+<script type="text/javascript">
+try {Dd('type_{$typeid}').innerHTML = '<strong>'+Dd('name_{$typeid}').innerHTML+'</strong>';}catch (e){}
+</script>

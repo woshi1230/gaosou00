@@ -1,0 +1,28 @@
+{template 'header', $module}
+<div class="menu">
+    <table cellpadding="0" cellspacing="0">
+        <tr>
+            <td class="tab"><a href="choose.php"><span>选择头像</span></a></td>
+        </tr>
+    </table>
+</div>
+<table cellpadding="0" cellspacing="0">
+    <tr>
+        <td valign="top" style="border-right:#DDDDDD 1px solid;padding-right:5px;" width="300" align="left">
+            <div style="">
+                <p style="font-size:14px; margin-left: 10px;">当前头像</p>
+                <div style="width: 150px ;text-align: center;height: 140px;float: left;"><img src="{useravatar($_username, 'large')}&time={$DT_TIME}"  width="128" height="128" title="大头像"/><p style="width: 60px;margin-left: 45px;">128x128像素</p></div>
+                <div style="width: 50px ;text-align: center;height: 140px;float: left;"><img src="{useravatar($_username, 'middle')}&time={$DT_TIME}"  width="48"  height="48"  title="中头像"/><p>48x48像素</p></div>
+                <div style="width: 50px ;text-align: center;height: 140px;float: left;"><img src="{useravatar($_username, 'small')}&time={$DT_TIME}"   width="20"  height="20"  title="小头像" style="margin-left: -10px;" /><p>20x20像素</p></div>
+            </div>
+        <td width="670" height="450" valign="top" style="float:left;padding-left:5px;margin-left: 10px;clear: both;">
+            <p style="font-size:14px">系统头像</p>
+            <?php for($i=1;$i<16;$i++){ ?>
+            <a href="choose.php?action=copy&picId={$i}" class="" title="就选这个" >
+                <img src="{DT_PATH}file/avatar/sys/{$i}_large.jpg" class="" alt="系统头像"/>
+            </a>
+            <?php } ?>
+        </td>
+    </tr>
+</table>
+{template 'footer', $module}

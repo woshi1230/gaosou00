@@ -1,0 +1,112 @@
+{template 'header'}
+<style type="text/css">
+.tips {position:absolute;z-index:100;width:300px;background:url('image/tips_bg.gif') no-repeat 0 bottom;overflow:hidden;margin-top: 25px;}
+.tips div{background:url('image/tips_top.gif') no-repeat;line-height:22px;padding:8px 10px 8px 35px;}
+</style>
+
+<div class="m">
+	<div style="height: 410px;background-image: url('{DT_SKIN}image/login_c.jpg');">
+	<!--<div style="height: 320px;background-image: url('{DT_PATH}company/skin/orange/bg.jpg');">-->
+	<!--<div style="height: 360px;background-image: url('{DT_PATH}company/skin/blue/bg.jpg');">-->
+		<form method="post" action="{$DT[file_login]}" onsubmit="return Dcheck();">
+			<input name="forward" type="hidden" value="{$forward}"/>
+			<input name="auth" type="hidden" value="{$auth}"/>
+			<div style="float: right;padding: 60px 60px;">
+				<div style="padding: 30px;background-color: white;">
+					<div style="height: 30px;border-bottom-width: thin;border-bottom-color: gray;border-bottom-style: solid;">
+						<div style="float: left;padding: 0 10px;margin-top: -5px;"><img src="{DT_SKIN}image/login_h.png" alt="" /></div>
+						<div style="float: left;"><span style="font-size: medium;font-weight: bold;">会员登录</span></div>
+						<div style="float: right;"><a href="javascript:Go('{$DT[file_register]}?forward={urlencode($forward)}');">立即注册</a></div>
+					</div>
+					<div style="padding: 6px 0;width: 290px;">
+					<div class="f_gray" style="padding: 6px 0;">
+						您尚未登录，或者访问了一个需要登录的页面..
+					</div>
+					<div style="padding: 6px 0;height: 35px;">
+						<div class="f_l">
+							<select name="option" style="height: 23px;">
+								<option value="username">用户名</option>
+								<option value="passport">昵称</option>
+								<option value="email">Email</option>
+								<option value="mobile">手机号</option>
+								<option value="company">公司名</option>
+								<option value="userid">会员ID</option>
+							</select>
+						</div>
+						<div class="f_l m_n">&nbsp;</div>
+						<div class="f_l"><input name="username" type="text" id="username" value="{$username}" style="width:140px"/></div>
+						<!--<div class="tips" id="tusername" style="display:none;">-->
+							<!--<div>如果忘记了用户名，请在左侧选择其他登录名称<br/>例如Email、手机号、公司名等</div>-->
+						<!--</div>-->
+					</div>
+					<div style="padding: 6px 0;height: 35px;clear: both;">
+						<div class="f_l" style="width: 62px;text-align: right;">密 码：</div>
+						<div class="f_l m_n">&nbsp;</div>
+						<div class="f_l">{template 'password', 'chip'}</div>
+						<!--<div class="tips" id="tpassword" style="display:none;">-->
+							<!--<div>如果忘记了密码，请<a href="send.php" class="f_b">点击这里</a>自主找回或联系本站工作人员协助找回</div>-->
+						<!--</div>-->
+					</div>
+					{if $MOD[captcha_login]}
+					<div style="padding: 6px 0;clear: both;">
+						<div class="f_l" style="width: 62px;margin-top: 8px;text-align: right;">验证码：</div>
+						<div class="f_l m_n">&nbsp;</div>
+						<div class="f_l">{template 'captcha', 'chip'}</div>
+					</div>
+					{/if}
+					<div style="padding: 6px 0;clear: both;">
+						<div class="f_l" style="width: 72px;">&nbsp;</div>
+						<div><span title="选中后 一月内不用再次登录 网吧或公共计算机请勿选"><input type="checkbox" name="cookietime" value="1" id="cookietime"{if $MOD[login_remember]} checked{/if}/><label for="cookietime">记住我</label></span>
+							<span title="选中后 将直接进入服务中心 不返回登录前的页面"><input type="checkbox" name="goto" value="1" id="goto"{if $MOD[login_goto]} checked{/if}/><label for="goto">进入服务中心</label></span>
+						</div>
+					</div>
+					<div style="padding: 6px 0;clear: both;">
+						<div class="f_l" style="width: 72px;">&nbsp;</div>
+						<div><input type="submit" name="submit" value=" 登 录 "/>&nbsp;&nbsp;<a href="send.php">忘记了密码？</a></div>
+					</div>
+					{if $oa}
+					<div style="padding: 6px 0;clear: both;">
+						<div class="f_l" style="text-align: right;">其他登录：</div>
+						<div class="f_l m_n">&nbsp;</div>
+						<div class="f_l">
+							{loop $OAUTH $k $v}
+							{if $v[enable]}<a href="{DT_PATH}api/oauth/{$k}/connect.php" title="{$v[name]}"><img src="{DT_PATH}api/oauth/{$k}/ico.png" alt="{$v[name]}"/></a> &nbsp;{/if}
+							{/loop}
+						</div>
+					</div>
+					{/if}
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script type="text/javascript">
+if(Dd('username').value == '') {
+	Dd('username').focus();
+} else {
+	Dd('password').focus();
+}
+function Dcheck() {
+	if(Dd('username').value == '') {
+		confirm('请输入登录名称');
+		Dd('username').focus();
+		return false;
+	}
+	if(Dd('password').value == '') {
+		confirm('请输入密码');
+		Dd('password').focus();
+		return false;
+	}
+{if $MOD[captcha_login]}
+	if(!is_captcha(Dd('captcha').value)) {
+		confirm('请填写验证码');
+		Dd('captcha').focus();
+		return false;
+	}
+{/if}
+	return true;
+}
+</script>
+{template 'footer'}

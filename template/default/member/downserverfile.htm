@@ -1,0 +1,31 @@
+<div class="modal-body">
+    <div class="table-responsive">
+        <table class="table table-hover ">
+            <thead>
+            <tr>
+                <th>附件名称</th>
+                <th>操　作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {if $arrFileLists }
+            {loop $arrFileLists $k $v}
+            <tr>
+                <td><label>{$v['filename']}</label></td>
+                <td>
+                    <a href="{DT_PATH}{$v['filepath']}" target="_blank">下载</a>
+                </td>
+            </tr>
+            {/loop}
+            {else}
+            <tr>
+                <td colspan="6" class="text-center">暂无附件</td>
+            </tr>
+            {/if}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+

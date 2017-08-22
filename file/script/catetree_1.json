@@ -1,0 +1,292 @@
+{
+  "id": 0,
+  "name": "商品总类",
+  "img": "http://localhost/ywb2b_v02/file/avatar/59/30/_yonghumingtest.jpg",
+  "children": [
+    {
+      "id": 5570,
+      "name": "设计",
+      "img": "http://localhost/ywb2b_v02/file/avatar/59/30/_yonghumingtest.jpg",
+      "children": [
+        {
+          "id": 5575,
+          "name": "高端装备",
+          "img": "http://localhost/ywb2b_v02/file/avatar/59/30/_yonghumingtest.jpg"
+        },
+        {
+          "id": 5576,
+          "name": "生物医疗",
+          "img": "file\/upload\/201609\/19\/104805571.png"
+        },
+        {
+          "id": 5577,
+          "name": "军工装备",
+          "img": "file\/upload\/201609\/19\/105928611.png"
+        },
+        {
+          "id": 5578,
+          "name": "半导体封测",
+          "img": "file\/upload\/201608\/19\/171357631.png"
+        },
+        {
+          "id": 5579,
+          "name": "交通运输",
+          "img": "file\/upload\/201608\/22\/173501371.png"
+        },
+        {
+          "id": 5580,
+          "name": "软件控制",
+          "img": "file\/upload\/201608\/19\/163210621.png"
+        },
+        {
+          "id": 5581,
+          "name": "通信装备",
+          "img": "file\/upload\/201608\/22\/103956491.png"
+        },
+        {
+          "id": 5582,
+          "name": "新材料新能源",
+          "img": "file\/upload\/201608\/22\/104007311.png"
+        },
+        {
+          "id": 5583,
+          "name": "影视文化",
+          "img": "file\/upload\/201608\/24\/161002601.png"
+        },
+        {
+          "id": 5584,
+          "name": "建11筑工业",
+          "img": "http://localhost/ywb2b_v02/file/avatar/59/30/_yonghumingtest.jpg"
+        }
+      ]
+    },
+    {
+      "id": 5670,
+      "name": "设计",
+      "img": "http://localhost/ywb2b_v02/file/avatar/59/30/_yonghumingtest.jpg",
+      "children": [
+        {
+          "id": 5675,
+          "name": "高端装备",
+          "img": "http://localhost/ywb2b_v02/file/avatar/59/30/_yonghumingtest.jpg"
+        },
+        {
+          "id": 5676,
+          "name": "生物医疗",
+          "img": "file\/upload\/201609\/19\/104805571.png"
+        },
+        {
+          "id": 5677,
+          "name": "军工装备",
+          "img": "file\/upload\/201609\/19\/105928611.png"
+        },
+        {
+          "id": 5678,
+          "name": "半导体封测",
+          "img": "file\/upload\/201608\/19\/171357631.png"
+        },
+        {
+          "id": 5679,
+          "name": "交通运输",
+          "img": "file\/upload\/201608\/22\/173501371.png"
+        },
+        {
+          "id": 5680,
+          "name": "软件控制",
+          "img": "file\/upload\/201608\/19\/163210621.png"
+        },
+        {
+          "id": 5681,
+          "name": "通信装备",
+          "img": "file\/upload\/201608\/22\/103956491.png"
+        },
+        {
+          "id": 5682,
+          "name": "新材料新能源",
+          "img": "file\/upload\/201608\/22\/104007311.png"
+        },
+        {
+          "id": 5683,
+          "name": "影视文化",
+          "img": "file\/upload\/201608\/24\/161002601.png"
+        },
+        {
+          "id": 5684,
+          "name": "建22筑工业",
+          "img": "file\/upload\/201608\/22\/104033171.png"
+        }
+      ]
+    },
+    {
+      "id": 5770,
+      "name": "设计",
+      "img": "http://localhost/ywb2b_v02/file/avatar/59/30/_yonghumingtest.jpg",
+      "children": [
+        {
+          "id": 5775,
+          "name": "高端装备",
+          "img": "http://localhost/ywb2b_v02/file/avatar/59/30/_yonghumingtest.jpg"
+        },
+        {
+          "id": 5776,
+          "name": "生物医疗",
+          "img": "file\/upload\/201609\/19\/104805571.png"
+        },
+        {
+          "id": 5777,
+          "name": "军工装备",
+          "img": "file\/upload\/201609\/19\/105928611.png"
+        },
+        {
+          "id": 5778,
+          "name": "半导体封测",
+          "img": "file\/upload\/201608\/19\/171357631.png"
+        },
+        {
+          "id": 5779,
+          "name": "交通运输",
+          "img": "file\/upload\/201608\/22\/173501371.png"
+        },
+        {
+          "id": 5780,
+          "name": "软件控制",
+          "img": "file\/upload\/201608\/19\/163210621.png"
+        },
+        {
+          "id": 5581,
+          "name": "通信装备",
+          "img": "file\/upload\/201608\/22\/103956491.png"
+        },
+        {
+          "id": 5782,
+          "name": "新材料新能源",
+          "img": "file\/upload\/201608\/22\/104007311.png"
+        },
+        {
+          "id": 5783,
+          "name": "影视文化",
+          "img": "file\/upload\/201608\/24\/161002601.png"
+        },
+        {
+          "id": 5784,
+          "name": "建33筑工业",
+          "img": "file\/upload\/201608\/22\/104033171.png"
+        }
+      ]
+    },
+    {
+      "id": 5870,
+      "name": "设计",
+      "img": "http://localhost/ywb2b_v02/file/avatar/59/30/_yonghumingtest.jpg",
+      "children": [
+        {
+          "id": 5875,
+          "name": "高端装备",
+          "img": "http://localhost/ywb2b_v02/file/avatar/59/30/_yonghumingtest.jpg"
+        },
+        {
+          "id": 5876,
+          "name": "生物医疗",
+          "img": "file\/upload\/201609\/19\/104805571.png"
+        },
+        {
+          "id": 5877,
+          "name": "军工装备",
+          "img": "file\/upload\/201609\/19\/105928611.png"
+        },
+        {
+          "id": 5878,
+          "name": "半导体封测",
+          "img": "file\/upload\/201608\/19\/171357631.png"
+        },
+        {
+          "id": 5879,
+          "name": "交通运输",
+          "img": "file\/upload\/201608\/22\/173501371.png"
+        },
+        {
+          "id": 5880,
+          "name": "软件控制",
+          "img": "file\/upload\/201608\/19\/163210621.png"
+        },
+        {
+          "id": 5881,
+          "name": "通信装备",
+          "img": "file\/upload\/201608\/22\/103956491.png"
+        },
+        {
+          "id": 5882,
+          "name": "新材料新能源",
+          "img": "file\/upload\/201608\/22\/104007311.png"
+        },
+        {
+          "id": 5883,
+          "name": "影视文化",
+          "img": "file\/upload\/201608\/24\/161002601.png"
+        },
+        {
+          "id": 5884,
+          "name": "建44筑工业",
+          "img": "file\/upload\/201608\/22\/104033171.png"
+        }
+      ]
+    },
+    {
+      "id": 5970,
+      "name": "设计",
+      "img": "http://localhost/ywb2b_v02/file/avatar/59/30/_yonghumingtest.jpg",
+      "children": [
+        {
+          "id": 5975,
+          "name": "高端装备",
+          "img": "http://localhost/ywb2b_v02/file/avatar/59/30/_yonghumingtest.jpg"
+        },
+        {
+          "id": 5976,
+          "name": "生物医疗",
+          "img": "file\/upload\/201609\/19\/104805571.png"
+        },
+        {
+          "id": 5977,
+          "name": "军工装备",
+          "img": "file\/upload\/201609\/19\/105928611.png"
+        },
+        {
+          "id": 5978,
+          "name": "半导体封测",
+          "img": "file\/upload\/201608\/19\/171357631.png"
+        },
+        {
+          "id": 5979,
+          "name": "交通运输",
+          "img": "file\/upload\/201608\/22\/173501371.png"
+        },
+        {
+          "id": 5980,
+          "name": "软件控制",
+          "img": "file\/upload\/201608\/19\/163210621.png"
+        },
+        {
+          "id": 5981,
+          "name": "通信装备",
+          "img": "file\/upload\/201608\/22\/103956491.png"
+        },
+        {
+          "id": 5982,
+          "name": "新材料新能源",
+          "img": "file\/upload\/201608\/22\/104007311.png"
+        },
+        {
+          "id": 5983,
+          "name": "影视文化",
+          "img": "file\/upload\/201608\/24\/161002601.png"
+        },
+        {
+          "id": 5984,
+          "name": "建55筑工业",
+          "img": "file\/upload\/201608\/22\/104033171.png"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+<div class="form-group">
+    <label for="upload" class="col-sm-3 control-label">上传附件</label>
+    <div class="col-sm-6">
+          <div id="picker">上传附件</div>
+          <input type="hidden"  name="file_ids" id="fileid"  class="form-control" value="{$arrPubInfo['file_ids']}">
+    </div>
+    <div class="col-sm-3">
+      <p class="form-control-static">最多5个附件，每个附件不得超过{$basic_config['max_size']}M。</p>
+    </div>
+  </div>
+<!-- 上传附件 end -->
+
+<div class="form-group ">
+	<div class="col-sm-offset-3 col-sm-6">
+		<ul class="affix-list upload-file-list-info" id="fileList">
+			{if !empty($arrFileLists)} {loop $arrFileLists $v}
+			<li id="edit-{$v['file_id']}" class="affix-list-item">
+				<div class="upload-file-info">
+					<span class="webuploader-pick-file-close" data-fileid="{$v['file_id']}" data-queued-id="edit-{$v['file_id']}"><i class="close"></i></span>
+					<span class="fname">{$v['file_name']}</span>
+					<span class="fsize">大小:<!--{eval echo kekezu::fsize($v['save_name']);}--></span>
+					<div class="clearfix"></div>
+				</div>
+			</li>
+			{/loop} 
+			{/if}
+		</ul>
+	</div>
+</div>
+<!-- 附件列表 end -->
+
+<link rel="stylesheet" type="text/css" href="{DT_STATIC}file/script/webuploader/webuploader.css">
+		<script type="text/javascript" src="{DT_STATIC}file/script/webuploader/webuploader.js?r={RANDOM_PARA}"></script>
+		<script type="text/javascript" src="{DT_STATIC}file/script/webuploader/kwebuploader.js"></script>
+		<script type="text/javascript">
+		var uploadsize = parseInt("{$basic_config['max_size']}");
+			uploadsize =  isNaN(uploadsize)? 1 : uploadsize;
+			$(function(){
+				var uploadsize = parseInt("{$basic_config['max_size']}");
+					uploadsize =  isNaN(uploadsize)? 1 : uploadsize;
+				$("#picker").KUploader({
+					accept: {
+						extensions : '{$strExtTypes}'
+					},
+					fileNumLimit:5,
+					separator:'|',
+					fileSingleSizeLimit:uploadsize*1024*1024,
+				},
+				{
+					filename : 'file',
+					objType : 'task'
+				});
+			});
+		</script>

@@ -1,0 +1,53 @@
+<template>
+
+    <div class="item">
+        <image class="thumb" src="{{gaosouURL}}{{thumb}}"></image>
+        <div>
+            <text class="text-title">{{title}}</text>
+            <text class="text-price">￥{{price}}</text>
+            <text class="text-company">{{company}}</text>
+        </div>
+    </div>
+
+</template>
+
+<style>
+    .item {
+        flex-direction:row;
+        background: #FFFFFF;
+    }
+
+    .thumb {
+        width:84;
+        height:84;
+        margin-right: 20;
+    }
+
+    .text-title {
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    .text-price {
+        color: red;
+        font-size: 24px;
+    }
+
+    .text-company {
+        font-size: 24px;
+    }
+
+</style>
+
+<script>
+    require('weex-components');
+    var apis = require('../common/api');
+
+    module.exports = {
+        methods: {},
+        data: {gaosouURL: '', thumb: '', title: '', price: '', company: ''},
+        created: function () {
+            this.gaosouURL = apis.getGaosouURL();
+        }
+    }
+</script>

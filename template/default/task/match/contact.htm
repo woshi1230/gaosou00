@@ -1,0 +1,42 @@
+
+<div class="modal-body">
+		   <p class="text-info mb_10">
+			<i class="fa fa-info-circle"></i> 您可以使用以下联系方式与对方联系来确认相关工作事宜.
+		   </p>
+
+           {if $contact['mobile']}
+		    <div class="form-group">
+            <label><i class="fa fa-mobile fa-lg"></i> 手机</label>
+            <strong>
+             {if $contact['mobile']}{$contact['mobile']}{else}暂无{/if}
+            </strong>
+          </div>
+		  {/if}
+		  {if $contact['qq']}
+          <div class="form-group">
+            <label><i class="fa fa-qq"></i> Q  Q</label>
+            <strong>
+            	{if $contact['qq']}$contact['qq']{else}暂无{/if}
+            </strong>
+          </div>
+         {/if}
+		  {if $contact['msn']}
+          <div class="form-group">
+            <label><i class="fa fa-user"></i> MSN</label>
+            <strong>
+            	 {if $contact['msn']}$contact['msn']{else}暂无{/if}
+            </strong>
+          </div>
+		  {/if}
+        {if $contact['email']}
+          <div class="form-group">
+            <label><i class="fa fa-envelope"></i> 邮箱</label>
+			<strong>
+			 {if $contact['email']}$contact['email']{else}暂无{/if}
+			</strong>
+          </div>
+         {/if}
+</div>
+
+
+

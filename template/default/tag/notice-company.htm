@@ -1,0 +1,13 @@
+{loop $tags $i $t}
+<!--<div class="group-list f_l">-->
+    <!--<a target="_blank" data-toggle="popover" data-placement="top" data-html="true" data-trigger="hover" data-content="-->
+        <!--<p><strong>名称：</strong>{$t[company]}</p><p><strong>经营范围：</strong>{$t[business]}</p>"-->
+        <!--href="{userurl($t[username])}" onmouseenter="membPop(this)">-->
+        <!--<img class="group-pic" src="{useravatar($t[username])}">-->
+        <!--<p class="group-name">{dsubstr($t[company], 10, '')}</p>-->
+        <!--<p class="group-count">获取总报酬：<span style="color: #ff8a00">￥{$t[total_sales]}</span></p>-->
+
+    <!--</a>-->
+<!--</div>-->
+{$t[content]}
+{/loop}

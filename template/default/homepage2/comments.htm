@@ -1,0 +1,133 @@
+{if $could_comment && in_array($moduleid, explode(',', $EXT['comment_module']))}
+<link rel="stylesheet" type="text/css" href="{DT_SKIN}task.css"/>
+
+<!--<link rel="stylesheet" type="text/css" href="{DT_SKIN}bootstrap.min.css"/>-->
+<link rel="stylesheet" type="text/css" href="{DT_SKIN}store.css"/>
+<div id="comment_div" style="display:;">
+	<!--<div class="main_head" style="position:absolute;margin-left:160px;margin-top: -38px;"><H4><strong>交易评价</strong></H4></div>-->
+
+	<div class="main_body">
+		<div class="store_info_box">
+			<div class="user-level">
+				<div class="level-img weike" style="text-align: left;font-size: 13px;">
+					{php $arrUserLeve=unserialize($COM[seller_level]); }
+					{php $arrUserLeve = str_replace('file/upload/', DT_PATH.'file/upload/', $arrUserLeve);}
+					<div>
+						{$arrUserLeve['pic']}
+						<!--[{$arrSellerLevel['pic']}]-->
+					</div>
+				</div>
+				<div class="progress progress-striped active">
+					<div class="progress-bar"  role="progressbar" aria-valuenow="{$arrSellerLevel['value']}" aria-valuemin="0" aria-valuemax="{$arrSellerLevel['next']}" style="width: {$arrSellerLevel['rate']}%">
+						<span class="sr-only">{$arrSellerLevel['rate']}% Complete</span>
+					</div>
+				</div>
+			</div>
+
+			<ul class="user-atten" style="border:none; ">
+				<li>
+					<p><span class="user-num">{$arrSellerLevel['favorableRate']}<sub>%</sub></span></p>
+					<p>好评率</p>
+				</li>
+				<li>
+					<p><span class="user-num">{$arrSellerLevel['value']}</span></p>
+					<p>能力值</p>
+				</li>
+				<li>
+					<p><span class="user-num">{$COM['accepted_num']}</span></p>
+					<p>中标稿件数</p>
+				</li>
+				<li>
+					<p><span class="user-num">{$COM['seller_total_num']}</span></p>
+					<p>出售商品数</p>
+				</li>
+				<li>
+					<p><span class="user-num"><sub>￥</sub>{$arrFoundCount['task']}<sub>元</sub></span></p>
+					<p>获得任务款</p>
+				</li>
+				<li>
+					<p><span class="user-num"><sub>￥</sub>{$arrFoundCount['goods']}<sub>元</sub></span></p>
+					<p>获得服务款</p>
+				</li>
+			</ul>
+
+			<div class="evaluate-meta leader">
+				<!--<h2 class="evaluate-meta-title">综合评分 <span style="font-size: smaller;font-weight: normal;line-height: 1;color: #777777;">共{$items}人评分</span></h2><br/>-->
+				{loop $arrSellerMark $k $v}
+				<div class="evaluate-meta-item" style="margin-left: 18px">
+					{$v['aid_name']}
+					<span class="text-danger" style="color: #a94442;">{$v['avg']}分</span>
+					{php $gs = user_mark_class::gen_star2($v['avg']);}
+
+					{$gs}
+				</div>
+				{/loop}
+			</div>
+
+			<div class="evaluate">
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<thead>
+						<tr>
+							<th char="t_c" width="25%">评价人</th>
+							<th>评价内容</th>
+						</tr>
+						</thead>
+						<tbody>
+						{loop $arrMarkLists $k $v}
+						<tr>
+							<td>
+								<div class="evaluate-avatar">
+									<img src="{useravatar($v[by_username])}"  width="48" height="48" alt="" align="absmiddle"/>
+								</div>
+								<p class="evaluate-username">{$v['by_username']}</p>
+							</td>
+							<td style="text-align: left">
+								<p>
+									<span class="marked marked-task">{$v['model']}</span>
+									<a href="{$v['url']}">{$v['title']} </a>
+									{if $v['mark_status']==1}
+									<span class="label label-danger">好评</span>
+									<img src="{DT_SKIN}image/ico/ico_mark_1.gif" alt="好评">
+									{elseif $v['mark_status']==2}
+									<span class="label label-warning">中评</span>
+									<img src="{DT_SKIN}image/ico/ico_mark_2.gif" alt="中评">
+									{elseif $v['mark_status']==3}
+									<span class="label label-primary">差评</span>
+									<img src="{DT_SKIN}image/ico/ico_mark_3.gif" alt="差评">
+									{else}
+									<span class="label label-danger">好评</span>
+									<img src="{DT_SKIN}image/ico/ico_mark_1.gif" alt="好评">
+									{/if}
+								</p>
+
+								<p class="evaluate-time">{date('Y-m-d',$v['mark_time'])}</p>
+								<p class="evaluate-content">
+									{$v['mark_content']}
+								</p>
+								<div class="evaluate-meta">
+									<div class="evaluate-meta-item">
+										工作速度 <span class="text-danger">{$v[star][0]}分</span>
+										<span class="stars a5 s{$v[star][0]}" style="width: 120px;text-align: left;"><span class="star_selected"  ></span></span>
+									</div>
+									<div class="evaluate-meta-item">
+										工作质量 <span class="text-danger">{$v[star][1]}分</span>
+										<span class="stars a5 s{$v[star][1]}" style="width: 120px;text-align: left;"><span class="star_selected"  ></span></span>
+									</div>
+									<div class="evaluate-meta-item">
+										工作态度 <span class="text-danger">{$v[star][2]}分</span>
+										<span class="stars a5 s{$v[star][1]}" style="width: 120px;text-align: left"><span class="star_selected" style=""></span></span>
+									</div>
+								</div>
+							</td>
+						</tr>
+						{/loop}
+						</tbody>
+					</table>
+				</div><!-- table-responsive end-->
+				<!--<div class="pages" style="width: 250px; margin-left: 65px"  >{$pages}</div>-->
+			</div><!-- evaluate end -->
+		</div><!-- store_info_box end -->
+	</div>
+</div>
+{/if}

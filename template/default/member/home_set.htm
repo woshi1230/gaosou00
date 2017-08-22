@@ -1,0 +1,133 @@
+{template 'header', 'member'}
+<script type="text/javascript">c(3);</script>
+<div class="menu">
+<table cellpadding="0" cellspacing="0">
+<tr>
+<!--<td class="tab" id="Tab0"><a href="javascript:Tab(0);"><span>转盘图片设置</span></a></td>-->
+<td class="tab" id="Tab0"> </td>
+<td class="tab" id="Tab1"><a href="javascript:Tab(1);"><span>拥有绝招设置</span></a></td>
+</tr>
+</table>
+</div>
+<form method="post" action="?" id="dform">
+<input type="hidden" name="tab" id="tab" value="{$tab}"/>
+<div id="Tabs0" style="display:;">
+<!--<table cellspacing="1" cellpadding="6" class="tb">-->
+<!--<tr>-->
+<!--<td class="tl">转盘图片地址1</td>-->
+<!--<td class="tr"><input name="setting[banner1]" type="text" size="60" id="banner1" value="{$banner1}" readonly/>&nbsp;&nbsp;<span onclick="Dthumb({$moduleid},200,150, Dd('banner1').value, true, 'banner1', 'jpg');" class="jt">[上传]</span>&nbsp;&nbsp;<span onclick="_preview(DTPath+Dd('banner1').value);" class="jt">[预览]</span>&nbsp;&nbsp;<span onclick="Dd('banner1').value='';" class="jt">[删除]</span></td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td class="tl">转盘图片地址2</td>-->
+<!--<td class="tr"><input name="setting[banner2]" type="text" size="60" id="banner2" value="{$banner2}" readonly/>&nbsp;&nbsp;<span onclick="if(Dd('banner1').value==''){alert('请先上传横幅图片地址1');return false;}Dthumb({$moduleid},200,150, Dd('banner2').value, true, 'banner2');" class="jt">[上传]</span>&nbsp;&nbsp;<span onclick="_preview(DTPath+Dd('banner2').value);" class="jt">[预览]</span>&nbsp;&nbsp;<span onclick="Dd('banner2').value='';" class="jt">[删除]</span></td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td class="tl">转盘图片地址3</td>-->
+<!--<td class="tr"><input name="setting[banner3]" type="text" size="60" id="banner3" value="{$banner3}" readonly/>&nbsp;&nbsp;<span onclick="if(Dd('banner2').value==''){alert('请先上传横幅图片地址2');return false;}Dthumb({$moduleid},200,150, Dd('banner3').value, true, 'banner3');" class="jt">[上传]</span>&nbsp;&nbsp;<span onclick="_preview(DTPath+Dd('banner3').value);" class="jt">[预览]</span>&nbsp;&nbsp;<span onclick="Dd('banner3').value='';" class="jt">[删除]</span></td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td class="tl">转盘图片地址4</td>-->
+<!--<td class="tr"><input name="setting[banner4]" type="text" size="60" id="banner4" value="{$banner4}" readonly/>&nbsp;&nbsp;<span onclick="if(Dd('banner3').value==''){alert('请先上传横幅图片地址3');return false;}Dthumb({$moduleid},200,150, Dd('banner4').value, true, 'banner4');" class="jt">[上传]</span>&nbsp;&nbsp;<span onclick="_preview(DTPath+Dd('banner4').value);" class="jt">[预览]</span>&nbsp;&nbsp;<span onclick="Dd('banner4').value='';" class="jt">[删除]</span></td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td class="tl">转盘图片地址5</td>-->
+<!--<td class="tr"><input name="setting[banner5]" type="text" size="60" id="banner5" value="{$banner5}" readonly/>&nbsp;&nbsp;<span onclick="if(Dd('banner4').value==''){alert('请先上传横幅图片地址4');return false;}Dthumb({$moduleid},200,150, Dd('banner5').value, true, 'banner5');" class="jt">[上传]</span>&nbsp;&nbsp;<span onclick="_preview(DTPath+Dd('banner5').value);" class="jt">[预览]</span>&nbsp;&nbsp;<span onclick="Dd('banner5').value='';" class="jt">[删除]</span></td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td class="tl">转盘图片地址6</td>-->
+<!--<td class="tr"><input name="setting[banner6]" type="text" size="60" id="banner6" value="{$banner6}" readonly/>&nbsp;&nbsp;<span onclick="if(Dd('banner4').value==''){alert('请先上传横幅图片地址4');return false;}Dthumb({$moduleid},200,150, Dd('banner6').value, true, 'banner6');" class="jt">[上传]</span>&nbsp;&nbsp;<span onclick="_preview(DTPath+Dd('banner6').value);" class="jt">[预览]</span>&nbsp;&nbsp;<span onclick="Dd('banner6').value='';" class="jt">[删除]</span></td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td class="tl">转盘图片地址7</td>-->
+<!--<td class="tr"><input name="setting[banner7]" type="text" size="60" id="banner7" value="{$banner7}" readonly/>&nbsp;&nbsp;<span onclick="if(Dd('banner4').value==''){alert('请先上传横幅图片地址4');return false;}Dthumb({$moduleid},200,150, Dd('banner7').value, true, 'banner7');" class="jt">[上传]</span>&nbsp;&nbsp;<span onclick="_preview(DTPath+Dd('banner7').value);" class="jt">[预览]</span>&nbsp;&nbsp;<span onclick="Dd('banner7').value='';" class="jt">[删除]</span></td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td class="tl">转盘图片地址8</td>-->
+<!--<td class="tr"><input name="setting[banner8]" type="text" size="60" id="banner8" value="{$banner8}" readonly/>&nbsp;&nbsp;<span onclick="if(Dd('banner4').value==''){alert('请先上传横幅图片地址4');return false;}Dthumb({$moduleid},200,150, Dd('banner8').value, true, 'banner8');" class="jt">[上传]</span>&nbsp;&nbsp;<span onclick="_preview(DTPath+Dd('banner8').value);" class="jt">[预览]</span>&nbsp;&nbsp;<span onclick="Dd('banner8').value='';" class="jt">[删除]</span></td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td class="tl">转盘图片地址9</td>-->
+<!--<td class="tr"><input name="setting[banner9]" type="text" size="60" id="banner9" value="{$banner9}" readonly/>&nbsp;&nbsp;<span onclick="if(Dd('banner4').value==''){alert('请先上传横幅图片地址4');return false;}Dthumb({$moduleid},200,150, Dd('banner9').value, true, 'banner9');" class="jt">[上传]</span>&nbsp;&nbsp;<span onclick="_preview(DTPath+Dd('banner9').value);" class="jt">[预览]</span>&nbsp;&nbsp;<span onclick="Dd('banner9').value='';" class="jt">[删除]</span></td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td class="tl">转盘图片地址10</td>-->
+<!--<td class="tr"><input name="setting[banner10]" type="text" size="60" id="banner10" value="{$banner10}" readonly/>&nbsp;&nbsp;<span onclick="if(Dd('banner4').value==''){alert('请先上传横幅图片地址4');return false;}Dthumb({$moduleid},200,150, Dd('banner10').value, true, 'banner10');" class="jt">[上传]</span>&nbsp;&nbsp;<span onclick="_preview(DTPath+Dd('banner10').value);" class="jt">[预览]</span>&nbsp;&nbsp;<span onclick="Dd('banner10').value='';" class="jt">[删除]</span></td>-->
+<!--</tr>-->
+<!--&lt;!&ndash;</table>&ndash;&gt;-->
+</div>
+
+<!--<div id="Tabs1" style="display:none;">-->
+<div id="Tabs1" style=" ">
+<table cellspacing="1" cellpadding="6" class="tb">
+<tr>
+<td class="tl"><span type="hidden" class="f_red">*</span> 内容描述</td>
+<td class="tr f_gray"><textarea name="setting[unique_skill]" id="unique_skill" class="dsn">{$unique_skill}</textarea>
+	{deditor($moduleid, 'unique_skill', '', '400', 500)}<br/><span id="dunique_skill" class="f_red"></span>
+</td>
+</tr>
+</table>
+</div>
+
+<table cellspacing="1" cellpadding="6" class="tb">
+<tr>
+<td class="tl">&nbsp;</td>
+<td class="tr" height="30"><input type="submit" name="submit" value=" 保存设置 " class="btn_g"/>&nbsp;&nbsp;&nbsp;&nbsp;
+	<!--<input type="submit" name="submit" value=" 清空设置 " class="btn" onclick="if(confirm('确定要清空设置吗？商铺所有设置将被清空')){this.form.action='?reset=1';}else{return false;}"/>-->
+</td>
+</tr>
+</table>
+</form>
+{load('clear.js')}
+<script type="text/javascript">
+s('homepage');
+{if $tab}
+Tab({$tab});
+{else}
+m('Tab0');
+{/if}
+{if $api_stats && $MG[stats]}
+function stats_type(type) {
+	var stats_types = [{loop $api_stats $k $v}{if $k},{/if}'{$v}'{/loop}];
+	var stats_pass = 0;
+	for(var i = 0; i < stats_types.length; i++) {
+		if(type == stats_types[i]) {
+			stats_pass = 1;
+			break;
+		}
+	}
+	if(stats_pass == 0) type = stats_types[0];
+	for(var i = 0; i < stats_types.length; i++) {
+		if(type == stats_types[i]) {
+			Ds('stats_post_'+stats_types[i]);
+		} else {
+			Dh('stats_post_'+stats_types[i]);
+		}
+	}
+	$('#stats_type_s').val(type);
+}
+stats_type('{$stats_type}');
+{/if}
+{if $api_kf && $MG[kf]}
+function kf_type(type) {
+	var kf_types = [{loop $api_kf $k $v}{if $k},{/if}'{$v}'{/loop}];
+	var kf_pass = 0;
+	for(var i = 0; i < kf_types.length; i++) {
+		if(type == kf_types[i]) {
+			kf_pass = 1;
+			break;
+		}
+	}
+	if(kf_pass == 0) type = kf_types[0];
+	for(var i = 0; i < kf_types.length; i++) {
+		if(type == kf_types[i]) {
+			Ds('kf_post_'+kf_types[i]);
+		} else {
+			Dh('kf_post_'+kf_types[i]);
+		}
+		$('#kf_type_s').val(type);
+	}
+}
+kf_type('{$kf_type}');
+{/if}
+</script>
+{template 'footer', 'member'}

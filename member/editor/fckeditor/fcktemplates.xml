@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Templates imagesBasePath="common/images/">
+	<Template title="实物商品" image="shop.jpg">
+		<Description>按页依次插入固定大小的图片作为详细内容，便于下线自由设计和排版。</Description>
+		<Html>
+			<![CDATA[
+    <div>
+		<img src="http://img30.360buyimg.com/jgsq-productsoa/jfs/t3217/359/563004675/149119/d397fee3/57ba9082Na7348a73.jpg" alt="" />
+		<img src="http://img30.360buyimg.com/popWareDetail/jfs/t2038/90/2236629297/102108/7713a194/56c6e0f7Nd2f445ee.jpg" alt="" />
+		<img src="http://img30.360buyimg.com/popWareDetail/jfs/t2521/199/1413771292/53504/f25e80f5/56c6e100Nb78b8f28.jpg" alt="" />
+		<img src="http://img30.360buyimg.com/popWareDetail/jfs/t2479/22/1606707805/78245/fd020fb5/56c6e102N65b5ed12.jpg" alt="" />
+		<img src="http://img30.360buyimg.com/popWareDetail/jfs/t1876/213/2300077516/161902/95171898/56c6e106Nf076f155.jpg" alt="" />
+		<img src="http://img30.360buyimg.com/popWaterMark/jfs/t2557/175/1479915970/60866/2fdcfedb/56c6e3a2N8c291da5.jpg" alt="" /><br />
+    </div>
+			]]>
+		</Html>
+	</Template>
+	<Template title="设计任务" image="task.jpg">
+		<Description>条例式列出设计要求，奖金设置，声明等事项，下面可用附件做补充说明。</Description>
+		<Html>
+			<![CDATA[
+    <div>
+        <strong>xx设计大赛</strong><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了有效推动xx众创空间发展，营造“大众创业、万众创新”的良好社会氛围，现面向社会公开征集xx布局设计。<br><br>
+        <strong>一、征集内容</strong><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xx设计<br><br>
+        <strong>二、设计要求</strong><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xx设计须针对xx进行个性化设计，要求色彩鲜艳、大方、美观，能充分体现xx的创新创业，易于识别使用。<br><br>
+        <strong>三、设计成果提交与步骤</strong><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提交成果：<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;设计者应设计和提供高精度设计原图、压缩后的简图各一套。高精度设计原图为PSD、AI或CDR格式；简图压缩为JPG格式、300dpi以上、A4版面、RGB颜色色值标注。<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;设计者应提供创意说明（在设计图上标注）。<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;第一名深化：<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;第一名方案深化的具体深度需要与甲方沟通，完成方案深化后才能获得相应奖金。<br><br>
+        <strong>四、征集时间</strong><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2016年3月16日——2016年4月16日<br><br>
+        <strong>五、评选方式</strong><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由征集单位组织评审组对应征作品进行评选<br><br>
+        <strong>六、奖金设置</strong><br>
+        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一等奖1名：10000元<br>
+        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;优秀奖5名：1000元<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;奖励金额为税前奖金，所得税由获奖的个人或单位承担。<br><br>
+        <strong>七、声明</strong><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（一）设计方案必须为原创，此前未以任何形式、在任何领域公开发表过。<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（二）设计方案或任何用于创作参选作品素材，均不得侵犯第三方的任何著作权、商标权、专有权利或其他权利，不得触犯相关法律法规。如应征作品发生侵权纠纷，由作者承担相应法律责任。<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（三）评选出的获奖方案的著作权、所有权、使用权等均归征集单位所有(包括对方案进行再设计、注册、展示、出版及其他形式的宣传等)，征集单位对设计方案有进行修改和使用的权利。<br><br>
+        <strong>八、其他事项</strong><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（一）对于入围方案，征集单位将另行通知设计单位或个人签订一份书面协议，方案深化完善并经验收通过后予以支付费用。<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（二）此次征集活动的最终解释权归征集单位xx所有。<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（三）大赛投稿者可赴xx进行前期调研。<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（四）如需进一步咨询，请与xx有关人员联系。咨询电话：xx&nbsp;&nbsp;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（五）官方大赛交流群：xx<br><br>
+        <strong>附件：</strong><br>
+	        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;参考图片.zip&nbsp;<br>
+    </div>
+			]]>
+		</Html>
+	</Template>
+	<Template title="Strange Template" image="template2.gif">
+		<Description>A template that defines two colums, each one with a title, and some text.</Description>
+		<Html>
+			<![CDATA[
+				<table cellspacing="0" cellpadding="0" width="100%" border="0">
+					<tbody>
+						<tr>
+							<td width="50%">
+							<h3>Title 1</h3>
+							</td>
+							<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>
+							<td width="50%">
+							<h3>Title 2</h3>
+							</td>
+						</tr>
+						<tr>
+							<td>Text 1</td>
+							<td>&nbsp;</td>
+							<td>Text 2</td>
+						</tr>
+					</tbody>
+				</table>
+				More text goes here.
+			]]>
+		</Html>
+	</Template>
+	<Template title="Text and Table" image="template3.gif">
+		<Description>A title with some text and a table.</Description>
+		<Html>
+			<![CDATA[
+				<table align="left" width="80%" border="0" cellspacing="0" cellpadding="0"><tr><td>
+					<h3>Title goes here</h3>
+					<p>
+					<table style="FLOAT: right" cellspacing="0" cellpadding="0" width="150" border="1">
+						<tbody>
+							<tr>
+								<td align="center" colspan="3"><strong>Table title</strong></td>
+							</tr>
+							<tr>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+							</tr>
+						</tbody>
+					</table>
+					Type the text here</p>
+				</td></tr></table>
+			]]>
+		</Html>
+	</Template>
+</Templates>

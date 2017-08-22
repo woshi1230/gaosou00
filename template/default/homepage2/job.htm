@@ -1,0 +1,12 @@
+<div class="dsn" id="pos_show">您当前的位置：<a href="{$COM[linkurl]}">首页</a> &raquo; <a href="{$MENU[$menuid][linkurl]}">{$MENU[$menuid][name]}</a>{if $itemid} &raquo; {$title}{/if}</div>
+
+<!--<div class="main_head" style="position:absolute;margin-left:160px;margin-top: -44px;"><H4><strong>拥有绝招</strong></H4></div>-->
+<div class="main_body">
+	<div style="float: left;text-align: left;padding: 20px;">
+		{if $HOME["unique_skill"]}
+		{$HOME["unique_skill"]}
+		{else}
+		没有任何绝招
+		{/if}
+	</div>
+</div>

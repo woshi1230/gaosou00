@@ -1,0 +1,160 @@
+<!--{template header}-->
+<!--{template include}-->
+<div  class="container">
+  <div id="main">
+      <div class="buy-user-info">
+      <div class="media">
+        <div class="avatar">
+          <!--{userpic($arrTaskInfo['uid'],'middle')}-->
+        </div>
+        <div class="media-body">
+          <strong class="meida-heading"> <span class="money"><!--{eval echo  keke_glob_class::showTaskCash($arrTaskInfo['task_id']);}--></span> {$arrTaskInfo['task_title']}</strong>
+          <ul class="user-meta">
+            <li>{$arrModelInfo['model_name']}模式</li>
+            <li>
+              <i class="fa fa-money"></i> 已托管：<sub>￥</sub>{$arrTaskInfo['real_cash']}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+<div class="turnaround">
+    <h2 class="min-title">
+      我来抢标
+    </h2>
+    <div class="turnaround-body">
+<div class="alert alert-info">
+<i class="fa fa-info-circle"></i>您需要缴纳<sub>￥</sub>{$floatDeposit}诚意金才可抢标. 您的账户可用余额:<sub>￥</sub>{$user_info['money']}
+</div>
+{if $arrHanded}
+		<p class="lead text-danger text-center mt_30">
+		<i class="fa fa-ban"></i>
+		速配任务放弃和淘汰后均无法再次抢标
+		</p>
+
+{else}
+
+      {if $floatCanPay>=0}
+	  <div class="col-xs-8">
+        <form role="form" class="turnaround-form"
+		    action="index.php?do=taskhandle&op={$op}&taskId={$taskId}" method="post"
+        	id = "editQuoteForm" name = "editQuoteForm"
+        	enctype="application/x-www-form-urlencoded">
+          <input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+		  <input type="hidden" name="workId" value="{$workId}">
+		  {if !$workId}
+		    <div class="form-group">
+            <label for="exampleInputPrice1">手机</label>
+            <div class="input-group" style="width: 100%">
+              <input type="text" id="mobile"  name="mobile" value="{$user_info['mobile']}" class="form-control" placeholder="您的手机号">
+            </div>
+          </div>
+		  {/if}
+          <div class="form-group">
+            <label for="exampleInputPrice1">抢标报价</label>
+            <div class="input-group" style="width: 100%">
+              <input type="text" id="price" name="price" value="{$arrWorkDetailInfo['quote']}" class="form-control" placeholder="0.00">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputDate1">工作天数</label>
+            <div class="input-group">
+              <input type="text" id="cycle" name="cycle"  value="{$arrWorkDetailInfo['cycle']}" class="form-control" placeholder="0">
+              <span class="input-group-addon">天</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputDesc">描述</label>
+            <textarea name="tar_content" id = "tar_content" class="form-control" rows="5">{$arrWorkDetailInfo['quote_desc']}</textarea>
+            <p class="help-block">最多可以输入:1000字</p>
+          </div>
+		  
+		  {if $arrConfig['work_hidden']}
+			<div class="form-group">
+            <label for="work_hidden">是否隐藏我的稿件</label>
+			<label for="work_hidden_2"><input type="radio" name="work_hidden" id="work_hidden_2" value="1">是</label>
+            <label for="work_hidden_1"><input type="radio" checked="checked" name="work_hidden" id="work_hidden_1" value="0">否</label>
+			<span>隐藏稿件后您的报名信息只有您和雇主可见</span>
+          </div>
+		  {/if}
+		  
+		  {if !$workId}
+        <div class="message">
+	  	<ul>
+	  		<li>1.您需要缴纳<sub>￥</sub>{$floatDeposit}元诚意金才可抢标.</li>
+			<li>2.请填写您真实的联系方式以方便双方联系.</li>
+			<li>3.若您投标后主动放弃任务,网站将扣除您部分诚意金.</li>
+			<li>4.任务正常结束或被雇主淘汰后,网站将全额退还您的诚意金.</li>
+	  	</ul>
+	  </div>
+
+	     {/if}
+		 
+          <div class="text-center">
+            <a href="javascript:history.back();">返回</a>
+            <button type="submit" class="kbtn btn-default">{if !$workId}交稿{else}修改{/if}</button>
+          </div>
+        </form>
+		</div>
+		{else}
+		<p class="lead text-danger text-center mt_30">
+		<i class="fa fa-ban"></i>
+		 您的账户余额不足,无法抢标,请<a href="{$_K['siteurl']}/index.php?do=user&view=finance&op=rechargeonline" >前往充值>></a>
+		</p>
+		{/if}
+	{/if}
+
+
+    </div>
+  </div>
+    </div>
+  </div>
+
+<script type="text/javascript">
+$(function(){
+	//基本资料
+	$('#editQuoteForm').scojs_valid({
+	    rules: {
+			mobile:['not_empty','digit',{'min_length': 11},{'max_length':11}],
+			price:['not_empty','decimal',{regex: /^((\d{1,8}\.\d{1,2})|(\d{1,8}))$/}],
+			cycle:['not_empty','digit'],
+	    	tar_content: ['not_empty',{'min_length': 10},{'max_length': 1000}]
+	    },
+	    messages: {
+			mobile: {
+				not_empty: "请输入手机号码",
+				digit:'请输入有效的手机号码',
+				min_length:'请输入11位有效的手机号码',
+				max_length:'请输入11位有效的手机号码'
+			},
+			price: {
+				not_empty: "请输入您的报价",
+				decimal:'请输入您的报价',
+				regex:'你输入的预算只能从0-99999999.99元'
+
+			},
+            cycle: {
+				not_empty: "请输入工作周期",
+				decimal:'请输入有效的工作周期'
+			},
+	    	tar_content: {
+				not_empty: "请输入稿件描述",
+				min_length: "最少输入10字符",
+				max_length: "最多可以输入:1000个字）"
+			}
+	    },
+	    wrapper:'.form-group'
+	    ,onSuccess: function(response, validator, form) {
+	    	  tipsOp(response.data,response.status);
+	    	  if(response.url){
+					window.location.href=response.url;
+	    	  }
+	    }
+	});
+});
+
+</script>
+
+<!--{template footer}-->

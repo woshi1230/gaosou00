@@ -1,0 +1,131 @@
+<!--{template ADMIN_DIRECTORY/tpl/admin_header}-->
+<div class="box list">
+	<div class="title">
+		<h2>{$_lang['case_search']}</h2>
+	</div>
+	<div class="detail">
+		<table cellpadding="0" cellspacing="0">
+					<tbody>
+						<tr>
+							<th>修改字段</th>
+							<th>修改前</th>
+							<th>修改后</th>
+						</tr>
+						{if $editInfo['log_content_data']['title']}
+						<tr>
+							<td>标题</td>
+							<td>{$editInfo['log_content_data']['old_title']}</td>
+							<td>{$editInfo['log_content_data']['title']}</td>
+						</tr>
+						{/if}
+						
+						{if $editInfo['log_content_data']['custom']}
+						<tr>
+							<td>自定义字段</td>
+							{loop $editInfo['log_content_data']['old_custom'] $k $v}
+							<td>{$v}</td>
+							{/loop}
+							{loop $editInfo['log_content_data']['custom'] $k $v}
+							<td>{$v}</td>
+							{/loop}
+						</tr>
+						{/if}
+						
+						{if $editInfo['log_content_data']['content']}
+						<tr>
+							<td>内容</td>
+							<td width="210" style="word-break:break-all;"><!--{eval echo htmlspecialchars_decode($editInfo['log_content_data']['old_content']);}--></td>
+							<td width="210" style="word-break:break-all;"><!--{eval echo htmlspecialchars_decode($editInfo['log_content_data']['content']);}--></td>
+						</tr>
+						{/if}
+						{if $editInfo['log_content_data']['indus_pid']}
+						<tr>
+							<td>所属行业</td>
+							<td>{$arrTopIndustrys[$editInfo['log_content_data']['old_indus_pid']]['indus_name']} {$arrIndustrys[$editInfo['log_content_data']['old_indus_id']]['indus_name']}</td>
+							<td>{$arrTopIndustrys[$editInfo['log_content_data']['indus_pid']]['indus_name']} {$arrIndustrys[$editInfo['log_content_data']['indus_id']]['indus_name']}</td>
+						</tr>
+						{/if}
+						{if $editInfo['log_content_data']['price']}
+						<tr>
+							<td>出售价格 </td>
+							<td>{$editInfo['log_content_data']['old_price']}</td>
+							<td>{$editInfo['log_content_data']['price']}</td>
+						</tr>
+						{/if}
+						{if $arrImageLists}
+						<tr>
+							<td>上传图片 </td>
+							<td>
+							 {if $arrOldImageLists}
+							 {loop $arrOldImageLists $v}
+								<a href="../{$v['save_name']}" target="_blank">{$v['file_name']}</a>
+							{/loop}
+							{else}
+							--
+							{/if}
+							
+							</td>
+							<td>
+							 {loop $arrImageLists $v}
+								<a href="../{$v['save_name']}" target="_blank">{$v['file_name']}</a>
+							{/loop}
+							
+							</td>
+						</tr>
+						{/if}
+						{if $arrFileLists}
+						<tr>
+							<td>上传附件 </td>
+							<td>
+						{if $arrOldFileLists}
+							 {loop $arrOldFileLists $v}
+								<a href="../{$v['save_name']}" target="_blank">{$v['file_name']}</a>
+							{/loop}
+							{else}
+							--
+							{/if}
+							</td>
+							<td>
+							 {loop $arrFileLists $v}
+								<a href="../{$v['save_name']}" target="_blank">{$v['file_name']}</a>
+							{/loop}
+							</td>
+						</tr>
+						{/if}
+						<tr>
+							<td>
+								<button class="btn" type="button" onclick="service_pass();">审核通过</button> </td>
+							<td>
+							 	<button class="btn" type="button" onclick="service_refuse();">拒绝审核</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+	</div>
+</div>
+<script type="text/javascript">
+	var tourl= "index.php?do=model&model_id=6&view=list&ac=view_info&logId={$editInfo['log_id']}&service_id={$service_id}";
+	function service_pass() {
+		d = art.dialog;
+		d.confirm("确认审核通过？", function() {
+			$.post(tourl+"&acc=spass",{},function(){
+				art.dialog.data("ispass", 1);
+
+				art.dialog.close();
+			},'json');
+		});
+		return false;
+	}
+	function service_refuse(i) {
+		d = art.dialog;
+		d.confirm("确认拒绝审核？", function() {
+			$.post(tourl+"&acc=snopass",{},function(){
+				art.dialog.data("ispass", 1);
+
+				art.dialog.close();
+			},'json');
+		});
+		return false;
+	}
+</script>
+<!--{template ADMIN_DIRECTORY/tpl/admin_footer}-->

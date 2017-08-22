@@ -1,0 +1,42 @@
+ <div class="form-group">
+            <label for="picker">附件上传</label>
+			
+			<div id="picker">上传附件</div>
+          	<input type="hidden"  name="file_ids" id="fileid"  class="form-control" value="{$arrPubInfo['file_ids']}">
+            <!--<input type="file" id=upload name="upload">
+            <input type="hidden"  name="file_ids" id="file_ids"  class="form-control" value="">-->
+			<ul class="affix-list upload-file-list-info" style="width:280px;" id="fileList"></ul>
+            <p class="help-block ws_hide">
+              	一次最多传5个，每个文件大小上限{$basic_config['max_size']}M，格式:
+              {$strExtTypes}
+            </p>
+          </div>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="{DT_STATIC}file/script/webuploader/webuploader.css">
+		<script type="text/javascript" src="{DT_STATIC}file/script/webuploader/webuploader.js?r={RANDOM_PARA}"></script>
+		<script type="text/javascript" src="{DT_STATIC}file/script/webuploader/kwebuploader.js"></script>
+		<script type="text/javascript">
+		var uploadsize = parseInt("{$basic_config['max_size']}");
+			uploadsize =  isNaN(uploadsize)? 1 : uploadsize;
+			$(function(){
+				var uploadsize = parseInt("{$basic_config['max_size']}");
+					uploadsize =  isNaN(uploadsize)? 1 : uploadsize;
+				$("#picker").KUploader({
+					accept: {
+						extensions : '{$strExtTypes}'
+					},
+					fileNumLimit:5,
+					separator:',',
+					fileSingleSizeLimit:uploadsize*1024*1024,
+					listName: 'fileList'
+				},
+				{
+					filename : 'file',
+					taskId:'{$taskId}',
+					objType:'work'
+				});
+			});
+		</script>

@@ -1,0 +1,1 @@
+<?php defined('IN_GAOSOU') or exit('Access Denied');$T['gender'] = $F['gender'] == 2 ? 2 : 1; ?>

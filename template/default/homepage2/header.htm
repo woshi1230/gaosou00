@@ -1,0 +1,25 @@
+{php $CSS = array('index');}
+{template 'top'}
+<script type="text/javascript" src="{DT_STATIC}file/script/jqplugins/knobKnob.jquery.js"></script>
+<!--<script type="text/javascript" src="{DT_STATIC}file/script/jqplugins/jquery.fullpage.js"></script>-->
+<script type="text/javascript" src="{DT_STATIC}file/script/d3.v3.min.js"></script>
+<script type="text/javascript" src="{DT_STATIC}file/script/homepage.js"></script>
+<script type="text/javascript">
+	function membPop(memb) {
+		if (typeof membPop2 !== 'undefined') membPop2(memb);
+	}
+</script>
+<!--<link rel="stylesheet" type="text/css" href="{DT_SKIN}jquery.fullpage.css"/>-->
+<link rel="stylesheet" type="text/css" href="{DT_SKIN}d3.catalog.css"/>
+
+<div id="ipad_tips" style="display:none;"></div>
+
+<div id="main">
+	<div id="landing-page">
+		<!--<a name="About"></a>-->
+		<div class="section about" style="min-height: 580px;height: 855px;">
+			<div class="logo2" style="background: #f7991d;">
+				<div class="container">
+					<div class="f_l" style="width: 1190px;height: 90px"><img src="{if $MODULE[$moduleid][ad1]}{DT_SKIN}image/ad1_{$moduleid}.gif{elseif $DT[ad1]}{DT_PATH}{$DT[ad1]}{else}{DT_SKIN}image/home/ad1.png{/if}" style="width: 100%;height: 100%"/></div>
+				</div>
+			</div>

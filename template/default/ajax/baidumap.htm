@@ -1,0 +1,110 @@
+{if $op=='setMap'}
+<input type="text" class="form-control" id="mapaddress" placeholder="请输入地址" {if $shopAddress}value="{$shopAddress}"{/if} >
+<button class="btn btn-default btn-sm" onclick="localSearch($('#mapaddress').val());">
+    搜索地区
+</button>
+<button class="btn btn-default btn-sm" onclick="javascript:$('#coordinate').val($('#lng').val()+','+$('#lat').val());$('#address').val($('#mapaddress').val());$('#span_address').html($('#mapaddress').val());$('.close').trigger('click');">
+    确认坐标
+</button>
+{else}
+<input type="hidden" class="form-control" id="coordinate" value="{$shopInfo['coordinate']}">
+{/if}
+<div id="container" style="width:800px;height:500px;">
+</div>
+<input type="hidden" name="lng" id="lng" value="{$lng}">
+<input type="hidden" name="lat" id="lat" value="{$lat}">
+<script type="text/javascript">
+// 百度地图API功能
+var map = new BMap.Map("container"); // 创建Map实例
+map.enableScrollWheelZoom(); //鼠标滑动设置地图级别
+map.addControl(new BMap.NavigationControl()); //添加平移缩放控件
+map.centerAndZoom(new BMap.Point(116.404, 39.915), 15);
+
+$(function(){
+	var address='';
+	if($("#province")){
+		if($("#province").find("option:selected").text()){
+		address+=$("#province").find("option:selected").text();
+		}
+	}
+	if($("#city")){
+		if($("#city").find("option:selected").text()){
+		address+=','+$("#city").find("option:selected").text();
+		}
+	}
+	if($("#area")){
+		if($("#area").find("option:selected").text()){
+		address+=','+$("#area").find("option:selected").text();
+		}
+	}
+	if($("#address")){
+		$('#mapaddress').val($("#address").val())
+	}
+	{if $op=='setMap'}
+	if($('#mapaddress').val()){
+		localSearch(address+','+$('#mapaddress').val());
+	}
+	{/if}
+	{if $op=='showMap'}
+	if($('#coordinate').val()){
+		pointSearch();
+	}
+	{/if}
+});
+
+{if $op=='setMap'}
+map.addEventListener("click", function(e){
+   $('#lat').val(e.point.lat);
+   $('#lng').val(e.point.lng);
+   if($('#coordinate')){
+		$('#coordinate').val($('#lng').val()+','+$('#lat').val());
+	}
+    map.clearOverlays();
+    map.addOverlay(new BMap.Marker(e.point));
+})
+{/if}
+
+//地图搜索，传入参数为一个详细地址的字符串
+function localSearch(address){
+    var options = {
+        onSearchComplete: function(results){
+            if (local.getStatus() == BMAP_STATUS_SUCCESS) { // 判断状态是否正确  		
+                map.clearOverlays();
+                marker = new BMap.Marker(results.getPoi(0).point);
+                map.addOverlay(marker); //添加标注 	
+                //map.centerAndZoom(results.getPoi(0).point,15);   
+                map.panTo(results.getPoi(0).point)
+                $("#lat").val(results.getPoi(0).point.lat);
+                $("#lng").val(results.getPoi(0).point.lng);
+				if($('#coordinate')){
+					$('#coordinate').val($('#lng').val()+','+$('#lat').val());
+				}
+            }
+        },renderOptions: {map: map, panel: "r-result"}
+    };
+    var local = new BMap.LocalSearch(map, options);
+    local.search(address);
+}
+
+//地图坐标显示
+function pointSearch(){
+	map.clearOverlays(); 
+	var point2 = new BMap.Point($('#lng').val(),$('#lat').val());
+	var marker2 = new BMap.Marker(point2);  // 创建标注
+	map.addOverlay(marker2);              // 将标注添加到地图中
+	map.panTo(point2);   
+	var opts = {
+	  width : 200,     // 信息窗口宽度
+	  height: 100,     // 信息窗口高度
+	  title : "店铺地址" , // 信息窗口标题
+	  enableMessage:false,//设置允许信息窗发送短息
+	  message:""
+	}
+	var infoWindow = new BMap.InfoWindow("省份：{$province}<br>城市：{$city} <br> 地址：{$shopInfo['address']}", opts);  // 创建信息窗口对象
+	map.openInfoWindow(infoWindow,point2); //开启信息窗口 
+	//marker2.addEventListener("click", function(){          
+	//	map.openInfoWindow(infoWindow,point2); //开启信息窗口
+	//});
+}
+
+</script>

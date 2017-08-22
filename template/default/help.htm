@@ -1,0 +1,171 @@
+<!--{template header}-->
+<!--{template include}-->
+<style>
+    h1, h2, h3, h4, h5, h6, p {
+        padding: 5px;
+    }
+    p {
+        font-size: 14px;
+    }
+</style>
+<div  class="container">
+    <div class="helper">
+        <div class="nav-action">
+
+            <div class="nav-header">
+                <h2 class="min-title">帮助解答</h2>
+            </div>
+
+            <dl class="nav-list">
+                {loop $arrSidesPrimary $k $v}
+                <dt class="nav-list-title"><i class="fa fa-plus-square"></i> {$v['catname']}</dt>
+                <dd class="nav-list-body">
+                    {loop $arrSecondary $k2 $v2}
+                    {if $v2['parentid'] == $v['catid']}
+                    <a href="index.php?do=help&id={$v2['catid']}" {if $id ==$v2['catid']}class="selected"{/if}>{$v2['catname']}</a>
+                    {/if}
+                    {/loop}
+                </dd>
+                {/loop}
+            </dl>
+        </div>
+        <!-- nav-action end -->
+
+        <div class="content-panel">
+            <div class="helper-search">
+                <form class="form-horizontal" role="form" method="post" action="index.php?do=help">
+                    <div class="form-group">
+                        <div class="col-xs-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                <input type="text" class="form-control" id="word" name="word" placeholder="请输入您想搜索的帮助主题关键字" value="{$Keyword}">
+                            </div>
+                        </div>
+                        <div class="col-xs-2"><button type="submit" class="kbtn btn-default btn-block">搜索</button></div>
+                    </div>
+                </form>
+
+                <div class="header-keywords">
+                    热门搜索：
+                    {loop $arrHotSearch $v}
+                    <a class="marked marked-tags" href="index.php?do=help&word={$v}">{$v}</a>
+                    {/loop}
+                </div>
+
+            </div><!-- helper-search end -->
+
+            {if !$id&&!$word}
+            <div class="helper-fresh">
+                <h2 class="min-title">高手网站介绍</h2>
+                <div>
+                    <p>高手网是一家专业且能全面提供技能和服务的众包平台。技能和服务交易的内容包括：研发设计、制造加工、服务咨询、投资管理、市场营销等，高手网有数十万服务商正在出售各种技能和服务，为企业、公共机构和个人提供定制化的解决方案，将智慧、创新的技术以及服务转化为商业价值和社会价值。</p>
+                </div>
+
+                <div class="line"></div>
+
+                <h2 class="min-title">雇主入门流程</h2>
+
+                <div style="text-align: center;"><img src="{DT_SKIN}image/master_process.jpg" /></div>
+
+                <div class="line"></div>
+
+                <h2 class="min-title">高手入门流程</h2>
+
+                <div style="text-align: center;"><img src="{DT_SKIN}image/witkey_process.jpg" /></div>
+            </div>
+
+            <!-- fresh end -->
+
+
+            <div class="row" style="margin-left: -5px;margin-right: -5px;">
+
+                <div class="col-xs-6 helper-box">
+                    <h2 class="min-title">最常用帮助</h2>
+                    <ul class="min-list">
+                        {loop $arrCommonHelp $k $v}
+                        <li><a href="index.php?do=help&id={$v['catid']}&anchor={$v['itemid']}#collapse_{$v['itemid']}">{$v['title']}</a></li>
+                        {/loop}
+                    </ul>
+                </div><!-- helper-box end -->
+
+                <div class="col-xs-6 helper-box">
+                    <h2 class="min-title">最新帮助</h2>
+                    <ul class="min-list">
+                        {loop $arrLastsHelp $k $v}
+                        <li><a href="index.php?do=help&id={$v['catid']}&anchor={$v['itemid']}#collapse_{$v['itemid']}">{$v['title']}</a></li>
+                        {/loop}
+                    </ul>
+                </div><!-- helper-box end -->
+            </div>
+
+            {else}
+
+
+            {if $arrLists}
+                {loop $arrLists $v}
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#{$v['itemid']}" aria-expanded="true">
+                                    {$v['title']}
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="{$v['itemid']}" class="panel-collapse collapse in" role="tabpanel">
+                            <div class="panel-body">
+                                <!--{eval echo stripslashes(htmlspecialchars_decode($v['content']))}-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {/loop}
+            {else}
+            该分类下暂无内容
+            {/if}
+            <div class="list-page">
+
+                {if $strPages['page']}
+                <ul class="pagination pagination-sm pull-right">
+                    {$strPages['page']}
+                </ul>
+                {/if}
+            </div>
+            {/if}
+
+        </div><!-- content-panel end-->
+
+    </div>
+    <!-- helper end -->
+
+
+
+
+</div>
+<script type="text/javascript">
+    $(function(){
+
+        $(".nav-list dd").each(function(){
+            if($(this).children('a').hasClass('selected')){
+                $(this).prev().children('i').removeClass('fa-plus-square').addClass('fa-minus-square');
+                $(this).slideDown();
+            }
+        });
+        //左边菜单目录
+        $('.nav-list dt').click(function() {
+            var inner_menu = $(this).next('dd'),
+                    title_icon = $(this).children('i'),
+                    op_class = 'fa-minus-square',
+                    cl_class = 'fa-plus-square';
+            if(inner_menu.is(':visible')){
+                title_icon.removeClass(op_class).addClass(cl_class);
+                inner_menu.slideUp();
+            }else{
+                title_icon.removeClass(cl_class).addClass(op_class);
+                inner_menu.slideDown();
+            }
+        });
+    })
+
+</script>
+<!--{template footer}-->

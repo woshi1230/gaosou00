@@ -1,0 +1,26 @@
+<div class="dsn" id="pos_show">您当前的位置：<a href="{$COM[linkurl]}">首页</a> &raquo; <a href="{$MENU[$menuid][linkurl]}">{$MENU[$menuid][name]}</a></div>
+
+<!--<div class="main_head"><div><strong>{$MENU[$menuid][name]}</strong></div></div>-->
+<!--<div class="main_head" style="position:absolute;margin-left:160px;margin-top: -44px;"><H4><strong>雇2用联系</strong></H4></div>-->
+
+<div class="main_bodyy" style="margin-top: -7px;">
+	<!--<div class="px13 lh18">-->
+	<table>
+	<tr>
+	<td style="text-align: left;margin-top: 2px;padding: 2px;" ><p style=" font-size: 13px;background-color: #F1F1F1;font-weight: bold;margin-top: 2px; width: 100px; "> {$COM[username]}</p></td>
+	</tr>
+		<tr>
+		<td>
+			<img src="{$COM[hits]}" width="12" height="12"/>
+		</td>
+
+		</tr>
+		<tr>
+			<td  style="text-align: left;padding: 2px;font-size: 13px;">{$COM[address]}</td>
+		</tr>
+	<tr>
+	<td  style="text-align: left;padding: 2px;font-size: 13px;">{area_pos($COM[areaid], '/')}</td>
+	</tr>
+	</table>
+	<!--</div>-->
+</div>

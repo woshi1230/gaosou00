@@ -1,0 +1,380 @@
+{template 'header', $module}
+<script type="text/javascript">c(2);var errimg = '{DT_SKIN}image/nopic60.gif';</script>
+<div class="menu">
+	<table cellpadding="0" cellspacing="0">
+		<tr>
+			<td class="tab" id="action"><a href="?action=index"><span>我承接的任务(我是高手)</span></a></td>
+			<td class="tab" id="action_order"><a href="?action=order"><span>我发布的任务(我是雇主)</span></a></td>
+			<td class="tab" id="action_waitpay"><a href="?action=waitpay"><span>待付款(雇主)</span></a></td>
+			<td class="tab" id="action_waitjudge"><a href="?action=waitjudge"><span>交易评价</span></a></td>
+			<td class="tab" id="action_waitselect"><a href="?action=waitselect"><span>待选稿</span></a></td>
+			{if $DT[trade]}
+			<td class="tab" id="action_bind"><a href="?action=bind"><span>绑定{$DT[trade_nm]}帐号</span></a></td>
+			{/if}
+		</tr>
+	</table></div>
+{if $action == 'bind'}
+{if $member[vtrade]}
+<table cellpadding="10" cellspacing="1" class="tb">
+	<tr>
+		<td class="tl">{$DT[trade_nm]}帐号</td>
+		<td class="tr"><strong>{$member[trade]}</strong></td>
+	</tr>
+	<tr>
+		<td class="tl">绑定状态</td>
+		<td class="tr f_green">已验证</td>
+	</tr>
+	<tr>
+		<td class="tl">{$DT[trade_nm]}</td>
+		<td class="tr"><a href="{$DT[trade_hm]}" target="_blank" class="l">交易管理</a></td>
+	</tr>
+</table>
+{else}
+<form method="post" action="?">
+	<input type="hidden" name="action" value="{$action}"/>
+	<table cellpadding="10" cellspacing="1" class="tb">
+		<tr>
+			<td class="tl">{$DT[trade_nm]}网站</td>
+			<td class="tr">
+				还没有 <img src="{DT_PATH}api/trade/{$DT[trade]}/logo.gif" alt="{$DT[trade_nm]}" align="absmiddle"/> 会员帐号？ <a href="{$DT[trade_hm]}" target="_blank" class="l">点击了解和注册</a>
+			</td>
+		</tr>
+		<tr>
+			<td class="tl">{$DT[trade_nm]}帐号</td>
+			<td class="tr"><input type="text" size="30" name="trade" id="trade" value="{$member[trade]}"/> <input type="submit" name="submit" value="{if $member[trade]}更 新{else}绑 定{/if}" class="btn_g"/></td>
+		</tr>
+		<tr>
+			<td class="tl">绑定状态</td>
+			<td class="tr f_red">未验证</td>
+		</tr>
+		<tr>
+			<td class="tl">验证方法</td>
+			<td class="tr f_gray">通过{$DT[trade_nm]}成功交易后系统自动验证</td>
+		</tr>
+		<tr>
+			<td class="tl">绑定说明</td>
+			<td class="tr f_gray">卖家必须绑定{$DT[trade_nm]}帐号用于收款，买家无须绑定</td>
+		</tr>
+	</table>
+</form>
+{/if}
+<script type="text/javascript">s('trade');m('action_bind');</script>
+{elseif $action == 'order'}
+<div class="tt">
+	<div class="nav">
+		<table cellpadding="0" cellspacing="0">
+			<tr>
+				<td class="{if !in_array($nav, array(0,1,2,3,4,5,6))}nav_2{else}nav_1{/if}"><a href="?action={$action}&moudleId=0">全部订单</a></td>
+				<td class="{if $nav==0}nav_2{else}nav_1{/if}"><a href="?action={$action}&nav=0&moudleId=1">单人悬赏<span>({php echo $db->count($table, "username='$_username' AND model_id = '1'");})</span></a></td>
+				<td class="{if $nav==1}nav_2{else}nav_1{/if}"><a href="?action={$action}&nav=1&moudleId=2">多人悬赏<span>({php echo $db->count($table, "username='$_username' AND model_id = '2'");})</span></a></td>
+				<td class="{if $nav==2}nav_2{else}nav_1{/if}"><a href="?action={$action}&nav=2&moudleId=3">计件悬赏 <span>({php echo $db->count($table, "username='$_username' AND model_id = '3'");})</span></a></td>
+				<td class="{if $nav==3}nav_2{else}nav_1{/if}"><a href="?action={$action}&nav=3&moudleId=4">普通招标 <span>({php echo $db->count($table, "username='$_username' AND model_id = '4'");})</span></a></td>
+				<td class="{if $nav==4}nav_2{else}nav_1{/if}"><a href="?action={$action}&nav=4&moudleId=5">定金招标 <span>({php echo $db->count($table, "username='$_username' AND model_id = '5'");})</span></a></td>
+				<td class="{if $nav==5}nav_2{else}nav_1{/if}"><a href="?action={$action}&nav=5&moudleId=6">速配任务 <span>({php echo $db->count($table, "username='$_username' AND model_id = '6'");})</span></a></td>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
+	</div>
+	<div class="bd">
+		<table cellpadding="6" cellspacing="0" class="tb">
+			<tr bgcolor="#F2F2F2" align="center">
+				<td width="60">编号</td>
+				<td height="22" width = "160">标题</td>
+
+				<td width="120">金额（元）</td>
+				<td width="100">发布时间</td>
+				<td width="100">雇主</td>
+				<td width="120">状态</td>
+				<td width="100">操作</td>
+			</tr>
+		</table>
+		{loop $lists $k $v}
+		<table cellpadding="6" cellspacing="0" class="tb">
+			<tr align="center">
+				<td width="60">
+					{$v[task_id]}
+				</td>
+				<td align="center"  width = "160" valign=" " class="f_gray lh18"><a href="{DT_PATH}index.php?do=task&id={$v[task_id]}" target="_blank" class="t">{$v[task_title]}</a><br/>{$v[par]}</td>
+
+				<td width="120">{$DT[money_sign]}{$v[task_cash]}</td>
+				<td width="100">{$v[start_time]}</td>
+				<td width="100"><div style="margin-bottom:5px;">
+					<a href="{userurl($v[buyer], 'file=contact')}" target="_blank">{$v[usernameB]}</a>
+				</div>
+				</td>
+				<td width="120">
+					{php $end_time = $arrTaskTimeDesc[$v[task_status]]['time'];}
+					{php if($v['task_status'] !=2&&$v['task_status'] !=3 ) {$v[end_time] = '';}  $taskstatus = keke_search_class::task_time_desc($v['task_status'],$v[end_time])}
+					{$taskstatus}
+					{if $v['task_status'] == '10'} 审核失败{elseif $v['task_status'] == '1'}待审核{elseif $v['task_status'] == '0'}未付款{/if}
+				<td width="100">
+					<a href="{DT_PATH}index.php?do=task&id={$v[task_id]}" style="margin-left: 10px;" class="t">查看</a>
+					{if ($v['task_status']==0 ||$v['task_status']==8 || $v['task_status']==9 )}
+					<a href="?task_id={$v[task_id]}&action=delrw" style="margin-left: 10px;" class="t" onclick="return confirm('确定删除吗')">删除任务</a>
+					{/if}
+
+
+					{if ($v['task_status']==3)}
+					<a href="{DT_PATH}index.php?do=taskhandle&op=delay&taskId={$v[task_id]}" style="margin-left: 10px;" class="t">延期加价</a>
+					{/if}
+					<!--DT _ PATH是加上的	，	step=step4&taskId=$arrRuselt['task_id']   $arrRuselt改为$v 暂时可用，可能与任务类型有关 目前只涉及到个人悬赏-->
+					<?php
+				if($v['task_status']==0){ ?>
+					<a href="{DT_PATH}index.php?do=pubtask&id={$arrRuselt['model_id']}&step=step4&taskId={$v['task_id']}" style="margin-left: 10px;" class="t">付款</a>
+					<?php
+				}
+				?>
+				</td>
+			</tr>
+		</table>
+		<br/>
+		{/loop}
+	</div>
+	</div>
+<div class="pages">{$pages}</div>
+	<script type="text/javascript">s('witkey');m('action_order');</script>
+
+	{elseif $action == 'waitpay'}
+	<div class="tt">
+
+		<div class="bd">
+			<table cellpadding="6" cellspacing="0" class="tb">
+				<tr bgcolor="#F2F2F2" align="center">
+					<td width="60">编号</td>
+					<td height="22" width = "160">标题</td>
+
+					<td width="120">金额（元）</td>
+					<td width="100">发布时间</td>
+					<td width="100">雇主</td>
+					<td width="120">状态</td>
+					<td width="100">操作</td>
+				</tr>
+			</table>
+			{loop $lists $k $v}
+			<table cellpadding="6" cellspacing="0" class="tb">
+				<tr align="center">
+					<td width="60">
+						{$v[task_id]}
+					</td>
+					<td align="center" width = "160" valign=" " class="f_gray lh18"><a href="{DT_PATH}index.php?do=task&id={$v[task_id]}" target="_blank" class="t">{$v[task_title]}</a><br/>{$v[par]}</td>
+
+					<td width="120">{$DT[money_sign]}{$v[task_cash]}</td>
+					<td width="100">{$v[start_time]}</td>
+					<td width="100"><div style="margin-bottom:5px;">
+						<a href="{userurl($v[buyer], 'file=contact')}" target="_blank">{$v[username]}</a>
+					</div>
+					</td>
+					<td width="120">
+						<?php
+						if($v['task_status']==0){
+							echo '未付款';
+						}else{}
+						?>
+					</td>
+					<td width="100">
+						<a href="{DT_PATH}index.php?do=task&id={$v[task_id]}" style="margin-left: 10px;" class="t">查看</a>
+						<?php
+					if($v['task_status']==0 ||$v['task_status']==8 || $v['task_status']==9 ){ ?>
+						<a href="?task_id={$v[task_id]}&action=delrw" style="margin-left: 10px;" class="t" onclick="return confirm('确定删除吗')">删除任务</a>
+						<?php
+					}
+				?>
+						<a href="{DT_PATH}index.php?do=pubtask&id={$arrRuselt['model_id']}&step=step4&taskId={$v['task_id']}" style="margin-left: 10px;" class="t">付款</a>
+					</td>
+				</tr>
+			</table>
+			<br/>
+			{/loop}
+		</div>
+		<div class="pages">{$pages}</div>
+		<script type="text/javascript">s('witkey');m('action_waitpay');</script>
+		<!--以下复制上面elseif action == waitpay并修改，为‘待选稿任务’项-->
+		{elseif $action == 'waitselect'}
+
+		<div class="bd">
+			<table cellpadding="6" cellspacing="0" class="tb">
+				<tr bgcolor="#F2F2F2" align="center">
+					<td width="60">编号</td>
+					<td height="22" width = "160">标题</td>
+					<td width="120">金额（元）</td>
+					<td width="100">发布时间</td>
+					<td width="100">雇主</td>
+					<td width="120">状态</td>
+					<td width="100">操作</td>
+				</tr>
+			</table>
+			{loop $lists $k $v}
+			<table cellpadding="6" cellspacing="0" class="tb">
+				<tr align="center">
+					<td width="60">
+						{$v[task_id]}
+					</td>
+					<td  width = "160" align="center" valign=" " class="f_gray lh18"><a href="{DT_PATH}index.php?do=task&id={$v[task_id]}" target="_blank" class="t">{$v[task_title]}</a><br/>{$v[par]}</td>
+					<td width="120">{$DT[money_sign]}{$v[task_cash]}</td>
+					<td width="100">{$v[start_time]}</td>
+					<td width="100"><div style="margin-bottom:5px;">
+						<a href="{userurl($v[buyer], 'file=contact')}" target="_blank">{$v[username]}</a>
+					</div>
+					</td>
+					<td width="120">
+						<?php
+						if($v['task_status']==3 or $v['task_status']==2){
+							echo '待选稿';
+						}else{}
+						?>
+					</td>
+					<td width="100">
+						<a href="{DT_PATH}index.php?do=task&id={$v[task_id]}" style="margin-left: 10px;" class="t">查看稿件</a>
+					</td>
+				</tr>
+			</table>
+			<br/>
+			{/loop}
+		</div>
+		<div class="pages">{$pages}</div>
+		<script type="text/javascript">s('witkey');m('action_waitselect');</script>
+
+		<!--以下复制上面elseif action == waitselect并修改，为‘待评价任务’项-->
+
+		{elseif $action == 'waitjudge'}
+		<div class="nav">
+			<table cellpadding="0" cellspacing="0">
+				<tr>
+					<td class="{if !in_array($nav, array(0,1,2,3,4,5,6))}nav_2{else}nav_1{/if}"><a href="?action={$action}">全部评价</a></td>
+					<td class="{if $nav==0}nav_2{else}nav_1{/if}"><a href="?action={$action}&nav=0">待评价</a></td>
+					<td class="{if $nav==1}nav_2{else}nav_1{/if}"><a href="?action={$action}&nav=1">我做出的评价</a></td>
+					<td class="{if $nav==2}nav_2{else}nav_1{/if}"><a href="?action={$action}&nav=2">我接受的评价</a></td>
+					<td>&nbsp;</td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="bd">
+			<table cellpadding="6" cellspacing="0" class="tb">
+				<tr bgcolor="#F2F2F2" align="center">
+					<td width="60">编号</td>
+					<td height="22">评价内容</td>
+					<td width="100">评价时间</td>
+					<!--<td width="100">评价者</td>-->
+					<td width="120">状态</td>
+					<td width="100">操作</td>
+
+				</tr>
+			</table>
+			{loop $lists $k $v}
+			<table cellpadding="6" cellspacing="0" class="tb">
+				<tr align="center">
+					<td width="70">
+						{$v[origin_id]}
+					</td>
+					{if $v[mark_status]}
+					<td  align="center" valign=" " class="f_gray lh18" >	<a href="{DT_PATH}index.php?do=task&id={$v[origin_id]}" target="_blank" class="t">{$v[mark_content]}</a><br/>{$v[par]}</td>
+					{else}
+						{if $v[agreeId] !=null}
+						<td align="center" valign=" " class="f_gray lh18" >		尚未评价，现在<a href="{DT_PATH}index.php?do=agreement&taskId={$v[origin_id]}&agreeId={$v[agreeId]}"  class="t">评价</a></td>
+							{else}
+						<td align="center" valign=" " class="f_gray lh18" >无法评价，无协议	</td>
+						{/if}
+					{/if}
+					<td width="100">{$v[mark_max_time]}</td>
+
+					</div>
+					</td>
+					<td width="120">
+						<?php
+						if($v['mark_status']==0){
+							echo '待评价';
+						}elseif($v['mark_status']==1){
+							echo '好评';
+						}elseif($v['mark_status']==2){
+							echo '中评';
+						}elseif($v['mark_status']==3){
+							echo '差评';
+						}else{
+							echo '请管理员设置该状态';
+						}
+						?>
+					</td>
+					<td width="100">
+						<a href="{DT_PATH}index.php?do=task&id={$v[origin_id]}" style="margin-left: 10px;" class="t" target="_blank">查看详情</a>
+						{if $v[mark_content] ==null}
+							{if $v[agreeId] !=null}
+								<a href="{DT_PATH}index.php?do=agreement&taskId={$v[origin_id]}&agreeId={$v[agreeId]}" style="margin-left: 10px;" class="t" target="_blank">评价</a>
+							{/if}
+						{else}
+						<span style="margin-left: 10px;" class="t">评价</span>
+						{/if}
+					</td>
+				</tr>
+			</table>
+			<br/>
+			{/loop}
+		</div>
+		<div class="pages">{$pages}</div>
+		<script type="text/javascript">s('witkey');m('action_waitjudge');</script>
+		{else}
+		{if $MG[trade_sell]}
+		<div class="nav">
+			<table cellpadding="0" cellspacing="0">
+				<tr>
+					<td class="{if !in_array($nav, array(0,1,2,3,4,5,6))}nav_2{else}nav_1{/if}"><a href="?action={$action}&moudleId=0">全部订单</a></td>
+					<td class="{if $nav==0}nav_2{else}nav_1{/if}"><a href="?action=index&nav=0&moudleId=1">单人悬赏 <span>({php echo $db->count(yw_witkey_task, "model_id = 1 AND task_id in ($rtask_id)");})</span></a></td>
+					<td class="{if $nav==1}nav_2{else}nav_1{/if}"><a href="?action=index&nav=1&moudleId=2">多人悬赏 <span>({php echo $db->count(yw_witkey_task, "model_id = 2 AND task_id in ($rtask_id)");})</span></a></td>
+					<td class="{if $nav==2}nav_2{else}nav_1{/if}"><a href="?action=index&nav=2&moudleId=3">计件悬赏 <span>({php echo $db->count(yw_witkey_task, "model_id = 3 AND task_id in ($rtask_id)");})</span></a></td>
+					<td class="{if $nav==3}nav_2{else}nav_1{/if}"><a href="?action=index&nav=3&moudleId=4">普通招标 <span>({php echo $db->count(yw_witkey_task, "model_id = 4 AND task_id in ($rtask_id)");})</span></a></td>
+					<td class="{if $nav==4}nav_2{else}nav_1{/if}"><a href="?action=index&nav=4&moudleId=5">定金招标 <span>({php echo $db->count(yw_witkey_task, "model_id = 5 AND task_id in ($rtask_id)");})</span></a></td>
+					<td class="{if $nav==5}nav_2{else}nav_1{/if}"><a href="?action=index&nav=5&moudleId=6">速配任务 <span>({php echo $db->count(yw_witkey_task, "model_id = 6 AND task_id in ($rtask_id)");})</span></a></td>
+				</tr>
+			</table>
+		</div>
+		<div class="bd">
+			<table cellpadding="6" cellspacing="0" class="tb">
+				<tr bgcolor="#F2F2F2" align="center">
+					<td width="60">编号</td>
+					<td height="22" width="160">标题</td>
+					<td width="120">金额（元）</td>
+					<td width="100">发布时间</td>
+					<td width="100">雇主</td>
+					<td width="120">状态</td>
+					<td width="100">操作</td>
+				</tr>
+			</table>
+			{loop $lists $k $v}
+			<table cellpadding="6" cellspacing="0" class="tb">
+				<tr bgcolor="#F5F5F5">
+					</td>
+				</tr>
+				<tr align="center">
+					<td width="60">
+						{$v[task_id]}
+					</td>
+					<td align="center" width = "160" valign=" " class="f_gray lh18"><a href="{DT_PATH}index.php?do=task&id={$v[task_id]}" target="_blank" class="t">{$v[task_title]}</a><br/>{$v[par]}</td>
+
+					<td width="120">￥{$v[task_cash]}</td>
+					<td width="100">{$v[start_time]}</td>
+					<td width="100"><div style="margin-bottom:5px;">
+						<a href="{userurl($v[buyer], 'file=contact')}" target="_blank">{$v[usernameB]}</a>
+					</div>
+					</td>
+					<td width="120">
+						{php $end_time = $arrTaskTimeDesc[$v[task_status]]['time'];}
+						{php if($v['task_status'] !=2&&$v['task_status'] !=3 ) {$v[end_time] = '';}  $taskstatus = keke_search_class::task_time_desc($v['task_status'],$v[end_time])}
+						{$taskstatus}
+						{if $v['task_status'] == '10'} 审核失败{elseif $v['task_status'] == '1'}待审核{elseif $v['task_status'] == '0'}未付款{/if}
+					<td width="100">
+						<a href="{DT_PATH}index.php?do=task&id={$v[task_id]}" style="margin-left: 10px;" class="t">查看</a>
+					</td>
+					</td>
+				</tr>
+			</table>
+			<br/>
+			{/loop}
+		</div>
+		<div class="pages">{$pages}</div>
+		{else}
+		<br/><br/><br/><br/><br/>
+		<center class="px14">当前共收到 <span class="f_red">{$orders}</span> 个订单，请<a href="grade.php" class="t">升级您的会员级别</a>获取查看权限</center>
+		{/if}
+		<script type="text/javascript">s('witkey');m('action');</script>
+		{/if}
+		{template 'footer', $module}

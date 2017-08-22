@@ -1,0 +1,90 @@
+<div class="release-form">
+  <form class="form-horizontal" role="form" action="{$strUrl}&step={$step}" method="post"  id="pubTaskForm{$step}" name="pubTaskForm{$step}">
+  	<input type="hidden" name="{$step}" value="{$step}">
+  	<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+    <div class="form-group">
+      <label for="txt_task_cash" class="col-sm-3 control-label">您的预算</label>
+      <div class="col-sm-6">
+        <div class="input-group" style="width: 100%">
+          <input type="text" class="form-control" id="txt_task_cash" name="txt_task_cash" placeholder="您的预算" value="{$floatBudget}" onkeyup="clearstr(this);" autocomplete = "off">
+        </div>
+      </div>
+    </div>
+
+    <!-- 您的预算 end -->
+
+    <div class="form-group">
+      <label for="txt_task_day" class="col-sm-3 control-label">结束日期</label>
+      <div class="col-sm-6">
+        <div class="input-group date form_date " style="width: 100%">
+          <input id="txt_task_day" name="txt_task_day" class="form-control form_datetime" size="16" type="text" value="{$strDate}" placeholder="结束日期" data-date="{$strMinDate}" data-date-format="yyyy-mm-dd">
+        </div>
+      </div>
+    </div>
+    <!-- 您的预算 end -->
+
+    <div class="form-group">
+     <label for="txt_work_count" class="col-sm-3 control-label">所需稿件</label>
+      <div class="col-sm-6">
+        <div class="input-group  " style="width: 100%">
+          <input id="txt_work_count" name="txt_work_count" class="form-control" type="text" value="{$intNeed}" placeholder="所需稿件"  onkeyup="clearNotNum(this);" autocomplete = "off">
+        </div>
+      </div>
+    </div>
+    <!-- 您的预算 end -->
+
+    <div class="form-group">
+      <label for="txt_single_cash" class="col-sm-3 control-label">稿件单价</label>
+      <div class="col-sm-6">
+        <div class="input-group " style="width: 100%">
+          <input id="txt_single_cash" name="txt_single_cash" class="form-control" readonly="readonly"  type="text" value="{$floatEvePrice}" placeholder="稿件单价">
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+     <label for="txt_task_cash" class="col-sm-3 control-label"></label>
+      <div class="col-sm-6">
+        <div class="input-group date form_date ">
+     		<span id="dayabc"></span>
+        </div>
+      </div>
+    </div>
+    <!-- 结束日期 end -->
+    <div class="form-group {if !$arrDistribution[$id]}hidden{/if}">
+      <label class="col-sm-3 control-label">赏金分配</label>
+      <div class="col-sm-6">
+        <p class="form-control-static">{$arrDistribution[$id]}</p>
+      </div>
+    </div>
+    <!-- 赏金分配 end -->
+    <div class="form-group">
+      <div class="col-sm-offset-3 col-sm-6">
+        <button type="submit" class="kbtn btn-primary" value="1" >下一步</button>
+      </div>
+    </div>
+    <!-- form-group end -->
+  </form>
+</div>
+<script type="text/javascript">
+var id = "{$id}";
+$("#txt_task_cash").blur(function(){
+	  var txt_task_cash = $("#txt_task_cash").val();
+	  $.post("index.php?do=ajax&view=chooseday",{'txt_task_cash':txt_task_cash,"id":id},function(data){
+		  var span_block = $("#txt_task_cash").closest(".input-group").next('span.help-block');
+		  if(span_block.length>0){
+			  span_block.html(data);
+		  }else{
+			  $("#txt_task_cash").closest(".input-group").after('<span class="help-block">'+data+'</span>');
+		  }
+	  })
+	});
+function clicktime(){
+	  var txt_task_cash = $("#txt_task_cash").val();
+	var url = 'index.php?do=lookday&id='+id+'&txt_task_cash='+txt_task_cash;
+	var modal = $.scojs_modal({
+		remote : url,
+		title : '查看日期'
+	});
+	modal.show();
+}
+</script>

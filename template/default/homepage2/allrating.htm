@@ -1,0 +1,16 @@
+{if $could_comment && in_array($moduleid, explode(',', $EXT['comment_module']))}
+<link rel="stylesheet" type="text/css" href="{DT_SKIN}task.css"/>
+
+<!--<link rel="stylesheet" type="text/css" href="{DT_SKIN}bootstrap.min.css"/>-->
+<link rel="stylesheet" type="text/css" href="{DT_SKIN}store.css"/>
+				<!--<h2 class="evaluate-meta-title">综合评分 <span style="font-size: smaller;font-weight: normal;line-height: 1;color: #777777;">共{$items}人评分</span></h2><br/>-->
+				{loop $arrSellerMark $k $v}
+				<div class="evaluate-meta-item" style="margin-left: 18px">
+					{$v['aid_name']}
+					<span class="text-danger" style="color: #a94442;">{$v['avg']}分</span>
+					{php $gs = user_mark_class::gen_star2($v['avg']);}
+
+					{$gs}
+				</div>
+				{/loop}
+{/if}

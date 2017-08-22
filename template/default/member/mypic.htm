@@ -1,0 +1,18 @@
+{template 'header',$module}
+<div class="class">
+    <table cellpadding="0" cellspacing="0">
+        <tr>
+            <!--<th id="mypic"><a href="#">我的图片>></a></th>-->
+            <iframe name="myPicture" src="pictureManager/index.php" width="100%" height="1000"></iframe>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+s('mypic');
+{if $tab}
+Tab({$tab});
+{else}
+m('Tab0');
+{/if}
+</script>
+{template 'footer',$module}

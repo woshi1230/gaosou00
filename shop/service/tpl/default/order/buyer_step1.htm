@@ -1,0 +1,99 @@
+<div class="buy-body">
+	<form class="form-horizontal" role="form" action="{$strUrl}&step={$step}" method="post" id="submitOrderForm{$step}" name="submitOrderForm{$step}">
+		<input type="hidden" name="{$step}" value="{$step}"> <input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+
+
+		<div class="form-group">
+			<label class="min-title" for="title">请一句话描述您需要的服务：</label> <input type="text" id="title" name="title" class="form-control" placeholder="需求标题不得超过50字" value="{$arrServiceInfo['title']}">
+		</div>
+
+		<div class="form-group">
+			<label class="min-title">您需要的服务类型：</label>
+			<div class="row">
+				<div class="col-sm-3">
+					<select class="form-control" name="indus_pid" id="indus_pid" onchange="getIndustry(this.value,'indus_id')">
+						<option value="">请选择父行业</option> {loop $arrTopIndustrys $v}
+						<option value="{$v['indus_id']}" {if $arrServiceInfo['indus_pid'] ==$v[ 'indus_id']} selected="selected"{/if}>{$v['indus_name']}</option> {/loop}
+					</select>
+				</div>
+				<div class="col-sm-3">
+					<select class="form-control" name="indus_id" id="indus_id">
+						<option value="">请选择子行业</option> {if $arrServiceInfo['indus_id']} {loop $arrAllIndustrys $v}
+						<option value="{$v['indus_id']}" {if $arrServiceInfo['indus_id'] == $v['indus_id']} selected="selected"{/if}>{$v['indus_name']}</option> {/loop} {/if}
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="min-title" for="content">详细描述您的要求：</label>
+			<textarea id="content" name="content" placeholder="需求描述不得超过1000字">{$arrServiceInfo['content']}</textarea>
+		</div>
+
+		<div class="form-group">
+			<label class="min-title">添加附件：</label>
+			<div class="">
+				<div id="picker1">上传图片</div>
+	              <input type="hidden"  name="file_ids" id="file_ids"  class="form-control" value="">
+				<p class="help-block">最多可添加五个附件，每个大小不超过{$basic_config['max_size']}M.</p>
+				<ul class="affix-list upload-file-list-info" id="fileList1" style="width:30%"></ul>
+			</div>
+			
+		</div>
+
+		<div class="form-group">
+			<label class="min-title">您的预算：</label>
+			<div class="input-group">
+				<span class="input-group-addon">￥</span> <input type="text" id="price" name="price" class="form-control" placeholder="输入您的预算" value="{$arrServiceInfo['price']}">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<button type="submit" class="btn btn-primary">下一步</button>
+		</div>
+
+	</form>
+</div>
+<script type="text/javascript" src="{$_K['siteurl']}/static/js/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="{$_K['siteurl']}/static/js/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/static/js/ueditor/lang/zh-cn/zh-cn.js"></script>
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+    var ue = UE.getEditor('content', {
+        //这里可以选择自己需要的工具按钮名称,此处仅选择如下五个
+    	initialFrameWidth: '80%',
+    	initialFrameHeight: '400'
+    });
+</script>
+
+<link rel="stylesheet" type="text/css" href="static/js/webuploader/webuploader.css">
+<script type="text/javascript" src="static/js/webuploader/webuploader.js?r={RANDOM_PARA}"></script>
+<script type="text/javascript" src="static/js/webuploader/kppw.webuploader.js"></script>
+<script type="text/javascript">
+	//指定网站URL，后台是必须要定义的，前台不必定义
+	var baseurl = "{$basic_config['website_url']}";
+	var uploadsize = parseInt("{$basic_config['max_size']}");
+		uploadsize =  isNaN(uploadsize)? 1 : uploadsize;
+	$(function(){
+		$("#picker1").KKUploader({
+				accept: {
+					extensions : '{$strExtTypes}'  //可上传文件格式
+				},
+				fileVal:'upload',		//指定上传文本域的name  如不指定，默认是file
+				fileNumLimit:5,			//上传数量限制
+				hiddenName:'file_ids',	//表单隐藏域id
+				hiddenValType:'1',		//指定隐藏域保存值的类型   1=是保存file_id ，2=保存save_name
+				listName:'fileList1',	//指定上传文件列表ID，如果不指定，则默认为fileList
+				editListName:'editfileList1',	//指定上传文件编辑列表ID，如果不指定，默认为editfileList
+				separator:',',			//多文件上传时，指定分隔符，如不指定，默认为","
+				fileSingleSizeLimit:uploadsize*1024*1024			//上传大小限制
+			},
+			{
+				fileType: 'service',//传递给服务端的参数
+				filename : 'upload'//传递给服务端的参数指定上传文本域的name，如果未指定，上传不成功
+			});
+
+	});
+
+</script>

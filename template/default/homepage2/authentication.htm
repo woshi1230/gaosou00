@@ -1,0 +1,136 @@
+
+<div class="dsn" id="pos_show" xmlns="http://www.w3.org/1999/html">您当前的位置：<a href="{$COM[linkurl]}">首页</a> &raquo; <a href="{$MENU[$menuid][linkurl]}">{$MENU[$menuid][name]}</a>{if
+	$itemid} &raquo; {$title}{/if}
+</div>
+<div class="main_head">
+	<!--<h4><strong>{$MENU[$menuid][name]}</strong></h4>-->
+	<!--<div class="main_head" style="position:absolute;margin-left:160px;margin-top: -36px;"><H4><strong><span id="message_title">获得认证</span></strong></H4></div>-->
+
+</div>
+<div class="main_body">
+	<link rel="stylesheet" type="text/css" href="{DT_SKIN}task.css"/>
+	<link rel="stylesheet" type="text/css" href="{DT_SKIN}store.css"/>
+	<div id="comment_div" style="display:;">
+		{if $type==2}
+		<div class="store_info_box" style="font-size: 14px;">
+			<ul class="second-nav" style="padding-bottom: 10px;">
+				<li class="active"><a href="javascript:makeRequest('action=authentication&template=homepage2&moduleid=42&username='+username, 'authentication?type=2', '_getInfo_'+$('#mouse_pos').val());">高手身份</a></li>
+				<li><a href="javascript:makeRequest('action=authentication&template=homepage2&moduleid=42&username='+username, 'authentication?type=1', '_getInfo_'+$('#mouse_pos').val());">雇主身份</a></li>
+			</ul>
+			<!-- second-nav end -->
+
+			<div class="px13 lh18" >
+				<table cellpadding="2" cellspacing="2" width="100%" align="center">
+					<tr bgcolor="#F1F1F1" align="center">
+						<th style="text-align: center">头衔</th>
+						<th style="text-align: center">图标</th>
+						<th style="text-align: center">当前获得</th>
+						{php $arrSeller_level=unserialize($COM[seller_level]); }
+						{php $arrSeller_level = str_replace('file/upload/', DT_PATH.'file/upload/', $arrSeller_level);}
+						{$arrBuyer_level['pic']}
+					</tr>
+					{loop $lists $k $v}
+					<!--<td>{$v['mark_rule_id']}</td>-->
+					<!--<td>{$v['g_value']}</td>-->
+					<!--<td>{$v['m_value']}</td>-->
+					<!--<td>{$v['g_title']}</td>-->
+					<tr bgcolor="" align="center">
+					<th style="text-align: center">{$v['m_title']}</th>
+					<!--<th><img src="{$v['g_ico']}"></th>-->
+					<th style="text-align: center"><img src="{DT_PATH}{$v['m_ico']}"></th>
+						<th style="text-align: center">
+							{if $arrSeller_level['title'] == '一级威客' && $k<1}
+							<img src="{DT_PATH}admin/image/yes.gif"/>
+							{elseif $arrSeller_level['title'] == '二级威客' && $k<2}
+							<img src="{DT_PATH}admin/image/yes.gif"/>
+							{elseif $arrSeller_level['title'] == '三级威客' && $k<3}
+							<img src="{DT_PATH}admin/image/yes.gif"/>
+
+							{elseif $arrSeller_level['title'] == '四级威客' && $k<4}
+							<img src="{DT_PATH}admin/image/yes.gif"/>
+
+							{elseif $arrSeller_level['title'] == '五级威客' && $k<5}
+							<img src="{DT_PATH}admin/image/yes.gif"/>
+
+							{elseif $arrSeller_level['title'] == '六级威客' && $k<6}
+							<img src="{DT_PATH}admin/image/yes.gif"/>
+
+							{else}
+							<img src="{DT_PATH}admin/image/no.gif"/>
+							{/if}
+						</th>
+					</tr>
+						{/loop}
+				</table>
+			</div>
+			<!--<div class="pages" style="width: 250px; margin-left: 50px"  >{$pages}</div>-->
+		</div>
+		{elseif $type==1}
+		<div class="store_info_box">
+			<ul class="second-nav" style="padding-bottom: 10px;">
+				<li ><a href="javascript:makeRequest('action=authentication&template=homepage2&moduleid=42&username='+username, 'authentication?type=2', '_getInfo_'+$('#mouse_pos').val());">高手身份</a></li>
+				<li class="active"><a href="javascript:makeRequest('action=authentication&template=homepage2&moduleid=42&username='+username, 'authentication?type=1', '_getInfo_'+$('#mouse_pos').val());">雇主身份</a></li>
+			</ul>
+			<!-- second-nav end -->
+			{php $arrBuyer_level=unserialize($COM[buyer_level]); }
+			{php $arrBuyer_level = str_replace('file/upload/', DT_PATH.'file/upload/', $arrBuyer_level);}
+
+			<div class="px13 lh18" >
+				<table cellpadding="2" cellspacing="2" width="100%" align="center">
+					<tr bgcolor="" align="center">
+						<th style="text-align: center">头衔</th>
+						<th style="text-align: center">图标</th>
+						<th style="text-align: center">当前获得</th>
+					</tr>
+
+					{loop $lists $k $v}
+
+
+
+
+					<!--<td>{$v['mark_rule_id']}</td>-->
+					<!--<td>{$v['g_value']}</td>-->
+					<!--<td>{$v['m_value']}</td>-->
+					<tr bgcolor="" align="center">
+						<th style="text-align: center">{$v['g_title']}</th>
+						<th style="text-align: center"><img src="{DT_PATH}{$v['g_ico']}"></th>
+						<th style="text-align: center">
+							{if $arrBuyer_level['title'] == '一级雇主' && $k<1}
+							<img src="{DT_PATH}admin/image/yes.gif"/>
+							{elseif $arrBuyer_level['title'] == '二级雇主' && $k<2}
+							<img src="{DT_PATH}admin/image/yes.gif"/>
+							{elseif $arrBuyer_level['title'] == '三级雇主' && $k<3}
+							<img src="{DT_PATH}admin/image/yes.gif"/>
+
+							{elseif $arrBuyer_level['title'] == '四级雇主' && $k<4}
+							<img src="{DT_PATH}admin/image/yes.gif"/>
+
+							{elseif $arrBuyer_level['title'] == '五级雇主' && $k<5}
+							<img src="{DT_PATH}admin/image/yes.gif"/>
+
+							{elseif $arrBuyer_level['title'] == '六级雇主' && $k<6}
+							<img src="{DT_PATH}admin/image/yes.gif"/>
+
+							{else}
+							<img src="{DT_PATH}admin/image/no.gif"/>
+							{/if}
+						</th>
+					</tr>
+					{/loop}
+				</table>
+			</div>
+			<!--<div class="pages" style="width: 250px; margin-left: 50px"  >{$pages}</div>-->
+		</div>
+	</div>
+	{/if}
+</div>
+<script type="text/javascript">
+	try {
+		Dd('type_{$typeid}').innerHTML = '<strong>' + Dd('name_{$typeid}').innerHTML + '</strong>';
+	} catch (e) {
+	}
+
+	//    function changeC(a){alert(11);
+	//        a.className='active';
+	//    }
+</script>

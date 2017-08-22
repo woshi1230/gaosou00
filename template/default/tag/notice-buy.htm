@@ -1,0 +1,27 @@
+{loop $tags $i $t}
+{if $i%$cols==0}<div class="group-list f_l">{else}<div class="group-list f_r">{/if}
+    <a href="{userurl($t[username])}"><img class="group-pic" src="{useravatar($t[username])}"></a>
+    <a target="_blank" data-toggle="popover" data-placement="top" data-html="true" data-trigger="hover" data-content="
+<p><strong>雇主名称：</strong>{$t[username]}</p>
+<p><strong>任务名称：</strong>{$t[task_title]}</p>
+<p><strong>任务简介：</strong>{dsubstr($t[task_desc], 100, '')}</p>
+   " href="{DT_PATH}index.php?do=task&id={$t[task_id]}" onmouseenter="membPop(this)">
+        <div class="group-name2">{dsubstr($t[task_title], 20, '')}</div>
+    </a>
+    <div class="group-count2">
+        <div>
+            {if $t[cash_cost]>0}
+            <span>未托管</span>
+            {else}
+            <span>已托管</span>
+            {/if}
+            <div class="tooltip right in group-task2" onclick="Open('{DT_STATIC}index.php?do=taskhandle&op=turnaround&taskId=' + {$t[task_id]});" title="应招">
+                <div class="tooltip-arrow" style="border-right-color: #ff8a00;"></div>
+                <div class="tooltip-inner" style="background-color: #ff8a00;padding: 0;">接</div>
+            </div>
+        </div>
+        <div><span style="color: #ff8a00">￥{$t[task_cash]}</span></div>
+    </div>
+</div>
+{/loop}
+{if $showpage && $pages}<div class="pages">{$pages}</div>{/if}

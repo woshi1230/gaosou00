@@ -1,0 +1,346 @@
+<template>
+    <div>
+        <nav-bar id="nav" title="{{nav_title}}"></nav-bar>
+        <div>
+            <slider class="top-slider" append="tree" auto-play="true" interval="5000" if="{{showSliderCell}}">
+                <div repeat="{{imageList}}">
+                    <image class="slider-item" src="{{image_src}}" itemid="{{aid}}" itemtitle="{{title}}"
+                           onclick="onSliderItemClick"></image>
+                </div>
+                <indicator class="indicator"></indicator>
+            </slider>
+        </div>
+        <div class="content">
+            <div class="home-search">
+                <div class="search-input">
+                    <image class="search-img" src="{{gaosouURL}}mobile/static/img/ico-search.png"></image>
+                    <text class="search-text">输入关键词搜索</text>
+                </div>
+            </div>
+            <div style="flex-direction:row;background: #FFFFFF;height:182;justify-content: center;">
+                <div class="imgDiv" style="flex:1;justify-content:center;">
+                    <div style="align-items: center;">
+                        <image class="shopImg" style="width:84;height:84;"
+                               src="{{gaosouURL}}mobile/static/img/home-member.png"></image>
+                        <text style="font-size:24;margin-top:20;text-align:center;">会员中心</text>
+                    </div>
+                </div>
+                <div class="imgDiv" style="flex:1;justify-content:center;">
+                    <div style="align-items: center;">
+                        <image class="shopImg" style="width:84;height:84;"
+                               src="{{gaosouURL}}mobile/static/img/home-post.png"></image>
+                        <text style="font-size:24;margin-top:20;text-align:center;">发布信息</text>
+                    </div>
+                </div>
+                <div class="imgDiv" style="flex:1;justify-content:center;">
+                    <div style="align-items: center;">
+                        <image class="shopImg" style="width:84;height:84;"
+                               src="{{gaosouURL}}mobile/static/img/home-order.png"></image>
+                        <text style="font-size:24;margin-top:20;text-align:center;">订单中心</text>
+                    </div>
+                </div>
+                <div class="imgDiv" style="flex:1;justify-content:center;">
+                    <div style="align-items: center;">
+                        <image class="shopImg" style="width:84;height:84;"
+                               src="{{gaosouURL}}mobile/static/img/home-cart.png"></image>
+                        <text style="font-size:24;margin-top:20;text-align:center;">购物车</text>
+                    </div>
+                </div>
+            </div>
+
+            <div class="channel" id="channel">
+                <div class="channel-item channel-on" onclick="Dmenu(16);">
+                    <text style="font-size:30;text-align:center;">商城</text>
+                </div>
+                <div class="channel-item">
+                    <text style="font-size:30;text-align:center;">供应</text>
+                </div>
+                <div class="channel-item">
+                    <text style="font-size:30;text-align:center;">任务</text>
+                </div>
+                <div class="channel-item">
+                    <text style="font-size:30;text-align:center;">资讯</text>
+                </div>
+            </div>
+
+            <list class="mall-list">
+                <refresh class="refresh-view" display="{{refresh_display}}" onrefresh="onrefresh">
+                    <text class="refresh-arrow" if="{{(refresh_display==='hide')}}">刷新</text>
+                    <loading-indicator></loading-indicator>
+                </refresh>
+
+                <cell class="row" repeat="{{item in mallList}}" index="{{$index}}">
+                    <div class="mall-item" cid="{{item.itemid}}"
+                         onclick="onMallCellClick" style="background: #FFFFFF;border-bottom: #EFEFF4 5px solid;">
+                        <mall-item thumb="{{item.thumb}}" title="{{item.title}}" price="{{item.price}}"
+                                   company="{{item.company}}"></mall-item>
+                    </div>
+                </cell>
+
+
+                <loading class="refresh-view" display="{{loading_display}}" onloading="onloading">
+                    <text class="refresh-arrow"
+                          if="{{(refresh_display==='hide')}}">加载更多
+                    </text>
+                    <loading-indicator></loading-indicator>
+                </loading>
+            </list>
+        </div>
+    </div>
+</template>
+
+<style>
+    .content {
+        background-color: #EFEFF4;
+    }
+
+    .top-slider {
+        flex-direction: row;
+        height: 180px;
+        width: 750px;
+    }
+
+    .slider-item {
+        height: 300px;
+        width: 750px;
+    }
+
+    .indicator {
+        width:714;
+        height:300;
+        position:absolute;
+        top:1;
+        left:1;
+        itemColor: #dddddd;
+        itemSelectedColor: #45b5f0;
+        item-size: 15;
+    }
+    .home-search {
+        padding: 18px;
+        height: 88px;
+    }
+    .search-input {
+        background: #FFFFFF;
+        /*height: 48px;*/
+        flex: 1;
+        border-radius: 8px;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+    }
+    .search-img {
+        width: 30px;
+        height: 30px;
+    }
+    .search-text {
+        margin-left: 10px;
+        font-size: 26px;
+    }
+
+    .channel {
+        flex-direction:row;
+        background: #FFFFFF;
+        margin-top:18;
+        height:78;
+        line-height:78;
+        justify-content: left;
+        border-bottom-style: solid;
+        border-bottom-width: 5px;
+        border-bottom-color: #DFDFF4;
+    }
+    .channel-item {
+        align-items:center;
+        padding-left:20;
+        padding-right:20;
+        height:78;
+    }
+    .channel-on {
+        color:#007AFF;
+        border-bottom-style: solid;
+        border-bottom-width: 5px;
+        border-bottom-color: #007AFF;
+    }
+
+    .mall-list {
+        /*margin-left: 20px;*/
+        /*margin-right: 20px;*/
+    }
+
+    .refresh-view {
+        height: 80px;
+        width: 750px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .refresh-arrow {
+        font-size: 30px;
+        color: #45b5f0;
+    }
+
+    .row {
+        width: 750px;
+    }
+
+    .mall-item {
+        justify-content: center;
+        border-bottom-width: 1px;
+        border-bottom-color: #d4d4d4;
+        padding: 20px;
+    }
+
+</style>
+
+
+<script>
+    require('weex-components');
+    var modal = require('@weex-module/modal');
+    var apis = require('../common/api');
+    var navigator = require('@weex-module/navigator');
+
+    module.exports = {
+        data: {
+            gaosouURL: '',
+            nav_title: '',
+            configData: {},
+            currentIndex: 0,
+            showSliderCell: false,
+            refresh_display: 'hide',
+            loading_display: 'hide',
+            imageList: [],
+            mallList: [],
+            showListItem: false,
+            baseURL: ''
+        },
+        computed: {},
+        methods: {
+
+            onrefresh: function (e) {
+                var self = this;
+                self.refresh_display = 'show';
+                self.currentIndex = 0;
+                self.getAdsData();
+                self.getMallIndex(self.currentIndex, false);
+                self.refresh_display = 'hide';
+
+            },
+            onloading: function (e) {
+                var self = this;
+                this.loading_display = "show";
+                self.refresh_display = 'show';
+
+                self.getMallIndex(++self.currentIndex, true);
+                self.loading_display = "hide";
+                self.refresh_display = 'hide';
+
+
+            },
+            getMallIndex: function (index, loadmore) {
+                var self = this;
+                apis.getMallIndex(index, function (ret) {
+                    if (!loadmore) {
+                        self.mallList = [];
+                    }
+                    for (var i = 0; i < ret.data.length; i++) {
+                        self.mallList.push(ret.data[i]);
+                    }
+                    self.showListItem = self.mallList.length > 0;
+                });
+            },
+            getConfigData: function (cb) {
+                var self = this;
+                apis.getConfigData(function (ret) {
+                    self.configData = ret.data;
+                    cb();
+                });
+            },
+            getAdsData: function (cb) {
+                var self = this;
+                self.showSliderCell = false;
+                apis.getHome('ads', function (ret) {
+                    self.imageList = [];
+                    for (var i = 0; i < ret.data.length; i++) {
+                        self.imageList.push(ret.data[i]);
+                    }
+//                    self.imageList = ret.data;
+                    self.showSliderCell = true;
+                });
+            },
+            onSliderItemClick: function (e) {
+                var self = this;
+                var itemid = e.target.attr.itemid;
+                var title = e.target.attr.itemtitle;
+                var vm = this;
+                var params = {
+                    'url': this.baseURL + 'modules/carouse-list.js?id=' + itemid + "&title=" + title,
+                    'animated': 'true'
+                };
+                navigator.push(params, function (e) {
+                    //callback
+                });
+
+            },
+            onMallCellClick: function (e) {
+                var self = this;
+                var itemid = e.target.attr.cid;
+                self.openEssayDetail(itemid);
+            },
+            onSerialCellClick: function (e) {
+                var self = this;
+                var itemid = e.target.attr.cid;
+                self.openSerialDetail(itemid);
+            },
+            onQuestionCellClick: function (e) {
+                var self = this;
+                var itemid = e.target.attr.cid;
+                self.openQuestionDetail(itemid);
+            },
+            openEssayDetail: function (id) {
+                var vm = this;
+                var params = {
+                    'url': this.baseURL + 'modules/essay-detail.js?id=' + id,
+                    'animated': 'true'
+                };
+                navigator.push(params, function (e) {
+                    //callback
+                });
+            },
+            openSerialDetail: function (id) {
+                var vm = this;
+                var params = {
+                    'url': this.baseURL + 'modules/serial-detail.js?id=' + id,
+                    'animated': 'true'
+                };
+                navigator.push(params, function (e) {
+                    //callback
+                });
+            },
+            openQuestionDetail: function (id) {
+                var vm = this;
+                var params = {
+                    'url': this.baseURL + 'modules/question-detail.js?id=' + id,
+                    'animated': 'true'
+                };
+                navigator.push(params, function (e) {
+                    //callback
+                });
+            }
+        },
+        created: function () {
+            var self = this;
+            this.gaosouURL = apis.getGaosouURL();
+            self.currentIndex = 0;
+            self.getConfigData(function () {
+                self.nav_title = self.configData.DT.sitename;
+            });
+            self.getAdsData();
+            self.getMallIndex(self.currentIndex, false);
+            var base = apis.getBaseUrl(self.$getConfig().bundleUrl, true);
+            this.baseURL = base;
+
+        },
+        ready: function () {
+            var self = this;
+        }
+    }
+</script>

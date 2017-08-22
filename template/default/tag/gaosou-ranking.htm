@@ -1,0 +1,34 @@
+{php $iList = 12;}
+{php $iListM = count($tags)%$iList;}
+{php  $iListWidth = $iListM==0 ? floor(count($tags)/$iList) : floor(count($tags)/$iList)+1;}
+
+{if $iListWidth==2}
+{php $iListWidth = 232; //232*2;}
+{/if}
+{if $iListWidth==3}
+{php $iListWidth = 232; //232*4/3}
+{/if}
+{if $iListWidth==1 || $iListWidth==4 }
+{php $iListWidth = 232;}
+{/if}
+
+<div style="width: {$iListWidth}px;float: left;padding-left: 6px;height: 590px;background: url('{DT_SKIN}image/home/list_of_name.png');background-size: {$iListWidth}px 590px;">
+    <div style="height: 40px;"></div>
+{loop $tags $i $t}
+{if $i && $i%$iList==0}
+<div style="width: {$iListWidth}px;float: left;padding-left: 6px;height: 590px;background: url('{DT_SKIN}image/home/list_of_name.png');background-size: {$iListWidth}px 590px;">
+    <div style="height: 40px;"></div>
+{/if}
+    <div class="ranking-list f_l">
+        <a target="_blank" href="{userurl($t[username])}">
+            <span style="float: left;margin-top: 7px;padding: 1px;background-color: #ff8a00;border-radius: 3px;color: white;">{$i+1}</span>
+            <img class="group-pic" src="{useravatar($t[username])}">
+            <p class="group-name">{dsubstr($t[company], 10, '')}</p>
+            <p class="group-count">获取总报酬：<span style="color: #ff8a00">￥{$t[total_sales]}</span></p>
+        </a>
+    </div>
+{if $i && ($i+1)%$iList==0}
+</div>
+{/if}
+{/loop}
+</div>

@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset={DT_CHARSET}"/>
+	<title>{if $seo_title}{$seo_title}{else}{if $head_title}{$head_title}{$DT[seo_delimiter]}{/if}{$COM[company]}{/if}</title>
+	{if $head_keywords}<meta name="keywords" content="{$head_keywords}"/>{/if}
+	{if $head_description}<meta name="description" content="{$head_description}"/>{/if}
+	<meta name="template" content="{$template}"/>
+	{if $head_mobile}
+	<meta http-equiv="mobile-agent" content="format=html5;url={$head_mobile}">
+	<link rel="shortcut icon" type="image/x-icon" href="{DT_STATIC}gaosou.ico"/>
+	<link rel="bookmark" type="image/x-icon" href="{DT_STATIC}gaosou.ico"/>
+	{/if}
+	{if $head_canonical}
+	<link rel="canonical" href="{$head_canonical}"/>
+	{/if}
+	<link rel="stylesheet" type="text/css" href="{DT_STATIC}{$MODULE[4][moduledir]}/skin/common.css"/>
+	<link rel="stylesheet" type="text/css" href="{$HSPATH}style.css"/>
+	{if !DT_DEBUG}<script type="text/javascript">window.onerror= function(){return true;}</script>{/if}
+	<script type="text/javascript" src="{DT_STATIC}lang/{DT_LANG}/lang.js"></script>
+	<script type="text/javascript" src="{DT_STATIC}file/script/config.js"></script>
+	<script type="text/javascript" src="{DT_STATIC}file/script/jquery.min.js"></script>
+	<script type="text/javascript" src="{DT_STATIC}file/script/common.js"></script>
+	<script type="text/javascript" src="{DT_STATIC}file/script/page.js"></script>
+	<script type="text/javascript" src="{DT_STATIC}file/script/homepage.js"></script>
+	{if $lazy}<script type="text/javascript" src="{DT_STATIC}file/script/jqplugins/jquery.lazyload.js"></script>{/if}
+	<script type="text/javascript">
+		{if $itemid && $DT[anticopy]}
+		document.oncontextmenu=function(e){return false;};
+		document.onselectstart=function(e){return false;};
+		{/if}
+	</script>
+	{if $css}<style type="text/css">{$css}</style>{/if}
+	<style>
+		.ws {
+			display: block;
+			position: absolute;
+			width: 60px;
+			height: 60px;
+		}
+		.ws img {
+			border-radius: 30px;
+		}
+
+		a .name {
+			margin-left: 5px;
+			color: #312A44;
+		}
+
+		a.ws1 {
+			top: 15px;
+			left: 532px;
+		}
+		a.ws2 {
+			top: 154px;
+			left: 657px;
+		}
+		a.ws3 {
+			top: 339px;
+			left: 627px;
+		}
+		a.ws4 {
+			top: 431px;
+			left: 463px;
+		}
+		a.ws5 {
+			top: 360px;
+			left: 289px;
+		}
+		a.ws6 {
+			top: 180px;
+			left: 237px;
+		}
+		a.ws7 {
+			top: 26px;
+			left: 345px;
+		}
+	</style>
+</head>
+<body{if $bgcolor || $background} style="background:{if $bgcolor}{$bgcolor}{/if}{if $background}url('{$background}') no-repeat center 0{/if};"{/if}>
+<div class="m"><div class="top" id="top"><a href="{DT_PATH}">主站</a> | <script type="text/javascript">addFav('收藏本页');</script> | <a href="{$COM[linkurl]}" onclick="javascript:try{this.style.behavior='url(#default#homepage)';this.setHomePage(location.href);}catch(e){}return false;">设为主页</a> | <a href="{DT_PATH}api/shortcut.php?itemid={$userid}" rel="nofollow">保存桌面</a>{if $EXT[mobile_enable]} | <a href="javascript:Go('{$EXT[mobile_url]}index.php?moduleid=4&username={$username}');">手机版</a>{/if}{if $head_mobile} | <a href="javascript:Dqrcode();">二维码</a>{/if}</div></div>
+{if $head_mobile}<div id="gaosou_qrcode" style="display:none;"></div>{/if}
+
+<div class="m">
+	<div style="height: 420px;">
+		<div style="
+		width:340px;
+		height:340px;
+		background-color:#197197;
+		border-radius: 170px;
+		margin: 100px auto 0 auto;
+	">
+			<div style="
+		position: absolute;
+		width: 150px;
+		height: 280px;
+		border-radius: 90px;
+		margin: 50px 0 0 10px;
+	">
+				<div class="head">
+					<div>
+						<h1>{$COM[company]}</h1>
+					</div>
+				</div>
+				<div class="head" style="padding: 5px 10px 0 0;">
+					<div>
+						<h4>{dsubstr($COM['business'], $logo ? 60 : 80, '...')}</h4>
+					</div>
+				</div>
+				<svg width="480" height="480" style="margin-top: -345px;margin-left: -70px;">
+					<circle cx="230" cy="230" r="210"
+							style="stroke: #197197;stroke-width: 2;fill-opacity: 0;"/>
+				</svg>
+			</div>
+
+			<div style="
+		position: absolute;
+		width: 340px;
+		height: 70px;
+		margin-top: 270px;
+		text-align: center;
+	">
+				<div>
+					<h4 style="margin: 0;color: #ECF3F8;">联系电话：{$COM[mobile]}</h4>
+				</div>
+				<div>
+					<h4 style="margin: 0;color: #ECF3F8;">QQ：{$COM[qq]}</h4>
+				</div>
+			</div>
+
+			<div style="
+		position: absolute;
+		width: 180px;
+		height: 180px;
+		margin: 50px 0 0 150px;
+		border-radius: 90px;
+		background-color: #fff;
+		background-image: url('{useravatar($COM[username], 'large')}');
+		background-repeat: round;
+		/*box-shadow: -10px 10px 5px #e6e6e6;*/
+		"></div>
+		</div>
+	</div>
+
+	<div style="position: absolute;height: 500px;width: 1000px;top: 50px;">
+		<a class="ws ws1" href="{$MENU[0]['linkurl']}"><span class="img"><img src="{DT_STATIC}skin/default/image/home/memb2.jpg" /></span><span class="name">{$MENU[0]['name']}</span> </a>
+		<a class="ws ws2" href="{$MENU[1]['linkurl']}"><span class="img"><img src="{DT_STATIC}skin/default/image/home/memb2.jpg" /></span><span class="name">{$MENU[1]['name']}</span> </a>
+		<a class="ws ws3" href="{$MENU[2]['linkurl']}"><span class="img"><img src="{DT_STATIC}skin/default/image/home/memb2.jpg" /></span><span class="name">购买装备</span> </a>
+		<a class="ws ws4" href="{$MENU[3]['linkurl']}"><span class="img"><img src="{DT_STATIC}skin/default/image/home/memb2.jpg" /></span><span class="name">江湖公告</span> </a>
+		<a class="ws ws5" href="{$MENU[4]['linkurl']}"><span class="img"><img src="{DT_STATIC}skin/default/image/home/memb2.jpg" /></span><span class="name">高手名望</span> </a>
+		<a class="ws ws6" href="{$MENU[5]['linkurl']}"><span class="img"><img src="{DT_STATIC}skin/default/image/home/memb2.jpg" /></span><span class="name">招兵买马</span> </a>
+		<a class="ws ws7" href="{$MENU[6]['linkurl']}"><span class="img"><img src="{DT_STATIC}skin/default/image/home/memb2.jpg" /></span><span class="name">高手地盘</span> </a>
+	</div>
+</div>
+
+<div class="m">
+	<div class="pos" id="pos">
+<span class="f_r">
+<script type="text/javascript">show_date();</script>
+</span>
+		<span id="position"></span>
+	</div>
+</div>
+<div class="m">
+	<table cellpadding="0" cellspacing="0" width="100%">
+		<tr>
+			{if $side_pos==0}
+			<td width="{$side_width}" valign="top" id="side">{template 'side', $template}</td>
+			<td width="10" id="split"></td>
+			{/if}
+			<td valign="top" id="main">

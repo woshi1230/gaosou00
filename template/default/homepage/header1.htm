@@ -1,0 +1,213 @@
+{php $CSS = array('index');}
+{template 'top'}
+<script type="text/javascript" src="{DT_STATIC}file/script/jqplugins/knobKnob.jquery.js"></script>
+<!--<script type="text/javascript" src="{DT_STATIC}file/script/jqplugins/jquery.fullpage.js"></script>-->
+<script type="text/javascript" src="{DT_STATIC}file/script/d3.v3.min.js"></script>
+<script type="text/javascript">
+	function membPop(memb) {
+		if (typeof membPop2 !== 'undefined') membPop2(memb);
+	}
+</script>
+<!--<link rel="stylesheet" type="text/css" href="{DT_SKIN}jquery.fullpage.css"/>-->
+<link rel="stylesheet" type="text/css" href="{DT_SKIN}d3.catalog.css"/>
+
+<div id="ipad_tips" style="display:none;"></div>
+
+<div id="main">
+	<div id="landing-page">
+		<!--<a name="About"></a>-->
+		<div class="section about" style="min-height: 780px;">
+			<div class="logo2" style="background: #f1a600;">
+				<div class="container">
+					<div class="f_l" style="width: 1190px;height: 90px"><img src="{if $MODULE[$moduleid][ad1]}{DT_SKIN}image/ad1_{$moduleid}.gif{elseif $DT[ad1]}{DT_PATH}{$DT[ad1]}{else}{DT_SKIN}image/home/ad1.png{/if}" style="width: 100%;height: 100%"/></div>
+				</div>
+			</div>
+
+			<div class="container main" style="top: 198px;left: 0;right: 0;position: absolute;">
+				<div class="about-content">
+					<div id="slide1" class="m">
+						<div class="c3_l f_l" style="background:url('{DT_SKIN}image/home/homep_introduce_l.png');">
+							<div>
+								<h4 id="c3_l_title" class="f_b" style="margin: 20px 0 5px 0;border: 1px solid #e0e0e0;border-radius: 3px;">全部</h4>
+							</div>
+
+							<div id="buyer" class="company_body" style="height:500px;overflow:hidden;">
+								<div class="mthumb" style="margin: 5px 0 0 0;">
+									<!--[{tag("table=company&condition=1=1&pagesize=20&order=total_sales desc&width=100&height=100&template=notice-company&target=_blank")}]-->
+									sfsfdsfsdfsdfsdfsdfsdfsdf
+								</div>
+							</div>
+
+						</div>
+
+						<!--<div class="c3_n f_l">&nbsp;</div>-->
+						<div class="c3_c f_l">
+							<div>
+								<svg height="0" width="0">
+									<defs>
+										<clipPath id="clip_circle">
+											<circle cx="32.5" cy="32.5" r="32.5" />
+										</clipPath>
+									</defs>
+								</svg>
+								<div class="catetree">
+									<div id="d3_1">
+									</div>
+									<div class="ws ws0" style="cursor: pointer;"><span class="img"><img src="{DT_SKIN}image/home/taichi.jpg" /></span></div>
+									<div id="CMember">
+									</div>
+								</div>
+								<div class="ct-operator">
+									<div class="op-left" >
+										<!--<input type="checkbox" id="ct_rotate" checked title="自动旋转">-->
+										<div class="ct_rotate_0" id="ct_rotate"></div>
+									</div>
+									<div class="op-right">
+										<div id="bars">
+											<div id="control" title="旋转角度"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="c3_n f_l" style="height:100px;width:100px;" >
+							<a href="">第一圈A</a>
+							<a href="">第一圈B</a>
+							<a href="">第一圈C</a>
+							<a href="">第一圈D</a>
+						</div>
+
+						<div class="c3_n f_l" style="height:100px;width:100px;" >
+							<br/>
+							<hr/>
+							<!--<a href="{DT_STATIC}?homepage={$_REQUEST['homepage']}&file=task">高手任务</a>-->
+							<!--<a href="{DT_STATIC}?homepage={$_REQUEST['homepage']}&file=buy">购买装备</a>-->
+							<!--<a href="{DT_STATIC}?homepage={$_REQUEST['homepage']}&file=news">江湖公告</a>-->
+							<!--<a href="{DT_STATIC}?homepage={$_REQUEST['homepage']}&file=honor">高手名望</a>-->
+							<!--<a href="{DT_STATIC}?homepage={$_REQUEST['homepage']}&file=job">招兵买马</a>-->
+							<!--<a href="{DT_STATIC}?homepage={$_REQUEST['homepage']}&file=contact">高手地盘</a>-->
+							<!--<a href="{DT_STATIC}?homepage={$_REQUEST['homepage']}&file=introduce">高手传奇</a>-->
+
+
+							<div>高手任务</div>
+							<div>购买装备</div>
+							<div>江湖公告</div>
+							<div>高手名望</div>
+							<div>招兵买马</div>
+							<div>高手地盘</div>
+							<div id ="paiming">高手排名</div>
+						</div>
+						<div class="c3_n f_l" style="height:100px;width:100px;" >
+							<a href="">榜</a>
+						</div>
+						<!--<div class="c3_n f_l">&nbsp;</div>-->
+						<div id="CMemberTop20" style="display: none">
+							{php $membTop25=tag("table=company&condition=1=1&pagesize=25&order=total_sales desc&template=null")}
+							{loop $membTop25 $i $t}
+							<div class="group-list f_l">
+								<a target="_blank" data-toggle="popover" data-placement="top" data-html="true" data-trigger="hover" data-content="
+        					<p><strong>名称：</strong>{$t[company]}</p><p><strong>经营范围：</strong>{$t[business]}</p>"
+								   href="{userurl($t[username])}" onmouseenter="membPop(this)">
+									<img class="group-pic" src="{useravatar($t[username])}">
+									<p class="group-name">{dsubstr($t[company], 10, '')}</p>
+									<p class="group-count">获取总报酬：<span style="color: #ff8a00">￥{$t[total_sales]}</span></p>
+								</a>
+							</div>
+							{/loop}
+						</div>
+
+						<div id="legend" style="position: absolute;margin-top: -10px;right: 0;width: 460px;height: 26px;opacity: 0;">&nbsp;</div>
+
+						<div class="c3_r f_l" style="background:url('{DT_SKIN}image/home/homep_sort_r.png');">
+							<div>
+								<h4 id="c3_r_title" class="f_b" style="margin: -6px;padding-bottom: 20px;">&nbsp;</h4>
+							</div>
+
+							<div id="seller" class="company_body" style="height:500px;overflow:hidden;">
+								<div id="mthumb_r" class="mthumb" style="margin: 5px 0 0 0;" >
+									<!--[{tag("table=witkey_task&condition=task_status=2&pagesize=30&order=task_cash desc&width=100&height=100&template=notice-buy&target=_blank")}]-->
+									<!--右边框-->
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div id="animated-header"></div>
+		</div>
+		<!--<div class="m b10">&nbsp;</div>-->
+
+		<!--<div class="m b10">&nbsp;</div>-->
+
+		<!--<div class="m b10">&nbsp;</div>-->
+
+		<!--<div class="m b10"></div>-->
+
+		<!--<div class="m b10"></div>-->
+
+		<div id="foot" class="section fp-auto-height" style="padding: 30px 0;">
+			{if $DT[page_logo] || $DT[page_text]}
+			<div class="m">
+				<div class="tab_head">
+					<span class="f_r f_n px12"><a href="{DT_PATH}api/shortcut.php" rel="nofollow" class="g">保存本站桌面快捷方式 &darr;</a>&nbsp;&nbsp;&nbsp;</span>
+					<ul>
+						<li class="tab_2"><a href="{$EXT[link_url]}">友情链接</a></li>
+						<li class="tab_1"><a href="{$EXT[link_url]}{rewrite('index.php?action=reg')}">申请链接</a></li>
+					</ul>
+				</div>
+				<div class="box_body">
+					{if $DT[page_logo]}
+					<!--{tag("table=link&condition=status=3 and level>0 and thumb<>'' and username=''&areaid=$cityid&pagesize=".$DT['page_logo']."&order=listorder desc,itemid desc&lazy=$lazy&template=list-link&cols=9")}-->
+					{/if}
+					{if $DT[page_text]}
+					<!--{tag("table=link&condition=status=3 and level>0 and thumb='' and username=''&areaid=$cityid&pagesize=".$DT['page_text']."&order=listorder desc,itemid desc&template=list-link&cols=9")}-->
+					{/if}
+				</div>
+			</div>
+			{/if}
+
+			{template 'footer'}
+		</div>
+
+	</div>
+</div>
+
+<script type="text/javascript" src="{DT_STATIC}file/script/catetree_1.js"></script>
+<script type="text/javascript" src="{DT_STATIC}file/script/index.js"></script>
+<script type="text/javascript" src="{DT_STATIC}file/script/marquee.js"></script>
+<script type="text/javascript">
+	var aa=document.getElementById('paiming');
+	var bb=document.getElementById('seller');
+	var cc=document.getElementById('seller');
+	aa.onclick=function(){
+		bb.innerHTML='点击了高手排名'+'<br/>'+'点击了高手排名';
+		this.style.color='green';
+//        bb.innerHTML=makeRequest('action=company&job=bydata&moduleid=4&userid='+userid, AJPath, '_getCMember');
+	};
+
+	//new dmarquee(22, 10, 3000, 'site_stats');
+	//new dmarquee(22, 30, 3000, 'transaction');
+	if(get_cookie('auth')) {
+		if ($('.iuser_l').length) {
+			$('.iuser_l')[0].title = '服务中心';
+			$('.iuser_l')[0].href = '{$MODULE[2][linkurl]}';
+			$('.iuser_l')[0].className = 'iuser_u';
+			$('.iuser_r')[0].title = '完善我的会员资料';
+			$('.iuser_r')[0].href = '{$MODULE[2][linkurl]}edit.php';
+			$('.iuser_r')[0].className = 'iuser_e';
+		}
+	}
+	//$(".scroll_h").cxScroll({auto:false});
+	$(".scroll_h").cxScroll();
+	$('[data-toggle="popover"]').popover();
+	$('.main-nav li.dropdown').hover(function() {
+		$(this).find('.dropdown-menu').stop(true, true).fadeIn();
+	}, function() {
+		$(this).find('.dropdown-menu').stop(true, true).delay(1000).fadeOut();
+	});
+</script>
+

@@ -1,0 +1,63 @@
+<div class="release-form">
+  <form class="form-horizontal" role="form" action="{$strUrl}&step={$step}" method="post"  id="pubTaskForm{$step}" name="pubTaskForm{$step}">
+  	<input type="hidden" name="{$step}" value="{$step}">
+  	<input type="hidden" name="budget_radio" id="budget_radio"  value="{if $arrPubInfo['budget_radio']}{$arrPubInfo['budget_radio']}{else}1{/if}">
+  	<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+    <div class="form-group">
+      <label for="txt_task_cash" class="col-sm-3 control-label">您的预算</label>
+      <div class="col-sm-3 {if $arrPubInfo['budget_radio'] =='2'}hidden{/if}" id="div-cash_cove">
+         <select name="task_cash_cove" id="task_cash_cove"  class="form-control  title="{$_lang['budget_title']}"  >
+			<option value="">请选择</option>
+		    {loop $arrCashCove $v}
+		    <option value="{$v['cash_rule_id']}" {if $intCover==$v[cash_rule_id]} selected="selected" {/if} >{$v['cove_desc']}</option>
+		    {/loop}
+		</select>
+      </div>
+	  <div class="col-sm-3 {if $arrPubInfo['budget_radio'] =='1'|| !$arrPubInfo['budget_radio']}hidden{/if}" id="div-budget">
+        <div class="input-group">
+			<input id="txt_budget" name="txt_budget" value="{$arrPubInfo['txt_budget']}" class="form-control " size="16" type="text"  placeholder="预算" ><span class="input-group-addon">元</span>
+        </div>
+      </div>
+    </div>
+	<div class="form-group" >
+     <label for="txt_task_cash" class="col-sm-3 control-label"></label>
+      <div class="col-sm-6">
+        <div class="input-group date form_date ">
+     		<a href="javascript:void(0);" id="verifyBudget">我{if $arrPubInfo['budget_radio'] =='2'}无{else}有{/if}明确的预算</a>
+        </div>
+      </div>
+    </div>
+    <!-- 您的预算 end -->
+    <div class="form-group">
+      <label for="txt_task_day" class="col-sm-3 control-label">结束日期</label>
+      <div class="col-sm-6">
+        <div class="input-group date form_date " style="width: 100%;">
+          <input id="txt_task_day" name="txt_task_day" class="form-control form_datetime" size="16" type="text" value="{$strMaxDay}" placeholder="结束日期" data-date="{$strMinDate}" data-date-format="yyyy-mm-dd">
+        </div>
+      </div>
+    </div>
+<!--     <div class="form-group">
+ <label for="txt_task_cash" class="col-sm-3 control-label"></label>
+  <div class="col-sm-6">
+    <div class="input-group date form_date ">
+     <span id="dayabc">任务最大发布时间为{$arrConfig['bid_max_time']}天</span>
+    </div>
+  </div>
+</div> -->
+
+    <!-- 结束日期 end -->
+    <div class="form-group {if !$arrDistribution[$id]}hidden{/if}">
+      <label class="col-sm-3 control-label">赏金分配</label>
+      <div class="col-sm-6">
+        <p class="form-control-static">{$arrDistribution[$id]}</p>
+      </div>
+    </div>
+    <!-- 赏金分配 end -->
+    <div class="form-group">
+      <div class="col-sm-offset-3 col-sm-6">
+        <button type="submit" class="kbtn btn-primary" value="1" >下一步</button>
+      </div>
+    </div>
+    <!-- form-group end -->
+  </form>
+</div>

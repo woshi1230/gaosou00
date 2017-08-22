@@ -1,0 +1,72 @@
+var menu_topleft = '';
+var gaosou_cart = get_cart();
+{if $_userid}
+var gaosou_userid = {$_userid};
+var gaosou_username = '{$_username}';
+var gaosou_message = {$_message};
+var gaosou_chat = {$_chat};
+menu_topleft += '<li><a href="{$MODULE[2][linkurl]}line.php" title="{if $_online}在线，点击隐身{else}隐身，点击上线{/if}"><span class="f_b" title="{$MG[groupname]}">{$_truename}</span><img src="{DT_SKIN}image/user_{if $_online}on{else}off{/if}line.png" width="10" height="10" align="absmiddle"/></a></li>';
+menu_topleft += '<li><a href="{$MODULE[2][linkurl]}">服务中心</a></li>';
+menu_topleft += '<li><a href="{$MODULE[2][linkurl]}message.php">信件(<span class="head_t" id="gaosou_message">{if $_message}<strong>{$_message}</strong>{if $_sound}'+sound('message_{$_sound}')+'{/if}{else}0{/if}</span>)</a>{if $DT[im_web]}</li>';
+menu_topleft += '<li><a href="{$MODULE[2][linkurl]}chat.php">对话(<span class="head_t" id="gaosou_chat">{if $_chat}<strong>{$_chat}</strong>'+sound('chat_new')+'{else}0{/if}</span>)</a>{/if}</li>';
+menu_topleft += '{if isset($MODULE[16])}<li class="h_cart" style="background-position: 5px 10px;"><a href="{$MODULE[16][linkurl]}cart.php" rel="nofollow">购物车(<span class="head_t" id="gaosou_cart">0</span>)</a></li>{/if}';
+menu_topleft += '<li><a href="{$MODULE[2][linkurl]}logout.php">退出</a></li>';
+{else}
+var gaosou_userid = 0;
+{if $EXT[oauth]}
+var oauth_site = '{get_cookie('oauth_site')}';
+var oauth_user = '{get_cookie('oauth_user')}';
+menu_topleft += (oauth_user && oauth_site) ? '<img src="{DT_PATH}api/oauth/'+oauth_site+'/ico.png" align="absmiddle"/> 欢迎，<strong>'+oauth_user+'</strong> | <a href="{DT_PATH}api/oauth/'+oauth_site+'/index.php?time={$DT_TIME}">绑定帐号</a> | <a href="javascript:" onclick="oauth_logout();">注销登录</a>' : '欢迎，<span class="f_red">客人</span> | <a href="{$MODULE[2][linkurl]}{$DT[file_login]}">请登录</a> | <a href="{$MODULE[2][linkurl]}{$DT[file_register]}">免费注册</a> | <a href="{$MODULE[2][linkurl]}send.php">忘记密码?</a>';
+{else}
+menu_topleft += '<li><a>欢迎，<span class="f_red">客人</span></a></li> <li><a href="{$MODULE[2][linkurl]}{$DT[file_login]}">请登录</a></li> <li><a href="{$MODULE[2][linkurl]}{$DT[file_register]}">免费注册</a></li> <li><a href="{$MODULE[2][linkurl]}send.php">忘记密码?</a></li>';
+{/if}
+{/if}
+$('#menu_topleft').html(menu_topleft);
+{if $DT[city]}
+$('#gaosou_city').html('{$city_name}');
+{/if}
+{if isset($MODULE[16])}
+$('#gaosou_cart').html(gaosou_cart > 0 ? '<strong>'+gaosou_cart+'</strong>' : 0);
+{/if}
+{if $_message}
+Dnotification('new_message', '{$MODULE[2][linkurl]}message.php', '{useravatar($_username, 'large')}', '站内信 ({$_message})', '收到新的站内信件，点击查看');
+{/if}
+{if $_chat}
+Dnotification('new_chat', '{$MODULE[2][linkurl]}chat.php', '{useravatar($_username, 'large')}', '新对话 ({$_chat})', '收到新的对话请求，点击交谈');
+{/if}
+{if $_userid && $DT[pushtime]}window.setInterval('PushNew()',{$DT[pushtime]}*1000);{/if}
+
+var menu_topright = '';
+menu_topright += '    {if $EXT[mobile_enable]}<li class="h_mobile" style="height: 32px;"><a href="{$EXT[mobile_url]}mobile.php">手机版</a>&nbsp;</li>{/if}';
+menu_topright += '        {if $head_mobile}<li class="h_qrcode" style="height: 32px;"><a href="javascript:Dqrcode();">二维码</a>&nbsp;</li>{/if}';
+menu_topright += '        <li class="dropdown nav-item has-sub">';
+menu_topright += '            <a href="#" class="nav-item-link">我是雇主<span class="caret"></span></a>';
+menu_topright += '            <ul class="dropdown-menu nav-item-sub nav-sub-list">';
+menu_topright += '                 <li><a href="{DT_STATIC}index.php?do=pubtask">发布任务</a></li>';
+menu_topright += '                 <li><a href="{DT_STATIC}master">找服务商</a></li>';
+menu_topright += '                <li><a href="{DT_STATIC}member/witkey.php?action=waitpay&view=transaction&op=released&intTaskStatus=0"><span class="badge">{$intWaitPay[0]['count']}</span>待付款任务</a></li>';
+menu_topright += '                <li><a href="{DT_STATIC}member/witkey.php?action=waitselect&view=transaction&op=released&intTaskStatus=3"><span class="badge">{$intChoose[0]['count']}</span>待选稿</a></li>';
+menu_topright += '                <li><a href="{DT_STATIC}member/witkey.php?action=waitjudge&view=gz&op=mark&type=1&nav=0"><span class="badge">{$intMarkG}</span>待评价</a></li>';
+menu_topright += '            </ul>';
+menu_topright += '        </li>';
+menu_topright += '        <li class="dropdown nav-item has-sub">';
+menu_topright += '            <a href="#" class="nav-item-link">我是高手<span class="caret"></span></a>';
+menu_topright += '            <ul class="dropdown-menu nav-item-sub nav-sub-list">';
+<!--menu_topright += '                <li><a href="#">发布商品</a></li>';-->
+menu_topright += '                <li><a href="{DT_STATIC}member/my.php/?mid=16&action=add">发布商品</a></li>';
+<!--menu_topright += '                <li><a href="{DT_STATIC}index.php?do=pubgoods">发布商品</a></li>';-->
+<!--menu_topright += '                <li><a href="#">我的店铺</a></li>';-->
+menu_topright += '                <li><a href="{DT_STATIC}/com/{$_username}">我的店铺</a></li>';
+<!--menu_topright += '                <li><a href="#"><span class="badge">{$intGy}</span>新的雇佣</a></li>';-->
+menu_topright += '                <li><a href="{DT_STATIC}member/witkey.php?action=index">任务订单</a></li>';
+<!--menu_topright += '                <li><a href="{DT_STATIC}member/index.php?view=wk&op=gy&s=seller_confirm"><span class="badge">{$intGy}</span>新的雇佣</a></li>';-->
+<!--menu_topright += '                <li><a href="{DT_STATIC}member/index.php?view=transaction&op=sold&intModelId=7&strStatus=seller_confirm"><span class="badge">{$intService}</span>新服务订单 </a></li>';-->
+<!--menu_topright += '                <li><a href="{DT_STATIC}member/trade.php"><span class="badge">{$intService}</span>商城订单 </a></li>';-->
+menu_topright += '                <li><a href="{DT_STATIC}member/trade.php">商城订单 </a></li>';
+menu_topright += '                <li><a href="{DT_STATIC}member/witkey.php?action=waitjudge&view=wk&op=mark&type=1&nav=0"><span class="badge">{$intMarkW}</span>待评价</a></li>';
+menu_topright += '            </ul>';
+menu_topright += '        </li>';
+menu_topright += '        <li class="nav-item">';
+menu_topright += '            <a href="{DT_STATIC}index.php?do=help" class="nav-item-link">帮助中心</a>';
+menu_topright += '       </li>';
+$('#menu_topright').html(menu_topright);

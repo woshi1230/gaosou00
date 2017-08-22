@@ -1,0 +1,40 @@
+
+<div class="modal-body">
+		  <form role="form" action="index.php?do=taskhandle&op=taskHost&taskId={$taskId}" method="post" class="form-horizontal" name="hostCashForm" id="hostCashForm">
+          	 <input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+			<input type="hidden" name="floatHostCash" id="floatHostCash" value="{$limit}">
+			<p class="text-info mb_10"><i class="fa fa-info-circle"></i> 请您放心托管赏金</p>
+           <div class="well well-sm">
+			   <label>托管金额：</label>
+			   <strong class="money">
+				   <sub>￥</sub>{$limit}
+			   </strong>
+           </div>
+
+
+
+		  	<ul class="form-group" style="margin-left: 0;">
+		  		<li>1.请确保托管金额为双方商定金额,以免产生纠纷.</li>
+				<li>2.托管赏金后,请尽快通知高手确认并开始工作.</li>
+				<li>3.托管后无法再淘汰高手,您可以通过提交维权以便客服介入.</li>
+		  	</ul>
+		  	<div class="form-group">
+		  		<label class="control-label col-md-2">输入支付密码</label>
+				<div class="col-sm-8">
+					<input type="password" autocomplete="off" class="form-control" placeholder="请输入支付密码" id="zfpwd" name="zfpwd">
+					{if $twoPassword==$gUserInfo['sec_code']}
+					<span class="help-block">与登录密码相同,<a href="index.php?do=user&view=account&op=security">建议修改</a></span>
+					{/if}
+				</div>
+		  	</div>
+
+
+
+              <div class="text-center">
+                <button class="kbtn btn-primary" type="submit" value="1" >确定</button>
+                <span class="text-success" id="tipsUser"></span>
+              </div>
+
+          </form>
+</div>
+<script src="{DT_STATIC}template/default/task/match/matchtask.js" charset="{CHARSET}"></script>

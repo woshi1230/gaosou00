@@ -1,0 +1,58 @@
+<template>
+    <div class="nav_bar">
+        <image src="{{gaosouURL}}mobile/static/img/icon-sort.png"
+               class="nav_left_icon" onclick="nav_right_click"></image>
+        <text class="nav_title" value="ONE" navi-item-position="center">{{title}}</text>
+        <image src="{{gaosouURL}}mobile/static/img/icon-setting.png"
+               class="nav_right_icon" onclick="nav_right_click"></image>
+    </div>
+</template>
+
+<style>
+
+    .nav_bar {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        height: 90px;
+    }
+
+    .nav_title {
+        text-align: center;
+        font-weight: bold;
+        margin-left: 20px;
+    }
+
+    .nav_left_icon {
+        width: 40px;
+        height: 40px;
+        margin-left: 25px;
+    }
+
+    .nav_right_icon {
+        width: 40px;
+        height: 40px;
+        margin-right: 25px;
+    }
+
+</style>
+
+<script>
+    require('weex-components');
+    var modal = require('@weex-module/modal');
+    var apis = require('../common/api');
+
+    module.exports = {
+        data: {gaosouURL: '', title: '', showIcon: true, justifyContent: 'space-between'},
+        created: function () {
+            var self = this;
+            this.gaosouURL = apis.getGaosouURL();
+        },
+        methods: {
+            nav_right_click: function (e) {
+//                modal.toast({'message': 'I am toast!', 'duration': 1});
+                this.$dispatch('navRightClick', {});
+            }
+        }
+    }
+</script>

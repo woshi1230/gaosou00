@@ -1,0 +1,303 @@
+{if $editor != '1'}
+{template 'header', $module}
+<script type="text/javascript">c(0);</script>
+{else}
+{template 'header-dialog', $module}
+{/if}
+{if $action != 'catdialog'}
+<div class="menu">
+    <table cellpadding="0" cellspacing="0">
+        <tr>
+            <td class="tab" id="action_add"><a href="?action=add&editor={$editor}&catid={$catid}"><span>新增目录</span></a></td>
+            <td class="tab" id="action_edit"><a href="?action=edit&editor={$editor}&catid={$catid}"><span>修改目录</span></a></td>
+            <td class="tab" id="action_del"><a  href="?action=del&editor={$editor}&catid={$catid}"><span>删除目录</span></a></td>
+            <td class="tab" id="action"><a href="?action=index&editor={$editor}"><span>图片空间</span></a></td>
+        </tr>
+    </table>
+</div>
+{/if}
+{if $action == 'add'}
+<form method="post" action="?" onsubmit="return check();">
+    <input type="hidden" name="action" value="{$action}"/>
+    <input type="hidden" name="editor" value="{$editor}"/>
+    <input type="hidden" name="userid" value="{$userid}"/>
+    <input type="hidden" name="parentid" value="{$catid}"/>
+    <div class="tt">目录添加</div>
+    <table cellpadding="2" cellspacing="1" class="tb">
+        <tr>
+            <td class="tl"><span class="f_red">*</span> 上级目录</td>
+            <td>
+                {imgcat_select('category[parentid]', '请选择', $catid, $_userid)}
+                <br/><span id="dcatid_1" class="f_red"></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="tl"><span class="f_red">*</span> 目录名称</td>
+            <td><input name="category[catname]" id="catname" />
+                <br/><span id="dcatname" class="f_red"></span>
+            </td>
+        </tr>
+    </table>
+    <div class="sbt"><input type="submit" name="submit" value="确 定" class="btn"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" name="reset" value="重 置" class="btn"/></div>
+</form>
+<script type="text/javascript">
+    function check() {
+//        var exp  =/[\/\*<>\?\|]/;
+        var exp  = /[^\w\u4e00-\u9fa5]/;
+        var name = Dd('catname').value;
+        var l  = name.length;
+
+        if(Dd('catid_1').value <= '0') {
+            Dmsg('请选择上级目录', 'catid_1');
+            return false;
+        }
+
+        if(Dd('catname').value == '') {
+            Dmsg('请填写目录名称', 'catname');
+            return false;
+        }
+
+        if(exp.test(name)) {
+            alert('含非法字符');
+            return false;
+        }
+
+        if(l>15){
+            alert('名字过长');
+            return false;
+        }
+        return true;
+    }
+</script>
+<script type="text/javascript">s('image');m('action_add');</script>
+
+
+{elseif $action == 'edit'}
+<form method="post" action="?" onsubmit="return check();">
+    <input type="hidden" name="action" value="{$action}"/>
+    <input type="hidden" name="editor" value="{$editor}"/>
+    <input type="hidden" name="userid" value="{$userid}"/>
+    <input type="hidden" name="catname" value="{$catname}"/>
+    <input type="hidden" name="parentid" value="{$parentid}"/>
+    <div class="tt">修改目录</div>
+    <table cellpadding="2" cellspacing="1" class="tb">
+        <tr>
+            <td class="tl"><span class="f_red">*</span>原名称</td>
+            <td>
+                {imgcat_select('category[parentid]', '请选择', $catid, $_userid)}
+                <br/><span id="dcatid_1" class="f_red"></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="tl"><span class="f_red">*</span>新名称</td>
+            <td><input name="category[catname]" id="catname" value="{$catname}" />
+                <br/><span id="dcatname" class="f_red"></span>
+            </td>
+        </tr>
+    </table>
+    <div class="sbt"><input type="submit" name="submit" value="确 定" class="btn"/>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+</form>
+<script type="text/javascript">
+    function check() {
+//       var exp  = /[\/\*<>\?\|]/;
+       var exp  = /[^\w\u4e00-\u9fa5]/;
+        var name = Dd('catname').value;
+        var l  = name.length;
+        if(Dd('catid_1').value <= '0') {
+            Dmsg('请选择修改目录', 'catid_1');
+            return false;
+        }
+
+        if(Dd('catname').value == '') {
+            Dmsg('请填写目录名称', 'catname');
+            return false;
+        }
+
+        if(exp.test(name)) {
+            alert('含非法字符');
+            return false;
+        }
+
+        if(l>15){
+            alert('名字过长');
+            return false;
+        }
+
+        return true;
+    }
+</script>
+<script type="text/javascript">s('image');m('action_edit');</script>
+
+{elseif $action == 'catdialog'}
+<!--<form method="post" action="?" onsubmit="check();">-->
+    <input type="hidden" name="action" value="move"/>
+    <input type="hidden" name="editor" value="{$editor}"/>
+    <input type="hidden" name="files" value="{$files}"/>
+    <input type="hidden" name="s_dir" value="{$catid}"/>
+    <input type="hidden" name="d_dir" id="d_dir" value=""/>
+    <div style="float: left;border-right: 2px solid #eeeeee;">
+        <div style="padding: 10px;float: left;"><span style="font-size: 14px;">图片目录</span></div>
+        <div style="padding: 10px;float: right;"><button onclick="check();" class="btn">确 定</button></div>
+        <div style="float:left;padding:10px;">
+            {imgcat_select('cid', '', $catid, $_userid, 'onchange="cat_selected(this);" size="2" style="width:360px;height:450px;overflow:auto;"')}
+        </div>
+    </div>
+<!--</form>-->
+<script type="text/javascript">
+    function check() {
+        window.parent.cDialog();
+//        window.parent.location.reload();
+        var obj = window.parent.$("#user_gallery");
+        obj[0].action = '?action=move&editor={$editor}&s_dir={$catid}&d_dir=' + $("#d_dir").val();
+        obj[0].submit();
+        return true;
+    }
+    function cat_selected(obj) {
+        $("#d_dir").val(obj.value);
+    }
+</script>
+
+{else}
+<style>
+    .photo {width:115px;height:130px;overflow:hidden;float:left;text-align:center;padding:10px;}
+    .photo_img {width:100px;height:100px;overflow:hidden;padding:3px;margin:0 auto 8px auto;background:#FFFFFF;border:#CCCCCC 1px solid;cursor:pointer;}
+    .photo_sel {border-width: 2px;border-color: blue;}
+</style>
+
+<div class="bd" style="margin-top: -14px;">
+    <form method="post" id="user_gallery" action="?">
+        <input type="hidden" name="editor" value="{$editor}"/>
+        <div style="float: left;border-right: 2px solid #eeeeee;">
+            {if $_groupid == 1 or $_groupid == 7}
+                <div style="padding: 10px;"><span style="font-size: 14px;">图片目录</span></div>
+            {else}
+                <div style="padding: 10px;"><span style="font-size: 14px;">图片目录{if $MG['uploadtotalsize']}(共{$MG['uploadtotalsize']}M){/if}</span></div>
+                {if $totalM<=$MG['uploadtotalsize']}
+                    <div style="padding: 10px;"><span style="font-size: 14px;">目前已用约{$totalM}M，约占总空间{$percent}</span></div>
+                {else}<div style="padding: 10px;"><span style="font-size: 14px;color: #E11111;">空间已满，请删除一些图片再继续上传</span></div>{/if}
+            {/if}
+            <div style="float:left;padding:10px;">
+                {imgcat_select('cid', '', $catid, $_userid, 'onchange="cat_selected(this);" size="2" style="width:260px;min-height:400px;overflow:auto;"')}
+            </div>
+        </div>
+        <div style="margin-left: 290px;min-height:400px;overflow:auto;">
+            <div style="padding: 10px;">
+                <span class="f_gray">当前目录:&nbsp;</span>
+                {loop $idnames $i $v}
+                {if $i>0}
+                <span class="f_gray">&nbsp;>&nbsp;</span>
+                {/if}
+                <a href="?action=index&editor={$editor}&catid={$v['catid']}" class="t">{$v['catname']}</a>
+                {/loop}
+            </div>
+            <div style="padding: 10px;border-top: 1px solid #eeeeee;border-bottom: 1px solid #eeeeee;margin-left: 5px;font-size: 14px;">
+                <input type="checkbox" onclick="chk_all(this);" />全选
+                <span class="f_gray">&nbsp;&nbsp;</span>
+                <a href="#" class="t" onclick="Dgallery('{$catid}',2,100,100, '', true);">上传</a>
+                <span class="f_gray">&nbsp;|&nbsp;</span>
+                <a href="#" class="t" onclick="replace();">替换</a>
+                <span class="f_gray">&nbsp;|&nbsp;</span>
+                <a href="#" class="t" onclick="moveimage();">移动</a>
+                <span class="f_gray">&nbsp;|&nbsp;</span>
+                <a href="#" class="t" onclick="delimage();">删除</a>
+            </div>
+            <div style="padding: 10px;">
+                {if $lists}
+                {loop $lists $k $v}
+                <div class="photo">
+                    <div id="{$v[pid]}" class="photo_img" onclick="sel_photo({$v[pid]}, '{$v[fileurl]}');"><img src="{DT_PATH}{$v[thumb]}" width="100" title="{$v[introduce]}"/></div>
+                    <div>
+                        <a href="{DT_PATH}{$v[large]}" target="_blank"><img src="{DT_SKIN}image/zoomin.gif"/></a>&nbsp;&nbsp;
+                        <input type="checkbox" onclick="chk_photos(this, {$v[pid]});" name="filelist[]" value="{$v[fileurl]}" />&nbsp;&nbsp;
+                    </div>
+                </div>
+                {/loop}
+                <div class="c_b"></div>
+                {else}
+                <br/><div class="f_b">抱歉，此目录您还没有上传过任何图片！</div>
+                {/if}
+                {if $pages}<div class="pages" style="float: left;width: 100%;">{$pages}</div>{/if}
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">s('image');m('action');</script>
+<script type="text/javascript">
+    function S(t) {
+        try {
+            if (window.opener) {
+                window.opener.SetUrl(DTPath + t);
+                window.close();
+            } else {
+                window.parent.getAlbum(t, '');
+                window.parent.cDialog();
+            }
+        } catch(e) {}
+    }
+
+    function cat_selected(obj) {
+        obj.form.action='?action=index&editor={$editor}&catid='+obj.value;
+        obj.form.submit();
+    }
+    function sel_photo(pid, sel_file, isAdd) {
+        $(".photo_sel").removeClass("photo_sel");
+        $("#"+pid).addClass("photo_sel");
+
+        // 取消checkbox选中状态，只选择当前的项目
+        $("input[type='checkbox']").prop('checked', false);
+        var par = $("#"+pid).parent();
+        par.find("input[type='checkbox']").prop('checked', true);
+
+        // editor中新增时不关闭对话框
+        if (!isAdd) S(sel_file);
+    }
+    function chk_photos(obj, pid) {
+        if (obj.checked) {
+            $("#"+pid).addClass("photo_sel");
+        } else {
+            $("#"+pid).removeClass("photo_sel");
+        }
+    }
+    function chk_all(obj) {
+        if (obj.checked) {
+            $(".photo .photo_img").addClass("photo_sel");
+            $("input[type='checkbox']").prop('checked', true);
+        } else {
+            $(".photo .photo_img").removeClass("photo_sel");
+            $("input[type='checkbox']").prop('checked', false);
+        }
+    }
+    function replace() {
+        if ($(".photo_sel").length == 1) {
+            Dgallery('{$catid}',2,100,100, $("input[name='filelist[]']:checked").val(), true);
+        } else {
+            alert('请先选择一个图片才能替换');
+        }
+    }
+
+    function delimage() {
+        if ($(".photo_sel").length > 0) {
+            if (confirm("确定删除？")){
+                var obj = $("#user_gallery");
+                obj[0].action = '?action=delimage';
+                obj[0].submit();
+            }
+        } else {
+            alert('请先选择要删除的图片');
+        }
+    }
+
+    function moveimage() {
+        if ($(".photo_sel").length > 0) {
+            Dwidget('?action=catdialog&editor=1&catid={$catid}', '请选择要移至的目录', 400, 520);
+        }else{
+            alert('请选择要移动的图片！');
+        }
+    }
+
+    {if $uploadid}
+    sel_photo({$uploadid}, '{$lists[$uploadid][fileurl]}', true);
+    {/if}
+</script>
+{/if}
+{template 'footer', $module}

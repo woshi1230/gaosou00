@@ -1,0 +1,192 @@
+<!--{template ADMIN_DIRECTORY/tpl/admin_header}-->
+<div class="page_title">
+    	<h1>{$_lang['witkey_goods_manage']}</h1>
+        <div class="tool">
+         <!--  <a href="index.php?do={$do}&model_id={$model_id}&view=order">{$_lang['goods_list']}</a>-->
+		  <a href="index.php?do={$do}&model_id={$model_id}&view=list" class="here" >{$_lang['goods_list']}</a>
+        </div>
+</div>
+<!--页头结束-->
+
+<!--提示结束-->
+
+	<div class="box search p_relative">
+    	<div class="title"><h2>{$_lang['search']}</h2></div>
+    	<div class="detail" id="detail">
+		<form method="post" action="index.php?do={$do}&model_id={$model_id}&view={$view}" id="frm_art_search">
+		<input type="hidden" name="page" value="{$page}">
+    		<table cellspacing="0" cellpadding="0">
+				<tbody>
+					<tr>
+						<th>{$_lang['goods_id']}</th>
+		                <td><input type="text" class="txt" name="w[service_id]" id="service_id" value="$w[service_id]" onkeyup="clearstr(this);"  ></td>
+		                <th>{$_lang['goods_name']}</th>
+		                <td>
+		                <input type="text" class="txt" name='w[title]' id="title" value="$w[title]">
+						</td>
+						<th>{$_lang['shopkeeper']}</th>
+						<td>
+							<input type="text" class="txt" name="w[username]" id="username" value="$w[username]" tips="">
+						</td>
+					</tr>
+					<tr>
+						<th>{$_lang['goods_status']}</th>
+						<td>
+							 <select name="w[service_status]" id="catid" onchange="statusJump(this.value)">
+							 	<option value="">{$_lang['goods_status']}</option>
+							 	<option value="a1" {if $w['service_status']==='a1'} selected="selected" {/if} >更新待审核</option>
+								{loop $status_arr $k $v}
+								 <!--{eval $k = strval($k);}-->
+									<option value="$k" {if $w['service_status']===$k} selected="selected" {/if} >{$v}</option>
+								{/loop}
+	             			 </select>
+						 </td>
+						<th>{$_lang['result_order']}</th>
+						<td>
+							 <select name="ord" onchange="orderJump(this.value)">
+                     		 	 <option {if $ord=='default' or !isset($ord['1'])} selected="selected" {/if}  value="default">默认排序</option>
+                     		 	 <option {if $ord=='id-desc'} selected="selected" {/if}  value="id-desc">编号降序</option>
+                     		 	 <option {if $ord=='id-asc'} selected="selected" {/if}  value="id-asc">编号升序</option>
+                     		 </select>
+						</td>
+						<th>{$_lang['result_show']}</th>
+						<td colspan="3">
+							<select name="size"  onchange="pageJump(this.value)">
+	                			<option value="10" {if $size=='10'}selected="selected"{/if}>{$_lang['page_size']}10</option>
+	                			<option value="20" {if $size=='20'}selected="selected"{/if}>{$_lang['page_size']}20</option>
+	                			<option value="30" {if $size=='30'}selected="selected"{/if}>{$_lang['page_size']}30</option>
+	            			</select>
+							<button class="pill" type="submit" value="{$_lang['search']}" name="sbt_search"><span class="icon magnifier">&nbsp;</span>{$_lang['search']}</button>
+						</td>
+					</tr>
+           		</tbody>
+			</table>
+			</form>
+    	</div>
+    </div>
+<!--搜索结束-->
+
+<div class="box list">
+    <div class="title"><h2>{$_lang['goods_list']}</h2></div>
+    <div class="detail">
+	<form action="" method="post" id="frm_list">
+		<input type="hidden" name="w[page_size]" value="{$page_size}">
+		<div id="ajax_dom">
+		<input type="hidden" name="page" value="{$page}">
+    	<table cellpadding="0" cellspacing="0">
+    		<tbody>
+        	<tr>
+        		<th width="10%">编号</th>
+           		<th width="30%">{$_lang['goods_name']}</th>
+           		<th width="15%">{$_lang['quotation_yuan_unit']}</th>
+				<th width="15%">{$_lang['shopkeeper']}</th>
+              	<th width="5%">{$_lang['goods_status']}</th>
+                <th width="25%">{$_lang['operate']}</th>
+            </tr>
+
+            {loop $goods_arr $k $v}
+            <tr class="item">
+            	<td >{$v['service_id']}</td>
+                <td><a target="_blank" href="{$_K['siteurl']}/index.php?do=goods&id={$v['service_id']}">
+                	<!--{eval echo kekezu::cutstr($v['title'],44)}--></a>{if $v['edit_status'] =='1'}<span style="color: red">(更新待审核)</span>{/if}</td>
+                <td>{if $v['price']}{c:$v['price']} / $v['unite_price']{else}{$_lang['no_quotation']}{/if}</td>
+				<td>{$v['username']}</td>
+                <td>{$status_arr[$v['service_status']]}</td>
+                <td>
+                {if $v['edit_status'] =='1'}
+					<a href="javascript:viewUpdateInfo('{$url_str}&ac=view_info&service_id={$v[service_id]}&page={$page}&uid={$v[uid]}');" class="button"><span class="check icon"></span>1111111111111111查看更新</a>
+				{else}
+	                {if $v['service_status']==1}
+					<a href="{$url_str}&ac=pass&service_id={$v['service_id']}&page={$page}" onclick="return cpass(this,'',1);" class="button"><span class="check icon"></span>审核1111111通过</a>
+					<!-- <a href="{$url_str}&ac=nopass&service_id={$v['service_id']}&page={$page}" onclick="return cpass(this,'',2);" class="button"><span class="check icon"></span>审核失败</a> -->
+					<a href=javascript:lookinfo("{$url_str}&ac=nopass&service_id={$v['service_id']}&page={$page}&uid={$v['uid']}");  class="button"><span class="check icon"></span>审核失败</a>
+					{/if}
+				{/if}
+				<a href="index.php?do=$do&model_id=$model_id&view=edit&service_id=$v['service_id']&page={$page}" class="button dbl_target"><span class="pen icon"></span>{$_lang['edit']}</a>
+				{if $v['service_status']!=2&&$v['service_status'] !=1}
+				<a href="{$url_str}&ac=del&service_id={$v['service_id']}&page={$page}"  onclick="return cdel(this);" class="button"><span class="trash icon"></span>{$_lang['delete']}</a>
+				{/if}
+				{if $v['service_status']==3}
+					<a href="{$url_str}&ac=shelves&service_id={$v['service_id']}&page={$page}" onclick="return  cdel(this,'{$_lang['shelves_this_product']}{$_lang['zh_wh']}');" class="button"><span class="check icon"></span>{$_lang['shelves']}</a>
+				{/if}
+				{if $v['service_status']==2}
+					<a href=javascript:off_shelf("{$url_str}&ac=off_shelf&service_id={$v['service_id']}&page={$page}"); class="button"><span class="lock icon"></span>{$_lang['off_the_shelf']}</a>
+				{/if}
+				</td>
+            </tr>
+            {/loop}
+          	<tr>
+            	<td colspan="9">
+                    <div class="page fl_right">{$pages['page']}</div>
+                   
+                 </td>
+        	</tr>
+		 </tbody>
+        </table></div>
+     </form>
+    </div>
+</div>
+<!--主体结束-->
+<script type="text/javascript">
+	var url = '{$url_str}';
+	function statusJump(service_status){
+		window.location.href = url+'&w[service_status]='+service_status;
+	}
+	function orderJump(value){
+		window.location.href= url+'&ord='+value;
+	}
+	function pageJump(value){
+		window.location.href = url+'&size='+value;
+	}
+	function lookinfo(url){
+		art.dialog.open(url,{
+			title:"审核不通过的原因",
+			height:380,
+			width:500,
+			closeFn:function (){
+						var ispass=art.dialog.data('ispass');
+						if(ispass=='ok'){
+						var reason = art.dialog.data('reason');
+						var username = art.dialog.data('username');
+						var title = art.dialog.data('title');
+						art.dialog.data('ispass','no');
+					 	window.location.href=url+'&is_submit=1'+'&reason='+reason; 
+						} 
+						
+				}
+			},false); 
+	}
+	function viewUpdateInfo(url){
+		art.dialog.open(url,{
+			title:"查看更新",
+			height:380,
+			width:500,
+			closeFn:function (){
+				var ispass=art.dialog.data('ispass');
+				if(ispass == '1'){
+					window.location.href ="index.php?do={$do}&model_id={$model_id}&view=list";
+				}
+			}
+		},false); 
+	}
+	function off_shelf(url){
+		art.dialog.open(url,{
+			title:"下架原因",
+			height:300,
+			width:360,
+			closeFn:function (){
+						var ispass=art.dialog.data('ispass');
+						if(ispass=='ok'){
+						var reason = art.dialog.data('reason');
+						var username = art.dialog.data('username');
+						var title = art.dialog.data('title');
+						art.dialog.data('ispass','no');
+					 	window.location.href=url+'&is_submit=1'+'&reason='+reason+'&name='+username+'&title='+title; 
+						} 
+						
+				}
+			},false); 
+	}
+</script>
+
+ <!--{template ADMIN_DIRECTORY/tpl/admin_footer}-->

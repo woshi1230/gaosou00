@@ -1,0 +1,11 @@
+{if $arrShowCustoms && $c_open =='1'} 
+	{loop $arrShowCustoms $k $v} 
+		{if $v['data']}
+			{loop $v['data'] $kk $vv} 
+				{if $vv['fieldname']&&$vv['content']}
+					<p>{$vv['fieldname']}：{$vv['content']}</p>
+				{/if} 
+			{/loop}
+		{/if} 
+	{/loop}
+{/if}

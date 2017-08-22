@@ -1,0 +1,11 @@
+<div class="box">
+<ul class="list">
+    {loop $tags $k $t}
+    <li style="{$t['text_style']}">
+        <div style="width: 1190px;height: 90px">
+            <img src="{DT_PATH}{$t['image_src']}" style="width: 100%;height: 100%;border-width: 0;"/>
+        </div>
+    </li>
+    {/loop}
+</ul>
+</div>

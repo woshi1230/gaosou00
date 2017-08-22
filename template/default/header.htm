@@ -1,0 +1,24 @@
+{template 'top'}
+
+<div class="m head_s" id="gaosou_space"></div>
+<div class="m">
+	<div class="logo f_l"  style="margin:10px 0 10px 0"><a href="{$MODULE[1][linkurl]}main.html"><img src="{if $MODULE[$moduleid][logo]}{DT_SKIN}image/logo_{$moduleid}.gif{elseif $DT[logo]}{DT_PATH}{$DT[logo]}{else}{DT_SKIN}image/logo.png{/if}" alt="{$DT[sitename]}"/></a></div>
+	<form id="gaosou_search" action="{$MODULE[$searchid][linkurl]}search.php" onsubmit="return Dsearch(1);">
+		<input type="hidden" name="moduleid" value="{$searchid}" id="gaosou_moduleid"/>
+		<input type="hidden" name="spread" value="0" id="gaosou_spread"/>
+		<div class="head_search" onmouseover="this.className='head_search_on';" onmouseout="this.className='head_search';">
+			<div style="position: relative;">
+				<input name="kw" id="gaosou_kw" type="text" class="search_i" value="{if $kw}{$kw}{else}请输入关键词{/if}" onfocus="if(this.value=='请输入关键词') this.value='';"{if $DT[search_tips]} onkeyup="STip(this.value);" autocomplete="off"{/if} x-webkit-speech speech/><input type="text" id="gaosou_select" class="search_m" value="{$MODULE[$searchid][name]}" readonly onfocus="this.blur();" onclick="$('#search_module').fadeIn('fast');"/><input style="position: absolute;right: 0;" type="submit" value=" 搜索" class="search_s"/>
+			</div>
+		</div>
+	</form>
+	<div class="head_search_kw f_l">
+		<a href="" onclick="Dsearch_adv();return false;"><strong>热搜：</strong></a>
+		<span id="gaosou_word" style="color: #939393;"><!--{tag("moduleid=$searchid&table=keyword&condition=moduleid=$searchid and status=3&pagesize=10&order=total_search desc&template=list-search_kw")}--></span></div>
+	</div>
+<div class="m">
+	<div class="menu">
+		<ul><li{if $moduleid<4} class="menuon"{/if}><a href="{$MODULE[1][linkurl]}main.html"><span>首页</span></a></li>{loop $MODULE $m}{if $m[ismenu]}<li{if $m[moduleid]==$moduleid} class="menuon"{/if}><a href="{$m[linkurl]}"{if $m[isblank]} target="_blank"{/if}><span{if $m[style]} style="color:{$m[style]};"{/if}>{$m[name]}</span></a></li>{/if}{/loop}</ul>
+	</div>
+</div>
+<div class="m b10">&nbsp;</div>

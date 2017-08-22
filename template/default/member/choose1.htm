@@ -1,0 +1,50 @@
+{template 'header', $module}
+<style type="text/css">
+	.avatar_upload {overflow:hidden;position:relative;width:128px;height:128px;background:url('{DT_STATIC}{$MODULE[2][moduledir]}/image/avatar_upload.gif') no-repeat center center;border:#DDDDDD 1px solid;}
+	.avatar_uploading {overflow:hidden;position:relative;width:128px;height:128px;background:url('{DT_STATIC}{$MODULE[2][moduledir]}/image/avatar_uploading.gif') no-repeat center center;border:#DDDDDD 1px solid;}
+	.avatar_file {position:absolute;left:0;top:0;font-size:100px;margin:0 0 0 -1100px;opacity:0;filter:alpha(opacity=0);cursor:pointer;}
+</style>
+<div class="menu">
+	<table cellpadding="0" cellspacing="0">
+		<tr>
+			<td class="tab" ><a href="choose.php"><span>选择头像</span></a></td>
+		</tr>
+	</table>
+</div>
+<table cellpadding="0" cellspacing="0">
+	<tr>
+		<td valign="top" style="border-right:#DDDDDD 1px solid;padding-right:5px;" width="300" align="center">
+			<img src="{useravatar($_username, 'large')}&time={$DT_TIME}" width="128" height="128" title="大头像"/>
+			<img src="{useravatar($_username, 'large')}&time={$DT_TIME}" width="48" height="48" title="中头像"/>
+			<img src="{useravatar($_username, 'small')}&time={$DT_TIME}" width="20" height="20" title="小头像"/>
+			<br/><br/>头像预览
+		</td>
+		<td width="750" height="450" valign="top">
+			<form role="form" action="ywb2b_v02/member/choose.php" method="post" class="form-horizontal" name="editChooseavatarForm" id="editChooseavatarForm">
+				<div class="form-group">
+					<h2 class="min-title">系统2头像</h2>
+					<div class="clearfix">
+						<!--//{ loop $arrSystemPic $k $v }-->
+						<div class="col-xs-2 col-md-1">
+							<a href="javascript:formSubmit('ywb2b_v02/member/choose.php','url');void(0);" class="thumbnail" title="就选这个" onclick="">
+								<img src="{DT_PATH}file/avatar/choose/2.jpg" class="pic_small" alt="系统头像"/>
+							</a>
+						</div>
+
+
+						<div class="col-xs-2 col-md-1">
+							<a href="javascript:formSubmit('{$strUrl}&action=chooseAvatar&intPicId=$v','url');void(0);" class="thumbnail" title="就选这个" onclick="">
+								<img src="{DT_PATH}file/avatar/choose/4.jpg" class="pic_small" alt="系统头像"/>
+							</a>
+						</div>
+						<!--//{ /loop }-->
+					</div>
+				</div>
+			</form>
+		</td>
+	</tr>
+</table>
+
+
+
+{template 'footer', $module}

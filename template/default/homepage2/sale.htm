@@ -1,0 +1,9 @@
+{template 'header', $template}
+<div class="dsn" id="pos_show">您当前的位置：<a href="{$COM[linkurl]}">首页</a> &raquo; 欢迎光临</div>
+{loop $HMAIN $HM $MAIN}
+{if $main_file[$HM] == 'introduce'}
+<div class="main_head"><div><span class="f_r"><a href="{userurl($username, 'file=introduce', $domain)}"><img src="{DT_STATIC}{$MODULE[4][moduledir]}/image/more.gif" title="更多"/></a></span><strong>{$main_name[$HM]}</strong></div></div>
+{/if}
+{template 'main_'.$main_file[$HM], $template}
+{/loop}
+{template 'footer', $template}

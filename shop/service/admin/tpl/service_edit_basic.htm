@@ -1,0 +1,168 @@
+<!--{template ADMIN_DIRECTORY/tpl/admin_header}-->
+ <div class="page_title">
+    	<h1>{$model_info['model_name']}{$_lang['manage']}</h1>
+        <div class="tool">
+		   {loop $ops $v}
+				<a href="index.php?do=$do&model_id={$model_id}&view=edit&service_id={$service_id}&op={$v}" class="{if $op==$v}here{/if}">{$_lang['b_service_'.$v]}</a>
+       		{/loop}
+        </div>
+</div>
+<!--页头结束-->
+<div class="box post">
+    <div class="tabcon">
+        	<div class="title"><h2>{$_lang['edit']}{$model_info['model_name']}</h2></div>
+            <div class="detail">
+                <form method="post" action="index.php?do=$do&model_id={$model_id}&view=edit&service_id={$service_id}" id="frm_art_edit" name="frm_art_edit" enctype="multipart/form-data">
+                <input type="hidden" name="service_id" value="$service_info[service_id]">
+				<input type="hidden" name="model_id" value="{$model_id}">
+				<input type="hidden" name="hdn_act" value="1">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <th scope="row">{$_lang['shopkeeper']}{$_lang['zh_mh']}</th>
+                        <td><b>{$service_info[username]}</b>
+					  </tr>
+                    <tr>
+                        <th scope="row" width="130">{$_lang['service_name']}{$_lang['zh_mh']}</th>
+                        <td>
+	                         <input type="text" class="txt" name="service[title]" size="60" value="$service_info[title]" id="service_title" msgArea="span_service_title"
+							 limit="required:true;len:5-50" msg="{$_lang['title_not_null']}" title="{$_lang['title_not_null']}">
+							  &nbsp;&nbsp;&nbsp;
+                        </td>
+                      </tr>
+					  {if $service_info['ext_fields']}
+						  {loop $service_info['ext_fields'] $k $v}
+	                      <tr>
+	                        <th scope="row" width="130">{$v['f_name']}{$_lang['zh_mh']}</th>
+	                        <td>
+		                         <input type="text" class="txt" name="ext_fds[{$v['f_code']}]" value="{$v['data'][$v['f_code']]['content']}" size="50" 
+								 {if $v['f_required']} limit="required:true"{/if} 
+								 msg="{$v['f_warning']}" tips="{$v['f_tips']}" msgArea="{$v['f_code']}_msg">
+	                        </td>
+	                      </tr>
+						  {/loop}
+					  {/if}
+					  <tr>
+                        <th scope="row">{$_lang['quotation']}{$_lang['zh_mh']}</th>
+                        <td><input type="text" class="txt" size="5" name="service[price]" value="$service_info[price]" id="service_price" msgArea="span_service_price"
+							limit="required:true;type:float" msg="{$_lang['quotation_not_null']}" title="{$_lang['quotation_ending_decimal_notice']}s">{$_lang['yuan']}<span id="span_service_price"></span>
+						</td>
+					  </tr>
+                      <tr>
+                        <th scope="row">{$_lang['goods_status']}{$_lang['zh_mh']}</th>
+                        <td>
+                        	<select name="service[service_status]">
+                        		{loop $status_arr $k $v}
+									<option {if $service_info[service_status]==$k}selected=selected{/if} value="{$k}">{$v}</option>
+									{/loop}
+								</select>
+						</td>
+                      </tr>
+  					  <tr>
+                        <th scope="row">{$_lang['pub_time']}{$_lang['zh_mh']}</th>
+                        <td>
+							<!--{eval echo date("Y-m-d H:i:s",$service_info[on_time])}-->
+						</td>
+					  </tr>
+					   <tr>
+                        <th scope="row">{$_lang['service_desc']}</th>
+                        <td>
+							<textarea name="service[content]" id="tar_content" cols="100"  >$service_info[content]</textarea>
+						</td>
+						 <script type="text/javascript" src="{$_K['siteurl']}/static/js/ueditor/ueditor.config.js"></script>
+					<!-- 编辑器源码文件 -->
+					<script type="text/javascript" src="{$_K['siteurl']}/static/js/ueditor/ueditor.all.min.js"></script>
+					<script type="text/javascript" src="{$_K['siteurl']}/static/js/ueditor/lang/zh-cn/zh-cn.js"></script>
+									    <!-- 实例化编辑器 -->
+				    <script type="text/javascript">
+				        var ue = UE.getEditor('tar_content', {
+				            //这里可以选择自己需要的工具按钮名称,此处仅选择如下五个
+				        	initialFrameWidth: '80%',
+				        	initialFrameHeight: '400'
+				        });
+				    </script>
+					  </tr>
+					  <tr>
+                        <th scope="row">SEO{$_lang['title']}{$_lang['zh_mh']}</th>
+                        <td><textarea cols="70" rows="2"  name="service[seo_title]" value="{$service_info['seo_title']}">{$service_info['seo_title']}</textarea></td>
+                     </tr>
+
+                     <tr>
+                        <th scope="row">SEO{$_lang['keywords']}{$_lang['zh_mh']}</th>
+                        <td><textarea cols="70" rows="2"  name="service[seo_keyword]" value="{$service_info['seo_keyword']}">{$service_info['seo_keyword']}</textarea></td>
+                     </tr>
+
+                      <tr>
+                        <th scope="row">SEO{$_lang['description']}{$_lang['zh_mh']}</th>
+                        <td><textarea cols="70" rows="3" name="service[seo_desc]" value="{$service_info['seo_desc']}">{$service_info['seo_desc']}</textarea></td>
+                     </tr>
+                      <tr>
+                        <th scope="row">图片列表{$_lang['zh_mh']}</th>
+                        <td>
+                        	{if $servicePics} 
+	                        	{loop $servicePics $k $v} 
+	                        		<p id="pic_{$k}"><a href="../{$v}" target="_blank">{$v}</a><a href="javascript:void(0);" data-file="{$v}" data-id="{$k}" data-serviceid="{$service_id}" data-type="pic" class="service-file-del">删除</a></p>
+								{/loop}
+							{/if}
+							
+                        </td>
+                     </tr>
+
+                    <tr>
+                        <th scope="row">&nbsp;</th>
+                    	<td>
+                    	<button name="sbt_edit" value="1" class="positive primary  button" type="submit" onclick="return checkForm(document.getElementById('frm_art_edit'))">
+                    		<span class="check icon"></span>{$_lang['submit']}</button>
+                    	<button type="button"  name="rst_edit" class="pill button"  onclick="history.go(-1)"/><span class="uparrow icon"></span>{$_lang['return']}</button>
+                    	</td>
+                    </tr>
+                    </table>
+                </form>
+              </div>
+       </div>
+</div>
+<!--主体结束-->
+
+
+<!--{template ADMIN_DIRECTORY/tpl/admin_footer}-->
+<script>
+		$(function(){
+		$(".service-file-del").click(function(){
+			var serviceid= $(this).attr('data-serviceid');
+			var id	= $(this).attr('data-id');
+			var type = $(this).attr('data-type');
+			var filename = $(this).attr('data-file');
+			art.dialog({
+			    id: 'testID',
+			    content: '你确定要删除？',
+			    button: [
+			        {
+			            name: '确定',
+			            callback: function () {
+							$.post('index.php?do=model&model_id=7&view=edit', {
+									ajax:"delfile",
+									dataid:id,
+									serviceid:serviceid,
+									type:type,
+									filename:filename
+								}, function(json){
+									if(json.status == '1'){
+										if(json.data.type =='pic'){
+											$("#pic_"+json.data.dataid).closest('p').remove();
+										}else{
+											$("#file_"+json.data.dataid).closest('p').remove();
+										}
+									}
+							},'json');
+							this.close();
+			                return false;
+			            }
+			        },
+			        {
+			            name: '取消',
+			            focus: true
+			        }
+			    ]
+			});
+		});
+	});
+</script>

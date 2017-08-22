@@ -1,0 +1,73 @@
+				{if TOOL === TRUE}
+				<h2 class="statistics-title">您可能会需要</h2>
+				<div class="statistics-body ">
+		            <div class="table-responsive">
+		            <table class="table table-hover table-condensed appreciation">
+		            <tbody>
+		            <!-- 
+		            {if $basic_config['kee_switch']}
+		            <tr>
+		                <td><input type="checkbox" id="checkbox_teamwork" name="txt_teamwork" data-unit-price="teamwork" value="1" data-code="teamwork" ></td>
+		                <td><span class="marked {$v['style']}">使用工作协同</span></td>
+		               <td width="50%">
+							雇主和威客可以
+		                	<p>{$v['exttips']}</p>
+		                </td>
+		                <td width="180">
+		                </td>
+		                <td></td>
+		              </tr>
+		            {/if}
+		            -->
+		            {loop $arrPayitemLists $k $v}
+		              <tr>
+		                <td><input type="checkbox" id="checkbox_{$v['item_code']}" name="txt_{$v['item_code']}" data-unit-price="{$v['item_cash']}" value="1" data-code="{$v['item_code']}" ></td>
+		                <td><span class="marked {$v['style']}">{$v['item_name']}</span></td>
+		               <td width="50%">
+							<!--{eval echo strip_tags(htmlspecialchars_decode($v['item_desc']))}-->
+		                	<p>{$v['exttips']}</p>
+		                </td>
+		                <td width="180">
+		                	{if $v['item_code']=='tasktop' ||$v['item_code']=='goodstop'}
+			                  <div class="form-group">
+	
+			                    <div class="input-group hidden div_{$v['item_code']}" style="width:100px">
+			                    <span class="input-group-addon">购买</span>
+			                      <input type="text" data-code="{$v['item_code']}" data-unit-price="{$v['item_cash']}" name="text_{$v['item_code']}" id="text_{$v['item_code']}" onkeyup="clearstr(this)" class="form-control" value="1" size="3"  maxlength="{$v['maxlength']}">
+									<span class="input-group-addon">{$v['item_standard']}</span>
+			                      </div>
+			                    </div>
+		                    {/if}
+		                </td>
+		                <td>单价:<span class="money"><sub>￥</sub>{$v['item_cash']}</span> / {$v['item_standard']}</td>
+		              </tr>
+		              {/loop}
+		            </tbody>
+		          </table>
+		          </div>
+		          <!-- table-responsive end -->
+		        </div>
+             {/if}
+     <div class="statistics-all">
+         <p class="{if $do == 'pubgoods'}hidden{/if}">
+           <strong class="statistics-title">任务费用合计：</strong>
+           <span class="money"><sub>￥</sub> <span id="task-costs"><!--{eval echo floatval($arrPubInfo['txt_task_cash'])}--></span> <sub>元</sub></span>
+         </p>
+		 {if TOOL === true}
+         <p>
+           <strong class="statistics-title">增值费用合计：</strong>
+           <span class="money"><sub>￥</sub> <span id="payitem-costs">0</span> <sub>元</sub></span>
+         </p>
+		 {/if}
+         <p>
+           <strong class="statistics-title">费用总计：</strong>
+           <input type="hidden" name="hdn_total_costs" id="hdn-total-costs" value="0">
+           <span class="money"><sub>￥</sub> <span id="total-costs"><!--{eval echo floatval($arrPubInfo['txt_task_cash'])}--></span> <sub>元</sub></span>
+         </p>
+         <p>
+           <strong class="statistics-title">账户余额：</strong>
+           <span class="money"><sub>￥</sub> <!--{eval echo floatval($gUserInfo['money'])}--> <sub>元</sub></span>
+         </p>
+       </div>
+
+<script type="text/javascript" src="{DT_STATIC}file/script/model/payitem/itempub.js"></script>

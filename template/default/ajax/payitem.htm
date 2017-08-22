@@ -1,0 +1,96 @@
+
+	<form action="index.php?do=payitem" method="post" name="payitemForm" id="payitemForm" role="form">
+	<div class="modal-body">
+		<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}"> <input type="hidden" name="objId" id="objId" value="$objId"> <input type="hidden" name="type" id="type" value="$type">
+		<table class="table table-hover form-inline">
+			<thead>
+				<tr>
+					<th width="13%">增值工具</th>
+					<th width="30%">购买说明</th>
+					<th></th>
+					<th width="20%">价格</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $arrPayitemLists $k $v}
+				<tr id="tr_balace">
+					<input type="hidden" name="code" value="$v['item_code']" >
+					<td><label for="checkbox_{$v['item_code']}"> <input type="checkbox" id="checkbox_{$v['item_code']}" name="txt_{$v['item_code']}" data-unit-price="{$v['item_cash']}" value="1" data-code="{$v['item_code']}" {if $v['buystatus'] =='已购买此项增值服务'} disabled="disabled"{/if}> <span class="marked $v['style']">$v['abbr']</span>
+					</label></td>
+					<td>{$v['exttips']}<br/>{if $v['item_code']=='tasktop' ||$v['item_code']=='goodstop'}{if $v['buystatus']} $v['buystatus'] {/if}{/if}</td>
+					<td>{if $v['item_code']=='tasktop' ||$v['item_code']=='goodstop'}
+						<div class="form-group hidden div_{$v['item_code']}">
+							{if !$v['buystatus']||$k=='tasktop'||$k=='goodstop'} 追加天数：<input type="text" name="text_{$v['item_code']}" data-unit-price="{$v['item_cash']}" data-code="{$v['item_code']}" class="form-control input-sm" id="text_{$v['item_code']}" placeholder="数量" style="width: 80px" onkeyup="clearstr(this);" autocomplete="off" maxlength="2"><input type="hidden"  name="text_day" id="text_day"> {/if}
+						</div> {/if}
+					</td>
+					<td>{if $v['buystatus']!='已购买此项增值服务' }<span class="money"><sub>￥</sub>$v['item_cash'] 元 / $v['item_standard']</span>{else}已购买{/if}</td>
+				</tr>
+				{/loop}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><div id="blance_total" class="hidden">合计：<span class="money lead"><sub>￥</sub><span id="payitem-costs">0</span></span></div></td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+		<div class="modal-footer">
+			<a class="btn btn-primary hidden" id="check_balance">立即支付</a>
+			<a class="btn btn-primary" id="clo_se1">确定</a>
+			<div class="hidden" id="balance_pay">
+				<div class="form-group row">
+					<label class="col-sm-2 control-label form-control-static">支付密码：</label>
+					<div class="col-sm-4 text-left">
+						<input type="password" name="zfpwd" id="zfpwd" placeholder="请输入支付密码" class="form-control">
+					</div>
+
+					<div class="col-sm-6">
+						<a id="clo_se" class="btn btn-danger">放弃支付</a>
+						<button type="submit" value="1" class="btn btn-primary" id="btn-payitempay" disabled="disabled">确定支付</button>
+						<!-- <button type="submit" name="submit" class="btn btn-danger">确定支付</button> -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+<script type="text/javascript" src="static/js/model/payitem/payitem.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#check_balance").click(function() {
+			$('#balance_pay').removeClass('hidden');
+			$(this).addClass('hidden');
+		});
+		$('#clo_se').click(function() {
+			$('.close').trigger('click');
+		});
+		$('#clo_se1').click(function() {
+			$('.close').trigger('click');
+		});
+		//提交验证
+		$('#payitemForm').scojs_valid({
+			rules : {
+				text_tasktop: [ 'not_empty',{regex: /^([1-9]?|1\d?|2[0-9]?|30?)$/}],
+				zfpwd : [ 'not_empty' ]
+			},
+			messages : {
+				text_tasktop : {
+					not_empty : "请输入追加天数",
+					regex:'你输入的追加天数从0-30天'
+				},
+				zfpwd : {
+					not_empty : "请输入支付密码"
+				}
+			},
+			wrapper : '.form-group',
+			onSuccess : function(response, validator) {
+				tipsOp(response.data);
+				if (response.url) {
+					window.location.href = response.url;
+				}
+			}
+		});
+	});
+</script>

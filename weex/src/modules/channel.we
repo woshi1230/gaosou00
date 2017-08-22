@@ -1,0 +1,48 @@
+<template>
+    <div>
+        <web id="webview" src="{{gaosouURL}}{{src}}" class="webStyle"></web>
+    </div>
+</template>
+
+<style>
+
+    .webStyle {
+        width: 750;
+        height: 800;
+        background-color: #EFEFF4;
+    }
+
+</style>
+
+<script>
+    var web_module = require('@weex-module/webview');
+    var apis = require('../common/api');
+
+    module.exports = {
+        data: {
+            gaosouURL : '',
+            src : 'mobile2/channel.php'
+        },
+
+        methods: {
+            loadURL: function (e) {
+                var input = this.$el("urlInput");
+                this.src = input.attr.value;
+            },
+
+            backforward: function (e) {
+                var web_element = this.$el('webview');
+                web_module.goBack(web_element);
+            },
+
+            forward: function (e) {
+                var web_element = this.$el('webview');
+                web_module.goForward(web_element);
+            }
+        },
+
+        created: function () {
+            this.gaosouURL = apis.getGaosouURL();
+        }
+    }
+</script>
