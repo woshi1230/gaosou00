@@ -24,7 +24,7 @@ ADD COLUMN `uid` int(11) DEFAULT '0' AFTER `quotation`;                         
 ALTER TABLE `ywb2b`.`yw_favorite`
 ADD COLUMN `keep_type` char(20) DEFAULT NULL AFTER `itemid`;                        -- 收藏对象
 ADD COLUMN `obj_id` int(11) DEFAULT NULL AFTER `keep_type`;                         -- 对象编号
-x
+
 ALTER TABLE `ywb2b`.`yw_message`
 ADD COLUMN `fromuid` int(11) DEFAULT NULL AFTER `content`;                          -- 发件人ID
 ADD COLUMN `touid` int(11) DEFAULT NULL AFTER `fromuser`;                           -- 收件人ID
