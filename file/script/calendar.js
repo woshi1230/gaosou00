@@ -104,7 +104,7 @@ function ca_show(id, obj, sep) {
 	Eh();
 	if(Dd('d_calendar') == null) {
 		var d_ca_div = document.createElement("div");
-		with(d_ca_div.style) {zIndex = 9999; position = 'absolute'; display = 'none'; width = '196px'; padding = '1px'; top = 0; left = 0; border = '#A0A0A0 1px solid'; backgroundColor = '#FFFFFF';}
+		with(d_ca_div.style) {zIndex = 9999; position = 'absolute'; display = 'none'; width = '206px'; padding = '1px'; top = 0; left = 0; border = '#A0A0A0 1px solid'; backgroundColor = '#FFFFFF';}
 		d_ca_div.id = 'd_calendar';
 		document.body.appendChild(d_ca_div);
 	}

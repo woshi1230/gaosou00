@@ -63,7 +63,7 @@
 
 		// 方法：增加控制
 		scroller.fn.addControl=function(){
-			if(settings.plus&&scroller.minusBtn.length){
+			if(settings.plus&&scroller.plusBtn.length){
 				scroller.plusBtn.bind("click",function(){
 					scroller.fn.goto(scroller.plusVal);
 				});
@@ -91,18 +91,18 @@
 			var _dis;	// _dis	滚动的距离
 
 			switch(d){
-			case "left":
+			case "right":
 			case "top":
 				_max=0;
-				if(d=="left"){
-					if(parseInt(scroller.box.scrollLeft(),10)==0){
-						scroller.box.scrollLeft(scroller.itemSum*scroller.moveVal);
+				if(d=="right"){
+					if(parseInt(scroller.box.scrollRight(),10)==0){
+						scroller.box.scrollRight(scroller.itemSum*scroller.moveVal);
 					};
-					_dis=scroller.box.scrollLeft()-(scroller.moveVal*settings.step);
+					_dis=scroller.box.scrollRight()-(scroller.moveVal*settings.step);
 					if(_dis<_max){_dis=_max};
-					scroller.box.animate({"scrollLeft":_dis},settings.speed,function(){
-						if(parseInt(scroller.box.scrollLeft(),10)<=_max){
-							scroller.box.scrollLeft(0);
+					scroller.box.animate({"scrollRight":_dis},settings.speed,function(){
+						if(parseInt(scroller.box.scrollRight(),10)<=_max){
+							scroller.box.scrollRight(0);
 						};
 						scroller.fn.addControl();
 					});

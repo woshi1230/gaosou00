@@ -295,7 +295,7 @@ $(document).ready(
 				$(".container.search").css({top: 122+(wh-868)/3});
 				$(".container.main").css({top: 198+(wh-868)/3});
 			}
-			aboutSection.css({height: $(window).height()});
+			aboutSection.css({height: $(window).height()+50});
 
 			$(window).resize(function(){
 				// aboutSection.css({height:$(window).height()})

@@ -1,1 +1,1 @@
-var DTPath = "http://120.76.78.213/gaosou/";var SKPath = "http://120.76.78.213/gaosou/skin/default/";var MEPath = "http://120.76.78.213/gaosou/member/";var DTEditor = "fckeditor";var CKDomain = "";var CKPath = "/";var CKPrex = "cbv_";
+var DTPath = "http://39.108.163.163/";var SKPath = "http://39.108.163.163/skin/default/";var MEPath = "http://39.108.163.163/member/";var DTEditor = "fckeditor";var CKDomain = "";var CKPath = "/";var CKPrex = "cbv_";
