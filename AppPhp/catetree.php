@@ -6,7 +6,7 @@
     header('Content-type:text/html;charset=utf-8');
 
     $ch = curl_init();
-	$url = 'http://120.76.78.213/gaosou/file/cache/catetree.json';
+	$url = 'http://39.108.163.163/gaosou/file/cache/catetree.json';
     // 执行HTTP请求
     curl_setopt($ch , CURLOPT_URL , $url);
     $res = curl_exec($ch);
